@@ -239,7 +239,7 @@ function build_home() {
 
 			var new_collection = document.createElement('ul');
 			new_collection.classList.add('horul');
-			for(var i = 0; i < data.new.length; i++) {
+			for(var i = 0; i < data.new.length && i < 8; i++) {
 				var tmp = document.createElement('li');
 				tmp.classList.add('film');
 				tmp.dataset.uuid = data.new[i].uuid;
@@ -262,13 +262,78 @@ function build_home() {
 
 				new_collection.appendChild(tmp);
 			}
+			video_pack.appendChild(new_collection);
 
-			// TODO: Watch Later
-			// TODO: History
+			// Watch Later
+			var later_title = document.createElement('h2');
+			later_title.textContent = 'Watch Later';
+			later_title.classList.add('title');
+			video_pack.appendChild(later_title);
+			// TODO: Make this a link to the new category page.
+
+			var later_collection = document.createElement('ul');
+			later_collection.classList.add('horul');
+			for(var i = 0; i < data.later.length && i < 8; i++) {
+				var tmp = document.createElement('li');
+				tmp.classList.add('film');
+				tmp.dataset.uuid = data.later[i].uuid;
+
+				tmp.addEventListener('click', function() {
+					load_video(this.dataset.uuid);
+				})
+
+				var tmp_img = document.createElement('img');
+				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.later[i].uuid);
+				tmp.appendChild(tmp_img);
+
+				var tmp_title = document.createElement('p');
+				tmp_title.textContent = '<title> (<year>)'.replace("<title>", data.later[i].title).replace("<year>", data.later[i].year);
+				tmp.appendChild(tmp_title);
+
+				var tmp_desc = document.createElement('small')
+				tmp_desc.textContent = data.later[i].description;
+				tmp.appendChild(tmp_desc);
+
+				later_collection.appendChild(tmp);
+			}
+			video_pack.appendChild(later_collection);
+
+			// History
+			var history_title = document.createElement('h2');
+			history_title.textContent = 'Watch History';
+			history_title.classList.add('title');
+			video_pack.appendChild(history_title);
+
+			var history_collection = document.createElement('ul');
+			history_collection.classList.add('horul');
+			for(var i = 0; i < data.history.length && i < 8; i++) {
+				var tmp = document.createElement('li');
+				tmp.classList.add('film');
+				tmp.dataset.uuid = data.history[i].uuid;
+
+				tmp.addEventListener('click', function() {
+					load_video(this.dataset.uuid);
+				})
+
+				var tmp_img = document.createElement('img');
+				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.history[i].uuid);
+				tmp.appendChild(tmp_img);
+
+				var tmp_title = document.createElement('p');
+				tmp_title.textContent = '<title> (<year>)'.replace("<title>", data.history[i].title).replace("<year>", data.history[i].year);
+				tmp.appendChild(tmp_title);
+
+				var tmp_desc = document.createElement('small')
+				tmp_desc.textContent = data.history[i].description;
+				tmp.appendChild(tmp_desc);
+
+				history_collection.appendChild(tmp);
+			}
+			video_pack.appendChild(history_collection);
+
 			// TODO: Favourites
 			// TODO: Categories
 
-			video_pack.appendChild(new_collection);
 		}
 	})
 	.catch(function(err) {
