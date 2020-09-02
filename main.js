@@ -212,7 +212,26 @@ function build_home() {
     logout_button.addEventListener('click', logout);
     logout_button.textContent = 'Logout';
 
+    var username = localStorage.getItem('username');
+    var token = localStorage.getItem('token');
 
+    fetch('https://sixteenmm.org/home/<username>/<token>/json'.replace('<username>', username).replace('<token>', token), {
+		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+		cache: 'no-cache',
+		mode: 'cors'
+	}).then(response => response.json())
+	.then(function(data) {
+		if(data.status !== 200) {
+			// TODO Failure!
+			console.log(data);
+		} else {
+			console.log(data);
+		}
+	})
+	.catch(function(err) {
+		// TODO: Crap.
+		console.log(err);
+	})
 
     el.appendChild(logout_button);
 }
