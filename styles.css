@@ -36,11 +36,16 @@ img {
 }
 
 .film {
-  width: 20%;
+  width: 15%;
   padding: 2em;
   outline: auto;
   margin: 2em;
   cursor: pointer;
+}
+
+.film img {
+  width: 200%;
+  max-width: 100%;
 }
 
 @media(max-width: 40em) {
