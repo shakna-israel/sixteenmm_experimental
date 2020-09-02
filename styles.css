@@ -35,6 +35,14 @@ img {
   border-radius: 2px;
 }
 
+.film {
+  width: 20%;
+  padding: 2em;
+  outline: auto;
+  margin: 2em;
+  cursor: pointer;
+}
+
 @media(max-width: 40em) {
   video {
     height: auto;

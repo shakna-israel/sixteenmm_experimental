@@ -215,6 +215,8 @@ function build_home() {
     var username = localStorage.getItem('username');
     var token = localStorage.getItem('token');
 
+    var video_pack = document.createElement('div');
+
     fetch('https://sixteenmm.org/home/<username>/<token>/json'.replace('<username>', username).replace('<token>', token), {
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 		cache: 'no-cache',
@@ -226,6 +228,47 @@ function build_home() {
 			console.log(data);
 		} else {
 			console.log(data);
+
+			// New videos...
+
+			var new_title = document.createElement('h2');
+			new_title.textContent = 'New';
+			new_title.classList.add('title');
+			video_pack.appendChild(new_title);
+			// TODO: Make this a link to the new category page.
+
+			var new_collection = document.createElement('ul');
+			new_collection.classList.add('horul');
+			for(var i = 0; i < data.new.length; i++) {
+				var tmp = document.createElement('li');
+				tmp.classList.add('film');
+				tmp.dataset.uuid = data.new[i].uuid;
+
+				tmp.addEventListener('click', function() {
+					load_video(this.dataset.uuid);
+				})
+
+				var tmp_img = document.createElement('img');
+				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.new[i].uuid);
+				tmp.appendChild(tmp_img);
+
+				var tmp_title = document.createElement('p');
+				tmp_title.textContent = '<title> (<year>)'.replace("<title>", data.new[i].title).replace("<year>", data.new[i].year);
+				tmp.appendChild(tmp_title);
+
+				var tmp_desc = document.createElement('small')
+				tmp_desc.textContent = data.new[i].description;
+				tmp.appendChild(tmp_desc);
+
+				new_collection.appendChild(tmp);
+			}
+
+			// TODO: Watch Later
+			// TODO: History
+			// TODO: Favourites
+			// TODO: Categories
+
+			video_pack.appendChild(new_collection);
 		}
 	})
 	.catch(function(err) {
@@ -234,6 +277,7 @@ function build_home() {
 	})
 
     el.appendChild(logout_button);
+    el.appendChild(video_pack);
 }
 
 function login(username, token) {
