@@ -1,0 +1,47 @@
+#site_title, .title {
+  text-align: center;
+}
+
+video {
+  display: block;
+  margin: 0 auto;
+  height: 75vh;
+  filter: invert(100%);
+}
+
+.video_description, .inject_text {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  width: 50%;
+  padding-bottom: 0.5em;
+}
+
+img {
+	filter: invert(100%);
+	max-width: 50%;
+}
+
+.horul ul, .horul li {
+	display: inline-block;
+	text-align: center;
+}
+
+.preview_panel {
+	background-color: rgba(244, 241, 242, 0.6);
+}
+
+.preview_panel img {
+  border-radius: 2px;
+}
+
+@media(max-width: 40em) {
+  video {
+    height: auto;
+    width: 85vw;
+  }
+}
+
+body {
+	filter: invert(100%);
+}
