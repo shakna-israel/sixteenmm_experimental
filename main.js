@@ -443,12 +443,10 @@ function load_category(category) {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
-    if(!(!username || !token)) {
-    	var logout_button = document.createElement('button');
-	    logout_button.addEventListener('click', logout);
-	    logout_button.textContent = 'Logout';
-	    el.appendChild(logout_button);
-    }
+	var logout_button = document.createElement('button');
+    logout_button.addEventListener('click', logout);
+    logout_button.textContent = 'Logout';
+    el.appendChild(logout_button);
 
     var home_button = document.createElement('button');
     home_button.addEventListener('click', build_home);
@@ -459,8 +457,8 @@ function load_category(category) {
     // new
     // later
     // history
-    // free
-
+    
+    // Special Handling: free category
     if(category == 'free') {
     	fetch('https://sixteenmm.org/category/<category>/<username>/<token>/json'.replace("<category>", category)
     		.replace("<username>", username)
