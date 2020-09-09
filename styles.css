@@ -9,6 +9,11 @@ video {
   filter: invert(100%);
 }
 
+.video_watch {
+  height: 100%   !important;
+  width: auto    !important;
+}
+
 .video_description, .inject_text {
   display: block;
   margin: 0 auto;

@@ -61,7 +61,7 @@ function load_video(uuid) {
   				history.pushState({page: "video", "uuid": uuid}, title, "?page=video&uuid=<uuid>".replace("<uuid>", uuid));
 
   				var video = document.createElement('video');
-  				video.classList.add('animate__animated', 'animate__fadeInUp');
+  				video.classList.add('animate__animated', 'animate__fadeInUp', 'video_watch');
 				video.controls = true;
 				video.cover = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
 
@@ -83,6 +83,10 @@ function load_video(uuid) {
 				video.appendChild(source1);
 				video.appendChild(source2);
 				video.appendChild(source3);
+
+				video.addEventListener('animationend', function() {
+  					this.scrollIntoView();
+  				});
 
   				el.appendChild(video);
   			}
