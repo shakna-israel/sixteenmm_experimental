@@ -94,17 +94,26 @@ function load_login() {
   			if(data.status != 200) {
   				// Failed login.
   				login_submit.setAttributeNS(null, 'class', '');
-  				login_submit.classList.add('animate__animated', 'animate__flash');
+  				login_submit.classList.add('animate__animated', 'animate__flash', 'error');
+  				login_submit.addEventListener('animationend', function() {
+  					login_submit.setAttributeNS(null, 'class', '');
+  				});
 
   				var username_input = document.getElementById('username_input');
 				username_input.setAttributeNS(null, 'class', '');
-  				username_input.classList.add('animate__animated', 'animate__shakeX');
+  				username_input.classList.add('animate__animated', 'animate__shakeX', 'error');
   				username_input.value = '';
+  				username_input.addEventListener('animationend', function() {
+  					username_input.setAttributeNS(null, 'class', '');
+  				});
 
   				var password_input = document.getElementById('password_input');
   				password_input.setAttributeNS(null, 'class', '');
-  				password_input.classList.add('animate__animated', 'animate__shakeX');
+  				password_input.classList.add('animate__animated', 'animate__shakeX', 'error');
   				password_input.value = '';
+  				password_input.addEventListener('animationend', function() {
+  					password_input.setAttributeNS(null, 'class', '');
+  				});
   			} else {
   				var token = data.token;
   				login(username, token);

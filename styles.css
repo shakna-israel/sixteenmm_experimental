@@ -53,8 +53,25 @@ img {
     height: auto;
     width: 85vw;
   }
+
+  body {
+    font-size: 1.5em;
+  }
 }
 
 body {
 	filter: invert(100%);
+}
+
+@keyframes flash {
+   0%, 50%, 100% {
+      filter: invert(100%);
+   }
+   25%, 75% {
+      filter: invert(0%);
+   }
+}
+
+.error {
+  background-color: blue;
 }
