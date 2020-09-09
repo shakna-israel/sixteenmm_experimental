@@ -78,6 +78,7 @@ img {
   }
 
   .film {
+    display: block;
     width: 80% !important;
     padding: 0 !important;
     margin: 0 auto !important;
