@@ -74,6 +74,7 @@ img {
   body {
     font-size: 1.5em;
     position: absolute;
+    overflow-x: hidden;
   }
 
   .film {
