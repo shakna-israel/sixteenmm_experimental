@@ -69,7 +69,7 @@ function load_login() {
 			event.preventDefault();
 			document.getElementById('login_submit').click();
 		}
-	}
+	});
 
 	var login_submit = document.createElement('button');
 	login_submit.id = 'login_submit';
