@@ -424,6 +424,38 @@ function load_login() {
 	})
 }
 
+function load_category(category) {
+	var username = localStorage.getItem('username');
+    var token = localStorage.getItem('token');
+
+	var el = document.getElementById('app');
+	while(el.firstChild) {
+    	el.removeChild(el.firstChild);
+    }
+
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundColor = 'black';
+
+    var logout_button = document.createElement('button');
+    logout_button.addEventListener('click', logout);
+    logout_button.textContent = 'Logout';
+    el.appendChild(logout_button);
+
+    var home_button = document.createElement('button');
+    home_button.addEventListener('click', build_home);
+    home_button.textContent = 'Home';
+    el.appendChild(home_button);
+
+    // TODO: Special handling:
+    // new
+    // later
+    // history
+
+	// TODO
+	var title = '?';
+	history.pushState({page: "category", "category": category}, title, "?page=category&category=<category>".replace("<category>", category));
+}
+
 function build_home() {
 	var el = document.getElementById('app');
 	while(el.firstChild) {
@@ -463,8 +495,11 @@ function build_home() {
 			var new_title = document.createElement('h2');
 			new_title.textContent = 'New';
 			new_title.classList.add('title');
+			new_title.dataset.category = 'new';
+			new_title.addEventListener('click', function() {
+				return load_category(this.dataset.category);
+			})
 			video_pack.appendChild(new_title);
-			// TODO: Make this a link to the new category page.
 
 			var new_collection = document.createElement('ul');
 			new_collection.classList.add('horul');
@@ -505,8 +540,13 @@ function build_home() {
 			var later_title = document.createElement('h2');
 			later_title.textContent = 'Watch Later';
 			later_title.classList.add('title');
+
+			later_title.dataset.category = 'later';
+			later_title.addEventListener('click', function() {
+				return load_category(this.dataset.category);
+			})
+
 			video_pack.appendChild(later_title);
-			// TODO: Make this a link to the new category page.
 
 			var later_collection = document.createElement('ul');
 			later_collection.classList.add('horul');
@@ -548,6 +588,11 @@ function build_home() {
 			var history_title = document.createElement('h2');
 			history_title.textContent = 'Watch History';
 			history_title.classList.add('title');
+			history_title.dataset.category = 'history';
+			history_title.addEventListener('click', function() {
+				return load_category(this.dataset.category);
+			})
+
 			video_pack.appendChild(history_title);
 
 			var history_collection = document.createElement('ul');
@@ -586,8 +631,101 @@ function build_home() {
 			}
 			video_pack.appendChild(history_collection);
 
-			// TODO: Favourites
-			// TODO: Categories
+			// Favourites
+			for (var key in data.favourites) {
+				var item_title = document.createElement('h2');
+				item_title.textContent = titleCase(key);
+				item_title.classList.add('title');
+				item_title.dataset.category = key;
+				item_title.addEventListener('click', function() {
+					return load_category(this.dataset.category);
+				});
+
+				var item_collection = document.createElement('ul');
+				item_collection.classList.add('horul');
+				for(var i = 0; i < data.favourites[key].length && i < 8; i++) {
+					var tmp = document.createElement('li');
+					tmp.classList.add('film');
+					tmp.style.opacity = 0;
+					tmp.dataset.uuid = data.favourites[key][i].uuid;
+
+					tmp.addEventListener('click', function() {
+						load_video(this.dataset.uuid);
+					})
+
+					var tmp_img = document.createElement('img');
+					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.favourites[key][i].uuid);
+					tmp_img.style.display = 'none';
+					tmp_img.addEventListener('load', function() {
+						this.parentElement.style.opacity = 1;
+						this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
+						this.style.display = 'block';
+						this.classList.add('animate__animated', 'animate__fadeIn');
+					});
+					tmp.appendChild(tmp_img);
+
+					var tmp_title = document.createElement('p');
+					tmp_title.textContent = '<title> (<year>)'.replace("<title>", data.favourites[key][i].title).replace("<year>", data.favourites[key][i].year);
+					tmp.appendChild(tmp_title);
+
+					var tmp_desc = document.createElement('small')
+					tmp_desc.textContent = data.favourites[key][i].description;
+					tmp.appendChild(tmp_desc);
+
+					item_collection.appendChild(tmp);
+				}
+				video_pack.appendChild(item_title);
+				video_pack.appendChild(item_collection);
+			}
+
+			// Categories
+			for (var key in data.categories) {
+				var item_title = document.createElement('h2');
+				item_title.textContent = titleCase(key);
+				item_title.classList.add('title');
+				item_title.dataset.category = key;
+				item_title.addEventListener('click', function() {
+					return load_category(this.dataset.category);
+				});
+
+				var item_collection = document.createElement('ul');
+				item_collection.classList.add('horul');
+				for(var i = 0; i < data.categories[key].length && i < 8; i++) {
+					var tmp = document.createElement('li');
+					tmp.classList.add('film');
+					tmp.style.opacity = 0;
+					tmp.dataset.uuid = data.categories[key][i].uuid;
+
+					tmp.addEventListener('click', function() {
+						load_video(this.dataset.uuid);
+					})
+
+					var tmp_img = document.createElement('img');
+					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.categories[key][i].uuid);
+					tmp_img.style.display = 'none';
+					tmp_img.addEventListener('load', function() {
+						this.parentElement.style.opacity = 1;
+						this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
+						this.style.display = 'block';
+						this.classList.add('animate__animated', 'animate__fadeIn');
+					});
+					tmp.appendChild(tmp_img);
+
+					var tmp_title = document.createElement('p');
+					tmp_title.textContent = '<title> (<year>)'.replace("<title>", data.categories[key][i].title).replace("<year>", data.categories[key][i].year);
+					tmp.appendChild(tmp_title);
+
+					var tmp_desc = document.createElement('small')
+					tmp_desc.textContent = data.categories[key][i].description;
+					tmp.appendChild(tmp_desc);
+
+					item_collection.appendChild(tmp);
+				}
+				video_pack.appendChild(item_title);
+				video_pack.appendChild(item_collection);
+			}
 
 		}
 	})
@@ -659,6 +797,8 @@ function state_router(state) {
 		load_login();
 	} else if(state.page == 'logout') {
 		logout();
+	} else if(state.page == 'category') {
+		load_category(state.category);
 	} else {
 		build_home();
 	}
