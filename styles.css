@@ -14,6 +14,13 @@ video {
   width: auto    !important;
 }
 
+@media(max-width: 30em) {
+  .video_watch {
+    height: auto   !important;
+    width: 100%    !important;
+  }
+}
+
 .video_description, .inject_text {
   display: block;
   margin: 0 auto;
@@ -53,7 +60,7 @@ img {
   max-width: 100%;
 }
 
-@media(max-width: 40em) {
+@media(max-width: 30em) {
   video {
     height: auto;
     width: 85vw;
