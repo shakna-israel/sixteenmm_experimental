@@ -64,6 +64,12 @@ function load_login() {
 	password_input.type = 'password';
 	password_input.id = 'password_input';
 	password_input.name = 'password_input';
+	password_input.addEventListener("keyup", function(event) {
+		if(event.keyCode === 13) {
+			event.preventDefault();
+			document.getElementById('login_submit').click();
+		}
+	}
 
 	var login_submit = document.createElement('button');
 	login_submit.id = 'login_submit';
