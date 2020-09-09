@@ -64,9 +64,41 @@ function load_series(uuid) {
 
   				console.log(data);
 
+				var collection = document.createElement('ul');
+				collection.classList.add('horul');
   				for(var i = 0; i < data.children.length; i++) {
   					// TODO: Create children cards...
+  					var tmp = document.createElement('li');
+					tmp.classList.add('film');
+					tmp.dataset.uuid = data.children[i].uuid;
+
+					tmp.addEventListener('click', function() {
+						load_video(this.dataset.uuid);
+					})
+
+					var tmp_img = document.createElement('img');
+					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.children[i].uuid);
+					tmp_img.style.display = 'none';
+					tmp_img.addEventListener('load', function() {
+						this.style.display = 'block';
+						this.classList.add('animate__animated', 'animate__fadeIn');
+					});
+					tmp.appendChild(tmp_img);
+
+					var tmp_title = document.createElement('p');
+					tmp_title.textContent = '(<episode>) <title> (<year>)'.replace("<title>", data.children[i]['episode title'])
+					.replace("<year>", data.children[i].year)
+					.replace("<episode>", data.children[i].episode);
+					tmp.appendChild(tmp_title);
+
+					var tmp_desc = document.createElement('small')
+					tmp_desc.textContent = data.children[i].description;
+					tmp.appendChild(tmp_desc);
+
+					collection.appendChild(tmp);
   				}
+
+  				document.getElementById('app').appendChild(collection);
   			}
   		})
   		.catch(function(err){
@@ -116,6 +148,8 @@ function load_video(uuid) {
   				var description = data.description;
   				var subtitles = data.subs;
 
+  				console.log("LOADVIDEO", data);
+
   				// Check if series!
   				if(data.genres.includes('series')) {
   					load_series(uuid);
@@ -146,6 +180,14 @@ function load_video(uuid) {
 				// TODO: Check for subtitles
 
 				// TODO: Check for next/previous episodes
+				if(data.kind == 'episode') {
+					var series_button = document.createElement('button');
+				    series_button.addEventListener('click', function() {
+				    	load_series(data['series uuid']);
+				    });
+				    series_button.textContent = 'Episodes';
+				    el.appendChild(series_button);
+				}
 
 				// TODO: Add event to record history
 
