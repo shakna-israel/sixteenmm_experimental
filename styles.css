@@ -80,7 +80,7 @@ img {
   .film {
     width: 80% !important;
     padding: 0 !important;
-    margin: auto auto auto auto 0.5em !important;
+    margin: 0 auto !important;
   }
 }
 
