@@ -75,3 +75,9 @@ body {
 .error {
   background-color: blue;
 }
+
+input {
+  filter: invert(100%);
+  padding: 0.4em;
+  margin: 0.5em;
+}
