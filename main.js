@@ -20,10 +20,62 @@ function canUseWebP() {
     return false;
 }
 
-function load_video(uuid) {
-	// TODO
-	console.log("LOAD:", uuid);
+function load_series(uuid) {
+	var username = localStorage.getItem('username');
+    var token = localStorage.getItem('token');
 
+	var el = document.getElementById('app');
+	while(el.firstChild) {
+    	el.removeChild(el.firstChild);
+    }
+
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundColor = 'black';
+
+    // TODO: Generate a video page.
+
+    var logout_button = document.createElement('button');
+    logout_button.addEventListener('click', logout);
+    logout_button.textContent = 'Logout';
+    el.appendChild(logout_button);
+
+    var home_button = document.createElement('button');
+    home_button.addEventListener('click', build_home);
+    home_button.textContent = 'Home';
+    el.appendChild(home_button);
+
+    fetch('https://sixteenmm.org/getuuid/<username>/<token>/<uuid>/json'.replace("<username>", username)
+		.replace("<token>", token)
+		.replace("<uuid>", uuid), {
+			method: 'GET',
+			cache: 'no-cache',
+			mode: 'cors',
+		}).then(response => response.json())
+  		.then(function(data) {
+  			if(data.status == 403) {
+  				load_login();
+  			} else if(data.status == 404) {
+  				// TODO: Video not found
+  			} else {
+  				var title = data.title;
+  				var description = data.description;
+  				var subtitles = data.subs;
+  				history.pushState({page: "series", "uuid": uuid}, title, "?page=series&uuid=<uuid>".replace("<uuid>", uuid));
+
+  				console.log(data);
+
+  				for(var i = 0; i < data.children.length; i++) {
+  					// TODO: Create children cards...
+  				}
+  			}
+  		})
+  		.catch(function(err){
+  			// TODO: Crap.
+  			console.log(err);
+  		});
+}
+
+function load_video(uuid) {
 	var username = localStorage.getItem('username');
     var token = localStorage.getItem('token');
 
@@ -65,7 +117,10 @@ function load_video(uuid) {
   				var subtitles = data.subs;
   				history.pushState({page: "video", "uuid": uuid}, title, "?page=video&uuid=<uuid>".replace("<uuid>", uuid));
 
-  				// TODO: Check if series!
+  				// Check if series!
+  				if(data.genres.includes('series')) {
+  					return load_series(uuid);
+  				}
 
   				var video = document.createElement('video');
   				video.classList.add('animate__animated', 'animate__fadeInUp', 'video_watch');
@@ -533,6 +588,8 @@ function state_router(state) {
 		build_home();
 	} else if(state.page == 'video') {
 		load_video(state.uuid);
+	} else if(state.page == 'series') {
+		load_series(state.uuid);
 	} else if(state.page == 'login') {
 		load_login();
 	} else if(state.page == 'logout') {
