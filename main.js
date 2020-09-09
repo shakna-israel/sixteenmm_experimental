@@ -42,6 +42,11 @@ function load_video(uuid) {
     logout_button.textContent = 'Logout';
     el.appendChild(logout_button);
 
+    var home_button = document.createElement('button');
+    home_button.addEventListener('click', build_home);
+    home_button.textContent = 'Home';
+    el.appendChild(home_button);
+
 	fetch('https://sixteenmm.org/getuuid/<username>/<token>/<uuid>/json'.replace("<username>", username)
 		.replace("<token>", token)
 		.replace("<uuid>", uuid), {
