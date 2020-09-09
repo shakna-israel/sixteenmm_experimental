@@ -64,8 +64,13 @@ img {
 }
 
 .film:hover {
-  transition: padding 0.3s ease-in-out;
-  padding: 1em;
+  transition: background-color 0.3s ease-in-out;
+  background-color: white;
+  filter: invert(100%);
+}
+
+.film:hover img {
+  filter: invert(0%);
 }
 
 .film img {
