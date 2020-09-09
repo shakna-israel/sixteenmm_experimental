@@ -239,6 +239,9 @@ function load_login() {
 	var img = new Image();
 	img.src = bg_url;
 
+	document.title = "SIXTEENmm";
+	history.pushState({page: "login"}, document.title, "?page=login");
+
 	// Generate login form
 	var username_input_hint = document.createElement('label');
 	username_input_hint.for = 'username_input';
@@ -440,10 +443,12 @@ function load_category(category) {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
-    var logout_button = document.createElement('button');
-    logout_button.addEventListener('click', logout);
-    logout_button.textContent = 'Logout';
-    el.appendChild(logout_button);
+    if(!(!username || !token)) {
+    	var logout_button = document.createElement('button');
+	    logout_button.addEventListener('click', logout);
+	    logout_button.textContent = 'Logout';
+	    el.appendChild(logout_button);
+    }
 
     var home_button = document.createElement('button');
     home_button.addEventListener('click', build_home);
@@ -769,12 +774,9 @@ function login(username, token) {
 function onload() {
 	var username = localStorage.getItem('username');
 	var token = localStorage.getItem('token');
-	
-	if(!username || !token) {
-		load_login();
-	} else {
-		login(username, token);
-	}
+
+	var state = QueryStringToJSON();
+  	state_router(state);
 }
 
 // State router...
@@ -790,9 +792,11 @@ function state_router(state) {
   	var username = localStorage.getItem('username');
 	var token = localStorage.getItem('token');
 
-  	if(!username || !token) {
-  		load_login();
-  	}
+	if(state.page != 'category') {
+		if(!username || !token) {
+	  		load_login();
+	  	}
+	}
 
 	if(state.page == 'home') {
 		build_home();
