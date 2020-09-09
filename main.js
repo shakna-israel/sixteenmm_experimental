@@ -40,6 +40,10 @@ function load_login() {
 	} else {
 		document.body.style.backgroundImage = "url('https://sixteenmm.org/cstatic/img/back.jpg')";
 	}
+	// Get what we need for waiting on the background...
+	var bg_url = document.body.style.backgroundImage.match(/\((.*?)\)/)[1].replace(/('|")/g,'');
+	var img = new Image();
+	img.src = bg_url;
 
 	// Generate login form
 	var username_input_hint = document.createElement('label');
@@ -96,6 +100,7 @@ function load_login() {
 	var title = document.createElement('h1');
 	title.textContent = 'SIXTEENmm';
 	title.id = 'site_title';
+	title.classList.add('animate__animated', 'animate__flipInX');
 
 	// Fetch some preview tiles
 	var data_pack = document.createElement('div');
@@ -113,6 +118,7 @@ function load_login() {
 			data_pack.appendChild(inject_text);
 
 			var example_video = document.createElement('video');
+			example_video.classList.add('animate__animated', 'animate__fadeInUp');
 			example_video.controls = true;
 			example_video.cover = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", data.example.uuid);
 
@@ -188,13 +194,16 @@ function load_login() {
 		console.log(err);
 	})
 
-	el.appendChild(username_input_hint);
-	el.appendChild(username_input);
-	el.appendChild(password_input_hint);
-	el.appendChild(password_input);
-	el.appendChild(login_submit);
-	el.appendChild(title);
-	el.appendChild(data_pack);
+	// Once background image has loaded, add elements.
+	img.addEventListener('load', function() {
+		el.appendChild(username_input_hint);
+		el.appendChild(username_input);
+		el.appendChild(password_input_hint);
+		el.appendChild(password_input);
+		el.appendChild(login_submit);
+		el.appendChild(title);
+		el.appendChild(data_pack);	
+	})
 }
 
 function build_home() {
