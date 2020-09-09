@@ -7,6 +7,8 @@ function titleCase(str) {
 }
 
 function canUseWebP() {
+	// BUG: This doesn't work for Firefox...
+
     var elem = document.createElement('canvas');
 
     if (!!(elem.getContext && elem.getContext('2d'))) {
