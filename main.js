@@ -85,6 +85,18 @@ function load_login() {
   		.then(function(data) {
   			if(data.status != 200) {
   				// TODO: Failed login.
+  				login_submit.setAttributeNS(null, 'class', '');
+  				login_submit.classList.add('animate__animated', 'animate__flash');
+
+  				var username_input = document.getElementById('username_input');
+				username_input.setAttributeNS(null, 'class', '');
+  				username_input.classList.add('animate__animated', 'animate__shakeX');
+  				username_input.value = '';
+
+  				var password_input = document.getElementById('password_input');
+  				password_input.setAttributeNS(null, 'class', '');
+  				password_input.classList.add('animate__animated', 'animate__shakeX');
+  				password_input.value = '';
   			} else {
   				var token = data.token;
   				login(username, token);
