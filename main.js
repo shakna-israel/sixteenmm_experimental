@@ -179,14 +179,16 @@ function load_video(uuid) {
 
 				// TODO: Check for subtitles
 
-				// TODO: Check for next/previous episodes
 				if(data.kind == 'episode') {
+					// Add a button to go back to episode listing...
 					var series_button = document.createElement('button');
 				    series_button.addEventListener('click', function() {
 				    	load_series(data['series uuid']);
 				    });
 				    series_button.textContent = 'Episodes';
 				    el.appendChild(series_button);
+
+				    // TODO: Check for next/previous episodes
 				}
 
 				// TODO: Add event to record history
@@ -468,7 +470,7 @@ function build_home() {
 			new_collection.classList.add('horul');
 			for(var i = 0; i < data.new.length && i < 8; i++) {
 				var tmp = document.createElement('li');
-				tmp.classList.add('film', 'animate__animated', 'animate__fadeIn');
+				tmp.style.opacity = 0;
 				tmp.dataset.uuid = data.new[i].uuid;
 
 				tmp.addEventListener('click', function() {
@@ -479,6 +481,9 @@ function build_home() {
 				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.new[i].uuid);
 				tmp_img.style.display = 'none';
 				tmp_img.addEventListener('load', function() {
+					this.parentElement.style.opacity = 1;
+					this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
 					this.style.display = 'block';
 					this.classList.add('animate__animated', 'animate__fadeIn');
 				});
@@ -508,6 +513,7 @@ function build_home() {
 			for(var i = 0; i < data.later.length && i < 8; i++) {
 				var tmp = document.createElement('li');
 				tmp.classList.add('film');
+				tmp.style.opacity = 0;
 				tmp.dataset.uuid = data.later[i].uuid;
 
 				tmp.addEventListener('click', function() {
@@ -518,6 +524,9 @@ function build_home() {
 				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.later[i].uuid);
 				tmp_img.style.display = 'none';
 				tmp_img.addEventListener('load', function() {
+					this.parentElement.style.opacity = 1;
+					this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
 					this.style.display = 'block';
 					this.classList.add('animate__animated', 'animate__fadeIn');
 				});
@@ -546,6 +555,7 @@ function build_home() {
 			for(var i = 0; i < data.history.length && i < 8; i++) {
 				var tmp = document.createElement('li');
 				tmp.classList.add('film');
+				tmp.style.opacity = 0;
 				tmp.dataset.uuid = data.history[i].uuid;
 
 				tmp.addEventListener('click', function() {
@@ -556,6 +566,9 @@ function build_home() {
 				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.history[i].uuid);
 				tmp_img.style.display = 'none';
 				tmp_img.addEventListener('load', function() {
+					this.parentElement.style.opacity = 1;
+					this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
 					this.style.display = 'block';
 					this.classList.add('animate__animated', 'animate__fadeIn');
 				});
