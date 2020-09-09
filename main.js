@@ -61,6 +61,7 @@ function load_series(uuid) {
   				var title = data.title;
   				var description = data.description;
   				var subtitles = data.subs;
+  				document.title = "<title> | SIXTEENmm".replace("<title>", title);
   				history.pushState({page: "series", "uuid": uuid}, title, "?page=series&uuid=<uuid>".replace("<uuid>", uuid));
 
   				console.log(data);
@@ -157,6 +158,7 @@ function load_video(uuid) {
   					load_series(uuid);
   					return;
   				} else {
+  					document.title = "<title> | SIXTEENmm".replace("<title>", title);
   					history.pushState({page: "video", "uuid": uuid}, title, "?page=video&uuid=<uuid>".replace("<uuid>", uuid));
   				}
 
@@ -452,9 +454,11 @@ function load_category(category) {
     // new
     // later
     // history
+    // free
 
 	// TODO
 	var title = '?';
+	document.title = "<title> | SIXTEENmm".replace("<title>", title);
 	history.pushState({page: "category", "category": category}, title, "?page=category&category=<category>".replace("<category>", category));
 }
 
@@ -467,6 +471,7 @@ function build_home() {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
+    document.title = "<title> | SIXTEENmm".replace("<title>", 'Home');
     history.pushState({page: "home"}, "Home", "?page=home");
 
     // TODO: Generate a home page.
