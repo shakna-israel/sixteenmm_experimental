@@ -69,6 +69,10 @@ img {
   body {
     font-size: 1.5em;
   }
+
+  .film {
+    width: 30% !important;
+  }
 }
 
 body {

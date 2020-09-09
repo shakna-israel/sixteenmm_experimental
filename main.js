@@ -68,6 +68,7 @@ function load_video(uuid) {
   				var video = document.createElement('video');
   				video.classList.add('animate__animated', 'animate__fadeInUp', 'video_watch');
 				video.controls = true;
+				video.autoplay = true;
 				video.cover = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
 
 				var source1 = document.createElement("source");
