@@ -23,6 +23,28 @@ function canUseWebP() {
 function load_video(uuid) {
 	// TODO
 	console.log("LOAD:", uuid);
+
+	// TODO: Get video name
+	history.pushState({page: "video", "uuid": uuid}, "?", "?video=<uuid>".replace("<uuid>", uuid));
+
+	var el = document.getElementById('app');
+	while(el.firstChild) {
+    	el.removeChild(el.firstChild);
+    }
+
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundColor = 'black';
+
+    // TODO: Generate a home page.
+
+    var logout_button = document.createElement('button');
+    logout_button.addEventListener('click', logout);
+    logout_button.textContent = 'Logout';
+
+    var username = localStorage.getItem('username');
+    var token = localStorage.getItem('token');
+
+    el.appendChild(logout_button);
 }
 
 function logout() {
@@ -245,6 +267,8 @@ function build_home() {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
+    history.pushState({page: "home"}, "Home", "?page=home");
+
     // TODO: Generate a home page.
 
     var logout_button = document.createElement('button');
@@ -399,10 +423,29 @@ function build_home() {
     el.appendChild(video_pack);
 }
 
+function QueryStringToJSON() {            
+    var pairs = location.search.slice(1).split('&');
+    
+    var result = {};
+    pairs.forEach(function(pair) {
+        pair = pair.split('=');
+        result[pair[0]] = decodeURIComponent(pair[1] || '');
+    });
+
+    return JSON.parse(JSON.stringify(result));
+}
+
 function login(username, token) {
 	localStorage.setItem('username', username);
   	localStorage.setItem('token', token);
-  	build_home();
+
+  	// Check query string and route...
+  	state = QueryStringToJSON();
+  	if(! 'page' in state) {
+  		state.page = 'home';
+  	}
+
+  	state_router(state);
 }
 
 function onload() {
@@ -413,6 +456,21 @@ function onload() {
 		load_login();
 	} else {
 		login(username, token);
+	}
+}
+
+// State router...
+window.addEventListener('popstate', function(e) {
+	state_router(e.state);
+});
+
+function state_router(state) {
+	if(state.page == 'home') {
+		build_home();
+	} else if(state.page == 'video') {
+		load_video(state.uuid);
+	} else if(state.page == 'login') {
+		load_login();
 	}
 }
 
