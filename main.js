@@ -55,7 +55,8 @@ function load_series(uuid) {
   			if(data.status == 403) {
   				load_login();
   			} else if(data.status == 404) {
-  				// TODO: Video not found
+  				// Video not found
+  				return build_home();
   			} else {
   				var title = data.title;
   				var description = data.description;
@@ -142,7 +143,8 @@ function load_video(uuid) {
   			if(data.status == 403) {
   				load_login();
   			} else if(data.status == 404) {
-  				// TODO: Video not found
+  				// Video not found
+  				return build_home();
   			} else {
   				var title = data.title;
   				var description = data.description;
