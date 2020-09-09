@@ -176,6 +176,7 @@ function load_login() {
 	while(el.firstChild) {
     	el.removeChild(el.firstChild);
 	}
+	el.textContent = 'Loading...';
 
 	// Set the background
 	if(canUseWebP()) {
@@ -366,6 +367,7 @@ function load_login() {
 
 	// Once background image has loaded, add elements.
 	img.addEventListener('load', function() {
+		el.textContent = '';
 		el.appendChild(username_input_hint);
 		el.appendChild(username_input);
 		el.appendChild(password_input_hint);
