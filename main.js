@@ -24,8 +24,8 @@ function load_video(uuid) {
 	// TODO
 	console.log("LOAD:", uuid);
 
-	// TODO: Get video name
-	history.pushState({page: "video", "uuid": uuid}, "?", "?video=<uuid>".replace("<uuid>", uuid));
+	var username = localStorage.getItem('username');
+    var token = localStorage.getItem('token');
 
 	var el = document.getElementById('app');
 	while(el.firstChild) {
@@ -35,16 +35,62 @@ function load_video(uuid) {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
-    // TODO: Generate a home page.
+    // TODO: Generate a video page.
 
     var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
     logout_button.textContent = 'Logout';
-
-    var username = localStorage.getItem('username');
-    var token = localStorage.getItem('token');
-
     el.appendChild(logout_button);
+
+	fetch('https://sixteenmm.org/getuuid/<username>/<token>/<uuid>/json'.replace("<username>", username)
+		.replace("<token>", token)
+		.replace("<uuid>", uuid), {
+			method: 'GET',
+			cache: 'no-cache',
+			mode: 'cors',
+		}).then(response => response.json())
+  		.then(function(data) {
+  			if(data.status == 403) {
+  				load_login();
+  			} else if(data.status == 404) {
+  				// TODO: Video not found
+  			} else {
+  				var title = data.title;
+  				var description = data.description;
+  				var subtitles = data.subs;
+  				history.pushState({page: "video", "uuid": uuid}, title, "?page=video&uuid=<uuid>".replace("<uuid>", uuid));
+
+  				var video = document.createElement('video');
+  				video.classList.add('animate__animated', 'animate__fadeInUp');
+				video.controls = true;
+				video.cover = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
+
+				var source1 = document.createElement("source");
+				source1.src = "https://sixteenmm.org/video/<username>/<token>/<uuid>.webm".replace("<uuid>", uuid)
+				.replace("<username>", username)
+				.replace("<token>", token);
+				var source2 = document.createElement("source");
+				source2.src = "https://sixteenmm.org/video/<username>/<token>/<uuid>.mp4".replace("<uuid>", uuid)
+				.replace("<username>", username)
+				.replace("<token>", token);
+				var source3 = document.createElement("source");
+				source3.src = "https://sixteenmm.org/video/<username>/<token>/<uuid>.ogv".replace("<uuid>", uuid)
+				.replace("<username>", username)
+				.replace("<token>", token);
+
+				// TODO: Check for subtitles
+
+				video.appendChild(source1);
+				video.appendChild(source2);
+				video.appendChild(source3);
+
+  				el.appendChild(video);
+  			}
+  		})
+  		.catch(function(err){
+  			// TODO: Crap.
+  			console.log(err);
+  		});
 }
 
 function logout() {
@@ -440,11 +486,7 @@ function login(username, token) {
   	localStorage.setItem('token', token);
 
   	// Check query string and route...
-  	state = QueryStringToJSON();
-  	if(! 'page' in state) {
-  		state.page = 'home';
-  	}
-
+  	var state = QueryStringToJSON();
   	state_router(state);
 }
 
@@ -465,12 +507,27 @@ window.addEventListener('popstate', function(e) {
 });
 
 function state_router(state) {
+	if(!('page' in state)) {
+  		state.page = 'home';
+  	}
+
+  	var username = localStorage.getItem('username');
+	var token = localStorage.getItem('token');
+
+  	if(!username || !token) {
+  		load_login();
+  	}
+
 	if(state.page == 'home') {
 		build_home();
 	} else if(state.page == 'video') {
 		load_video(state.uuid);
 	} else if(state.page == 'login') {
 		load_login();
+	} else if(state.page == 'logout') {
+		logout();
+	} else {
+		build_home();
 	}
 }
 
