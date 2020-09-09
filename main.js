@@ -452,11 +452,6 @@ function load_category(category) {
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
     el.appendChild(home_button);
-
-    // TODO: Special handling:
-    // new
-    // later
-    // history
     
     // Special Handling: free category
     if(category == 'free') {
@@ -517,6 +512,22 @@ function load_category(category) {
 			// TODO: Shit.
 			console.log(err);
 		})
+    }
+    // TODO: Special handling: new
+    else if(category == 'new') {
+
+    }
+    // TODO: Special handling: Watch Later
+    else if(category == 'later') {
+
+    }
+    // TODO: Special handling: Watch History
+    else if(category == 'history') {
+
+    }
+    // TODO: Normal category fetching
+    else {
+
     }
 
     // TODO: Load data before changing history...
