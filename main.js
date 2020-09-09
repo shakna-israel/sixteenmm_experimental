@@ -84,7 +84,7 @@ function load_login() {
 		}).then(response => response.json())
   		.then(function(data) {
   			if(data.status != 200) {
-  				// TODO: Failed login.
+  				// Failed login.
   				login_submit.setAttributeNS(null, 'class', '');
   				login_submit.classList.add('animate__animated', 'animate__flash');
 
@@ -122,7 +122,8 @@ function load_login() {
 	}).then(response => response.json())
 	.then(function(data) {
 		if(data.status != 200) {
-			// TODO: Oh, shit.
+			// Shouldn't reach here... But if it does...
+			load_login();
 		} else {
 			var inject_text = document.createElement('small');
 			inject_text.textContent = 'Enjoy this full film from our collection as a preview.';
@@ -245,8 +246,8 @@ function build_home() {
 	}).then(response => response.json())
 	.then(function(data) {
 		if(data.status !== 200) {
-			// TODO Failure!
-			console.log(data);
+			// Login failure!
+			load_login();
 		} else {
 			console.log(data);
 
