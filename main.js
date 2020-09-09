@@ -143,6 +143,12 @@ function load_video(uuid) {
 
 				// TODO: Check for subtitles
 
+				// TODO: Check for next/previous episodes
+
+				// TODO: Add event to record history
+
+				// TODO: Allow saving/restoring volume
+
 				video.appendChild(source1);
 				video.appendChild(source2);
 				video.appendChild(source3);
