@@ -63,6 +63,11 @@ img {
   cursor: pointer;
 }
 
+.film:hover {
+  transition: padding 0.3s ease-in-out;
+  padding: 1em;
+}
+
 .film img {
   width: 200%;
   max-width: 100%;
@@ -88,7 +93,7 @@ img {
   .film {
     display: block;
     width: 90% !important;
-    padding: 0 !important;
+    padding: 0.1em !important;
     margin: 5% 5% !important;
   }
 
