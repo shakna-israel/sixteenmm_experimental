@@ -280,7 +280,7 @@ function build_home() {
 			new_collection.classList.add('horul');
 			for(var i = 0; i < data.new.length && i < 8; i++) {
 				var tmp = document.createElement('li');
-				tmp.classList.add('film');
+				tmp.classList.add('film', 'animate__animated', 'animate__fadeIn');
 				tmp.dataset.uuid = data.new[i].uuid;
 
 				tmp.addEventListener('click', function() {
@@ -289,7 +289,12 @@ function build_home() {
 
 				var tmp_img = document.createElement('img');
 				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.new[i].uuid);
-				tmp.appendChild(tmp_img);
+				tmp_img.style.display = 'none';
+				tmp_img.addEventListener('load', function() {
+					this.style.display = 'block';
+					this.classList.add('animate__animated', 'animate__fadeIn');
+				});
+				tmp.appendChild(tmp_img);	
 
 				var tmp_title = document.createElement('p');
 				tmp_title.textContent = '<title> (<year>)'.replace("<title>", data.new[i].title).replace("<year>", data.new[i].year);
@@ -323,6 +328,11 @@ function build_home() {
 
 				var tmp_img = document.createElement('img');
 				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.later[i].uuid);
+				tmp_img.style.display = 'none';
+				tmp_img.addEventListener('load', function() {
+					this.style.display = 'block';
+					this.classList.add('animate__animated', 'animate__fadeIn');
+				});
 				tmp.appendChild(tmp_img);
 
 				var tmp_title = document.createElement('p');
@@ -356,6 +366,11 @@ function build_home() {
 
 				var tmp_img = document.createElement('img');
 				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.history[i].uuid);
+				tmp_img.style.display = 'none';
+				tmp_img.addEventListener('load', function() {
+					this.style.display = 'block';
+					this.classList.add('animate__animated', 'animate__fadeIn');
+				});
 				tmp.appendChild(tmp_img);
 
 				var tmp_title = document.createElement('p');
