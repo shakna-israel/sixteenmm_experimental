@@ -115,11 +115,13 @@ function load_video(uuid) {
   				var title = data.title;
   				var description = data.description;
   				var subtitles = data.subs;
-  				history.pushState({page: "video", "uuid": uuid}, title, "?page=video&uuid=<uuid>".replace("<uuid>", uuid));
 
   				// Check if series!
   				if(data.genres.includes('series')) {
-  					return load_series(uuid);
+  					load_series(uuid);
+  					return;
+  				} else {
+  					history.pushState({page: "video", "uuid": uuid}, title, "?page=video&uuid=<uuid>".replace("<uuid>", uuid));
   				}
 
   				var video = document.createElement('video');
