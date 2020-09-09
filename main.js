@@ -182,7 +182,6 @@ function load_login() {
   				var username_input = document.getElementById('username_input');
 				username_input.setAttributeNS(null, 'class', '');
   				username_input.classList.add('animate__animated', 'animate__shakeX', 'error');
-  				username_input.value = '';
   				username_input.addEventListener('animationend', function() {
   					username_input.setAttributeNS(null, 'class', '');
   				});
