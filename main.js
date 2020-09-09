@@ -65,6 +65,8 @@ function load_video(uuid) {
   				var subtitles = data.subs;
   				history.pushState({page: "video", "uuid": uuid}, title, "?page=video&uuid=<uuid>".replace("<uuid>", uuid));
 
+  				// TODO: Check if series!
+
   				var video = document.createElement('video');
   				video.classList.add('animate__animated', 'animate__fadeInUp', 'video_watch');
 				video.controls = true;
