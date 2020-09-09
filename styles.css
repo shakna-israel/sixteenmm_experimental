@@ -30,17 +30,17 @@ video {
 }
 
 img {
-	filter: invert(100%);
-	max-width: 50%;
+  filter: invert(100%);
+  max-width: 50%;
 }
 
 .horul ul, .horul li {
-	display: inline-block;
-	text-align: center;
+  display: inline-block;
+  text-align: center;
 }
 
 .preview_panel {
-	background-color: rgba(244, 241, 242, 0.6);
+  background-color: rgba(244, 241, 242, 0.6);
 }
 
 .preview_panel img {
@@ -65,20 +65,25 @@ img {
     height: auto;
     width: 85vw;
   }
+  
+  * {
+    margin: 0;
+    padding: 0;
+  }
 
   body {
     font-size: 1.5em;
   }
 
   .film {
-    width: auto !important;
+    width: 80% !important;
     padding: 0 !important;
-    margin: 0 !important;
+    margin: auto auto auto auto 0.5em !important;
   }
 }
 
 body {
-	filter: invert(100%);
+  filter: invert(100%);
 }
 
 @keyframes flash {
