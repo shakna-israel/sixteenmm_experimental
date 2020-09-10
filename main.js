@@ -720,7 +720,7 @@ function build_home() {
 
 			var new_collection = document.createElement('ul');
 			new_collection.classList.add('horul');
-			for(var i = 0; i < data.new.length && i < 8; i++) {
+			for(var i = 0; i < data.new.length && i < 4; i++) {
 				var tmp = document.createElement('li');
 				tmp.style.opacity = 0;
 				tmp.dataset.uuid = data.new[i].uuid;
@@ -767,7 +767,7 @@ function build_home() {
 
 			var later_collection = document.createElement('ul');
 			later_collection.classList.add('horul');
-			for(var i = 0; i < data.later.length && i < 8; i++) {
+			for(var i = 0; i < data.later.length && i < 4; i++) {
 				var tmp = document.createElement('li');
 				tmp.classList.add('film');
 				tmp.style.opacity = 0;
@@ -814,7 +814,7 @@ function build_home() {
 
 			var history_collection = document.createElement('ul');
 			history_collection.classList.add('horul');
-			for(var i = 0; i < data.history.length && i < 8; i++) {
+			for(var i = 0; i < data.history.length && i < 4; i++) {
 				var tmp = document.createElement('li');
 				tmp.classList.add('film');
 				tmp.style.opacity = 0;
@@ -860,7 +860,7 @@ function build_home() {
 
 				var item_collection = document.createElement('ul');
 				item_collection.classList.add('horul');
-				for(var i = 0; i < data.favourites[key].length && i < 8; i++) {
+				for(var i = 0; i < data.favourites[key].length && i < 4; i++) {
 					var tmp = document.createElement('li');
 					tmp.classList.add('film');
 					tmp.style.opacity = 0;
@@ -908,7 +908,7 @@ function build_home() {
 
 				var item_collection = document.createElement('ul');
 				item_collection.classList.add('horul');
-				for(var i = 0; i < data.categories[key].length && i < 8; i++) {
+				for(var i = 0; i < data.categories[key].length && i < 4; i++) {
 					var tmp = document.createElement('li');
 					tmp.classList.add('film');
 					tmp.style.opacity = 0;
