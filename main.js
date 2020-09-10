@@ -72,6 +72,7 @@ function load_series(uuid) {
   					var tmp = document.createElement('li');
 					tmp.classList.add('film');
 					tmp.dataset.uuid = data.children[i].uuid;
+					tmp.style.opacity = 0;
 
 					tmp.addEventListener('click', function() {
 						load_video(this.dataset.uuid);
@@ -81,6 +82,9 @@ function load_series(uuid) {
 					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.children[i].uuid);
 					tmp_img.style.display = 'none';
 					tmp_img.addEventListener('load', function() {
+						this.parentElement.style.opacity = 1;
+						this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
 						this.style.display = 'block';
 						this.classList.add('animate__animated', 'animate__fadeIn');
 					});
