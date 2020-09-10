@@ -231,7 +231,16 @@ function load_video(uuid) {
 				.replace("<username>", username)
 				.replace("<token>", token);
 
-				// TODO: Check for subtitles
+				// Add any subtitle tracks
+				if(!!subtitles) {
+					for(ix = 0; ix < subtitles.length; ix++) {
+						var subtitle_track = document.createElement("track");
+						subtitle_track.src = 'https://sixteenmm.org/subtitles/<uuid>/<lang>'
+						.replace("<uuid>", uuid)
+						.replace("<lang>", subtitles[ix]);
+						video.appendChild(subtitle_track);
+					}
+				}
 
 				if(data.kind == 'episode') {
 					// Add a button to go back to episode listing...
