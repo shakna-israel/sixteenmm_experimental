@@ -255,6 +255,23 @@ function load_video(uuid) {
 				    var next_ep = data['next episode'];
 				    var prev_ep = data['previous episode'];
 
+				    if(!!prev_ep) {
+				    	// Add Previous Episode button
+				    	video.dataset.prev = prev_ep;
+
+				    	var previous_button = document.createElement('button');
+				    	previous_button.dataset.uuid = prev_ep;
+				    	previous_button.addEventListener('click', function() {
+				    		load_video(this.dataset.uuid);
+				    	});
+				    	previous_button.textContent = 'Previous';
+				    	el.appendChild(previous_button);
+				    } else {
+				    	var previous_button = document.createElement('button');
+				    	previous_button.textContent = '---';
+				    	el.appendChild(previous_button);
+				    }
+
 				    if(!!next_ep) {
 				    	video.dataset.next = next_ep;
 
@@ -263,13 +280,20 @@ function load_video(uuid) {
 				    		load_video(this.dataset.next);
 				    	});
 
-				    	// TODO: Add Next Episode button
+				    	// Add Next Episode button
+				    	var next_button = document.createElement('button');
+				    	next_button.dataset.uuid = next_ep;
+				    	next_button.addEventListener('click', function() {
+				    		load_video(this.dataset.uuid);
+				    	});
+				    	next_button.textContent = 'Next';
+				    	el.appendChild(next_button);
+				    } else {
+				    	var next_button = document.createElement('button');
+				    	next_button.textContent = '---';
+				    	el.appendChild(next_button);
 				    }
 
-				    if(!!prev_ep) {
-				    	// TODO: Add Previous Episode button
-				    	video.dataset.prev = prev_ep;
-				    }
 				}
 
 				// TODO: Add event to record history
