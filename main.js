@@ -252,6 +252,24 @@ function load_video(uuid) {
 				    el.appendChild(series_button);
 
 				    // TODO: Check for next/previous episodes
+				    var next_ep = data['next episode'];
+				    var prev_ep = data['previous episode'];
+
+				    if(!!next_ep) {
+				    	video.dataset.next = next_ep;
+
+				    	// TODO: Allow disabling autoplay
+				    	video.addEventListener('ended', function() {
+				    		load_video(this.dataset.next);
+				    	});
+
+				    	// TODO: Add Next Episode button
+				    }
+
+				    if(!!prev_ep) {
+				    	// TODO: Add Previous Episode button
+				    	video.dataset.prev = prev_ep;
+				    }
 				}
 
 				// TODO: Add event to record history
