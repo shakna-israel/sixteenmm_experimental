@@ -268,7 +268,7 @@ function load_video(uuid) {
 				    	el.appendChild(previous_button);
 				    } else {
 				    	var previous_button = document.createElement('button');
-				    	previous_button.textContent = '---';
+				    	previous_button.textContent = '-----';
 				    	el.appendChild(previous_button);
 				    }
 
