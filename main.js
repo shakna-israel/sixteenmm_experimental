@@ -231,6 +231,11 @@ function load_video(uuid) {
 				.replace("<username>", username)
 				.replace("<token>", token);
 
+				// Add them so they _may_ begin loading before we're done making the video element
+				video.appendChild(source1);
+				video.appendChild(source2);
+				video.appendChild(source3);
+
 				// Add any subtitle tracks
 				if(!!subtitles) {
 					for(ix = 0; ix < subtitles.length; ix++) {
@@ -304,10 +309,6 @@ function load_video(uuid) {
 				video.addEventListener('volumechange', function() {
 					localStorage.setItem('volume', this.volume);
 				});
-
-				video.appendChild(source1);
-				video.appendChild(source2);
-				video.appendChild(source3);
 
 				video.addEventListener('animationend', function() {
   					this.scrollIntoView();
