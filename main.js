@@ -20,6 +20,43 @@ function canUseWebP() {
     return false;
 }
 
+function record_progress(username, token, uuid, timestamp) {
+	var url = 'https://sixteenmm.org/progress/<username>/<token>/<uuid>/<timestamp>/json'
+	.replace("<username>", username)
+	.replace("<token>", token)
+	.replace("<uuid>", uuid)
+	.replace("<timestamp>", timestamp)
+
+	fetch(url, {
+		method: 'GET',
+		mode: 'cors'}
+	).then(response => response.json())
+  	.then(function(data) {
+  		// TODO: Check status code
+  		console.log(data);
+  	})
+  	.catch(function(err) {
+  		// TODO: Shit
+  		console.log(err);
+  	})
+}
+
+function video_tick() {
+	var username = localStorage.getItem('username');
+    var token = localStorage.getItem('token');
+
+    if(!username || !token) {
+    	return;
+    }
+
+    var el = document.getElementById('playingfilm');
+    if(!!el) {
+    	if(!el.paused) {
+			record_progress(username, token, el.dataset.uuid, el.currentTime);
+		}
+    }
+}
+
 function load_series(uuid) {
 	var username = localStorage.getItem('username');
     var token = localStorage.getItem('token');
@@ -48,7 +85,7 @@ function load_series(uuid) {
 		.replace("<token>", token)
 		.replace("<uuid>", uuid), {
 			method: 'GET',
-			mode: 'cors',
+			mode: 'cors'
 		}).then(response => response.json())
   		.then(function(data) {
   			if(data.status == 403) {
@@ -68,7 +105,7 @@ function load_series(uuid) {
 				var collection = document.createElement('ul');
 				collection.classList.add('horul');
   				for(var i = 0; i < data.children.length; i++) {
-  					// TODO: Create children cards...
+  					// Create children cards...
   					var tmp = document.createElement('li');
 					tmp.classList.add('film');
 					tmp.dataset.uuid = data.children[i].uuid;
@@ -124,8 +161,6 @@ function load_video(uuid) {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
-    // TODO: Generate a video page.
-
     var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
     logout_button.textContent = 'Logout';
@@ -141,7 +176,7 @@ function load_video(uuid) {
 		.replace("<uuid>", uuid), {
 			method: 'GET',
 			cache: "force-cache",
-			mode: 'cors',
+			mode: 'cors'
 		}).then(response => response.json())
   		.then(function(data) {
   			if(data.status == 403) {
@@ -170,6 +205,15 @@ function load_video(uuid) {
 				video.controls = true;
 				video.autoplay = true;
 				video.cover = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
+				video.id = 'playingfilm';
+				video.dataset.uuid = uuid;
+
+				// Set up to record playback history
+				setInterval(video_tick, 30000);
+
+				// TODO: Check for starting time
+				var progress = data.progress || 0;
+				video.currentTime = progress;
 
 				var source1 = document.createElement("source");
 				source1.src = "https://sixteenmm.org/video/<username>/<token>/<uuid>.webm".replace("<uuid>", uuid)
@@ -209,6 +253,8 @@ function load_video(uuid) {
 				video.addEventListener('animationend', function() {
   					this.scrollIntoView();
   				});
+
+  				// TODO: Add any more info we want to the page...
 
   				el.appendChild(video);
   			}
