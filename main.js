@@ -296,9 +296,14 @@ function load_video(uuid) {
 
 				}
 
-				// TODO: Add event to record history
+				// Allow restoring volume
+				var vol = localStorage.getItem('volume') || 1;
+				video.volume = vol;
 
-				// TODO: Allow saving/restoring volume
+				// Allow saving volume
+				video.addEventListener('volumechange', function() {
+					localStorage.setItem('volume', this.volume);
+				});
 
 				video.appendChild(source1);
 				video.appendChild(source2);
