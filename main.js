@@ -211,9 +211,12 @@ function load_video(uuid) {
 				// Set up to record playback history
 				setInterval(video_tick, 30000);
 
-				// TODO: Check for starting time
+				// Check for starting time
 				var progress = data.progress || 0;
-				video.currentTime = progress;
+				var total_time = data.runtime;
+				if(progress / total_time < 0.9) {
+					video.currentTime = progress;	
+				}
 
 				var source1 = document.createElement("source");
 				source1.src = "https://sixteenmm.org/video/<username>/<token>/<uuid>.webm".replace("<uuid>", uuid)
