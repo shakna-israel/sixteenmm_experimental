@@ -651,7 +651,58 @@ function load_category(category) {
     }
     // TODO: Special handling: new
     else if(category == 'new') {
+    	fetch("https://sixteenmm.org/new/<username>/<token>/json"
+    	.replace("<username>", username)
+    	.replace("<token>", token), {
+    		mode: 'cors'
+    	}).then(response => response.json())
+		.then(function(data) {
+			if(data.status != 200) {
+				build_login();
+			} else {
+				var data_pack = document.createElement('ul');
+				data_pack.classList.add('horul');
 
+				for(var i = 0; i < data.data.length; i++) {
+					var tmp = document.createElement('li');
+
+					tmp.style.opacity = 0;
+					tmp.dataset.uuid = data.data[i].uuid;
+
+					tmp.addEventListener('click', function() {
+						load_video(this.dataset.uuid);
+					})
+
+					var tmp_img = document.createElement('img');
+					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.data[i].uuid);
+					tmp_img.style.display = 'none';
+					tmp_img.addEventListener('load', function() {
+						this.parentElement.style.opacity = 1;
+						this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
+						this.style.display = 'block';
+						this.classList.add('animate__animated', 'animate__fadeIn');
+					});
+					tmp.appendChild(tmp_img);	
+
+					var tmp_title = document.createElement('p');
+					tmp_title.textContent = '<title> (<year>)'.replace("<title>", data.data[i].title).replace("<year>", data.data[i].year);
+					tmp.appendChild(tmp_title);
+
+					var tmp_desc = document.createElement('small')
+					tmp_desc.textContent = data.data[i].description;
+					tmp.appendChild(tmp_desc);
+
+					data_pack.appendChild(tmp);
+				}
+
+				el.appendChild(data_pack);
+			}
+		})
+		.catch(function(err) {
+			// TODO: Shit
+			console.log(err);
+		})
     }
     // TODO: Special handling: Watch Later
     else if(category == 'later') {
@@ -991,7 +1042,7 @@ function build_home() {
 					load_category(this.dataset.category);
 				})
 				item_collection.appendChild(tmp_empty);
-				
+
 				video_pack.appendChild(item_title);
 				video_pack.appendChild(item_collection);
 			}
