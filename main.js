@@ -589,6 +589,11 @@ function load_category(category) {
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
     el.appendChild(home_button);
+
+    var title = document.createElement('h1');
+    title.textContent = titleCase(category);
+    title.classList.add('title');
+    el.appendChild(title);
     
     // Special Handling: free category
     if(category == 'free') {
@@ -714,7 +719,67 @@ function load_category(category) {
     }
     // TODO: Normal category fetching
     else {
+    	fetch("https://sixteenmm.org/category/<category>/<username>/<token>/json"
+    	.replace("<category>", category)
+    	.replace("<username>", username)
+    	.replace("<token>", token), {
+    		mode: 'cors'
+    	}).then(response => response.json())
+		.then(function(data) {
+			console.log(data);
 
+			if(data.status != 200) {
+				build_login();
+			} else {
+				if(!!data.data && data.data.length != 0) {
+					var data_pack = document.createElement('ul');
+					data_pack.classList.add('horul');
+
+					for(var i = 0; i < data.data.length; i++) {
+						var tmp = document.createElement('li');
+
+						tmp.style.opacity = 0;
+						tmp.dataset.uuid = data.data[i].uuid;
+
+						tmp.addEventListener('click', function() {
+							load_video(this.dataset.uuid);
+						})
+
+						var tmp_img = document.createElement('img');
+						tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.data[i].uuid);
+						tmp_img.style.display = 'none';
+						tmp_img.addEventListener('load', function() {
+							this.parentElement.style.opacity = 1;
+							this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
+							this.style.display = 'block';
+							this.classList.add('animate__animated', 'animate__fadeIn');
+						});
+						tmp.appendChild(tmp_img);	
+
+						var tmp_title = document.createElement('p');
+						tmp_title.textContent = '<title> (<year>)'.replace("<title>", data.data[i].title).replace("<year>", data.data[i].year);
+						tmp.appendChild(tmp_title);
+
+						var tmp_desc = document.createElement('small')
+						tmp_desc.textContent = data.data[i].description;
+						tmp.appendChild(tmp_desc);
+
+						data_pack.appendChild(tmp);
+					}
+
+					el.appendChild(data_pack);
+				} else {
+					var inform = document.createElement('p');
+					inform.textContent = "No films found for category: <category>".replace("<category>", category);
+					el.appendChild(inform);
+				}
+			}
+		})
+		.catch(function(err) {
+			// TODO: Shit
+			console.log(err);
+		})
     }
 
     // TODO: Load data before changing history...
