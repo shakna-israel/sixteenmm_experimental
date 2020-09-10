@@ -48,7 +48,6 @@ function load_series(uuid) {
 		.replace("<token>", token)
 		.replace("<uuid>", uuid), {
 			method: 'GET',
-			cache: 'no-cache',
 			mode: 'cors',
 		}).then(response => response.json())
   		.then(function(data) {
@@ -137,7 +136,7 @@ function load_video(uuid) {
 		.replace("<token>", token)
 		.replace("<uuid>", uuid), {
 			method: 'GET',
-			cache: 'no-cache',
+			cache: "force-cache",
 			mode: 'cors',
 		}).then(response => response.json())
   		.then(function(data) {
@@ -328,7 +327,7 @@ function load_login() {
 	// Fetch some preview tiles
 	var data_pack = document.createElement('div');
 	fetch('https://sixteenmm.org/preview/json', {
-		cache: 'no-cache',
+		cache: "force-cache",
 		mode: 'cors'
 	}).then(response => response.json())
 	.then(function(data) {
@@ -458,7 +457,6 @@ function load_category(category) {
     	fetch('https://sixteenmm.org/category/<category>/<username>/<token>/json'.replace("<category>", category)
     		.replace("<username>", username)
     		.replace("<token>", token), {
-			cache: 'no-cache',
 			mode: 'cors'
 		}).then(response => response.json())
 		.then(function(data) {
@@ -562,7 +560,6 @@ function build_home() {
 
     fetch('https://sixteenmm.org/home/<username>/<token>/json'.replace('<username>', username).replace('<token>', token), {
 		headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-		cache: 'no-cache',
 		mode: 'cors'
 	}).then(response => response.json())
 	.then(function(data) {
