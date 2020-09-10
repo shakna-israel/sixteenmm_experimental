@@ -751,6 +751,16 @@ function build_home() {
 
 				new_collection.appendChild(tmp);
 			}
+
+			// Add a link to more
+			var tmp_empty = document.createElement('li');
+			tmp_empty.textContent = 'More';
+			tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
+			tmp_empty.addEventListener('click', function() {
+				load_category('new');
+			})
+			new_collection.appendChild(tmp_empty);
+
 			video_pack.appendChild(new_collection);
 
 			// Watch Later
@@ -799,6 +809,16 @@ function build_home() {
 
 				later_collection.appendChild(tmp);
 			}
+
+			// Add a link to more
+			var tmp_empty = document.createElement('li');
+			tmp_empty.textContent = 'More';
+			tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
+			tmp_empty.addEventListener('click', function() {
+				load_category('later');
+			})
+			later_collection.appendChild(tmp_empty);
+
 			video_pack.appendChild(later_collection);
 
 			// History
@@ -846,6 +866,16 @@ function build_home() {
 
 				history_collection.appendChild(tmp);
 			}
+
+			// Add a link to more
+			var tmp_empty = document.createElement('li');
+			tmp_empty.textContent = 'More';
+			tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
+			tmp_empty.addEventListener('click', function() {
+				load_category('history');
+			})
+			history_collection.appendChild(tmp_empty);
+
 			video_pack.appendChild(history_collection);
 
 			// Favourites
@@ -892,6 +922,17 @@ function build_home() {
 
 					item_collection.appendChild(tmp);
 				}
+
+				// Add a link to more
+				var tmp_empty = document.createElement('li');
+				tmp_empty.textContent = 'More';
+				tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
+				tmp_empty.dataset.category = key;
+				tmp_empty.addEventListener('click', function() {
+					load_category(this.dataset.category);
+				})
+				item_collection.appendChild(tmp_empty);
+
 				video_pack.appendChild(item_title);
 				video_pack.appendChild(item_collection);
 			}
@@ -940,6 +981,17 @@ function build_home() {
 
 					item_collection.appendChild(tmp);
 				}
+
+				// Add a link to more
+				var tmp_empty = document.createElement('li');
+				tmp_empty.textContent = 'More';
+				tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
+				tmp_empty.dataset.category = key;
+				tmp_empty.addEventListener('click', function() {
+					load_category(this.dataset.category);
+				})
+				item_collection.appendChild(tmp_empty);
+				
 				video_pack.appendChild(item_title);
 				video_pack.appendChild(item_collection);
 			}
