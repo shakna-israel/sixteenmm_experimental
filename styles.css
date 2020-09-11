@@ -112,7 +112,8 @@ img {
   }
   
   #nav button {
-    display: block;
+    display: block !important;
+    margin: 0.5em auto !important;
   }
 }
 
@@ -146,6 +147,7 @@ input {
   box-shadow: 0 0 1px gray;
   margin: 0.1em;
   font-size: 0.8em;
+  border-radius: 0.3em;
 }
 
 #nav button:hover {
