@@ -131,6 +131,7 @@ function build_search(term) {
     input_search.id = 'input_search';
 
     var change_event = function() {
+    	document.title = "<title> | SIXTEENmm".replace("<title>", 'Search - <term>'.replace("<term>", this.value));
     	history.replaceState({page: "search", "term": this.value}, "Search", "?page=search&term=<term>".replace("<term>", this.value));
 
     	var data = JSON.parse(localStorage.getItem("searchdata")) || [];
