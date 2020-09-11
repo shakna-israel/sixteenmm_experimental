@@ -58,10 +58,10 @@ img {
 .film {
   width: 15%;
   padding: 2em;
-  outline: auto;
   margin: 2em;
   cursor: pointer;
-  outline-color: blue;
+  outline-style: auto;
+  outline-color: aquamarine;
 }
 
 .film:hover {
