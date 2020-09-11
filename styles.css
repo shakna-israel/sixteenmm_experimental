@@ -134,3 +134,17 @@ input {
   padding: 0.4em;
   margin: 0.5em;
 }
+
+#nav button {
+  display: inline-block;
+  color: black;
+  background-color: white;
+  box-shadow: 0 0 1px gray;
+  margin: 0.1em;
+  font-size: 0.8em;
+}
+
+#nav button:hover {
+  box-shadow: 0 0 8px gray;
+  filter: invert(80%);
+}

@@ -89,16 +89,20 @@ function load_series(uuid) {
     document.body.style.backgroundColor = 'black';
 
     // TODO: Generate a video page.
+    var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
 
     var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
     logout_button.textContent = 'Logout';
-    el.appendChild(logout_button);
+    nav.appendChild(logout_button);
 
     var home_button = document.createElement('button');
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
-    el.appendChild(home_button);
+    nav.appendChild(home_button);
 
     fetch('https://sixteenmm.org/getuuid/<username>/<token>/<uuid>/json'.replace("<username>", username)
 		.replace("<token>", token)
@@ -189,15 +193,20 @@ function load_video(uuid) {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
+    var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
+
     var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
     logout_button.textContent = 'Logout';
-    el.appendChild(logout_button);
+    nav.appendChild(logout_button);
 
     var home_button = document.createElement('button');
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
-    el.appendChild(home_button);
+    nav.appendChild(home_button);
 
 	fetch('https://sixteenmm.org/getuuid/<username>/<token>/<uuid>/json'.replace("<username>", username)
 		.replace("<token>", token)
@@ -282,7 +291,7 @@ function load_video(uuid) {
 				    	load_series(data['series uuid']);
 				    });
 				    series_button.textContent = 'Episodes';
-				    el.appendChild(series_button);
+				    nav.appendChild(series_button);
 
 				    // TODO: Check for next/previous episodes
 				    var next_ep = data['next episode'];
@@ -298,11 +307,11 @@ function load_video(uuid) {
 				    		load_video(this.dataset.uuid);
 				    	});
 				    	previous_button.textContent = 'Previous';
-				    	el.appendChild(previous_button);
+				    	nav.appendChild(previous_button);
 				    } else {
 				    	var previous_button = document.createElement('button');
 				    	previous_button.textContent = '-----';
-				    	el.appendChild(previous_button);
+				    	nav.appendChild(previous_button);
 				    }
 
 				    if(!!next_ep) {
@@ -320,11 +329,11 @@ function load_video(uuid) {
 				    		load_video(this.dataset.uuid);
 				    	});
 				    	next_button.textContent = 'Next';
-				    	el.appendChild(next_button);
+				    	nav.appendChild(next_button);
 				    } else {
 				    	var next_button = document.createElement('button');
 				    	next_button.textContent = '---';
-				    	el.appendChild(next_button);
+				    	nav.appendChild(next_button);
 				    }
 
 				}
@@ -580,15 +589,21 @@ function load_category(category) {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
+    var nav = document.getElementById('nav');
+    var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
+
 	var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
     logout_button.textContent = 'Logout';
-    el.appendChild(logout_button);
+    nav.appendChild(logout_button);
 
     var home_button = document.createElement('button');
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
-    el.appendChild(home_button);
+    nav.appendChild(home_button);
 
     var title = document.createElement('h1');
     if(category == 'later') {
@@ -601,7 +616,7 @@ function load_category(category) {
     	title.textContent = titleCase(category);
     }
     title.classList.add('title');
-    el.appendChild(title);
+    nav.appendChild(title);
     
     fetch("https://sixteenmm.org/category/<category>/<username>/<token>/json"
 	.replace("<category>", category)
@@ -697,37 +712,41 @@ function build_home() {
     history.pushState({page: "home"}, "Home", "?page=home");
 
     // TODO: Generate a home page.
+    var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
 
     var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
     logout_button.textContent = 'Logout';
-    el.appendChild(logout_button);
+    nav.appendChild(logout_button);
 
     var home_button = document.createElement('button');
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
-    el.appendChild(home_button);
+    nav.appendChild(home_button);
 
     var new_button = document.createElement('button');
     new_button.addEventListener('click', function() {
     	load_category('new');
     });
     new_button.textContent = 'New';
-    el.appendChild(new_button);
+    nav.appendChild(new_button);
 
     var later_button = document.createElement('button');
     later_button.addEventListener('click', function() {
     	load_category('later');
     });
     later_button.textContent = 'Watch Later';
-    el.appendChild(later_button);
+    nav.appendChild(later_button);
 
     var history_button = document.createElement('button');
     history_button.addEventListener('click', function() {
     	load_category('history');
     });
     history_button.textContent = 'Watch History';
-    el.appendChild(history_button);
+    nav.appendChild(history_button);
 
     var username = localStorage.getItem('username');
     var token = localStorage.getItem('token');
