@@ -78,6 +78,7 @@ img {
   width: 200%;
   max-width: 100%;
   border-radius: 5px 5px;
+  filter: invert(100%) saturate(300%) brightness(90%) contrast(160%);
 }
 
 @media(max-width: 30em) {
