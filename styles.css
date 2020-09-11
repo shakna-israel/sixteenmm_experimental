@@ -110,6 +110,10 @@ img {
   input {
     display: block;
   }
+  
+  #nav button {
+    display: block;
+  }
 }
 
 body {
