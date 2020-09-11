@@ -96,6 +96,7 @@ function load_series(uuid) {
 
     var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
+    logout_button.classList.add('logout_button');
     logout_button.textContent = 'Logout';
     nav.appendChild(logout_button);
 
@@ -200,6 +201,7 @@ function load_video(uuid) {
 
     var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
+    logout_button.classList.add('logout_button');
     logout_button.textContent = 'Logout';
     nav.appendChild(logout_button);
 
@@ -597,6 +599,7 @@ function load_category(category) {
 
 	var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
+    logout_button.classList.add('logout_button');
     logout_button.textContent = 'Logout';
     nav.appendChild(logout_button);
 
@@ -719,6 +722,7 @@ function build_home() {
 
     var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
+    logout_button.classList.add('logout_button');
     logout_button.textContent = 'Logout';
     nav.appendChild(logout_button);
 
