@@ -76,6 +76,250 @@ function video_tick() {
     }
 }
 
+function build_search(term) {
+	// TODO: Default structure...
+	term = term || '';
+
+	var username = localStorage.getItem('username');
+    var token = localStorage.getItem('token');
+
+	fetch("https://sixteenmm.org/all/<username>/<token>/json"
+	.replace("<username>", username)
+	.replace("<token>", token), {
+		mode: 'cors'
+	}).then(response => response.json())
+	.then(function(data) {
+		if(data.status == 200) {
+			localStorage.setItem("searchdata", JSON.stringify(data.all));
+		} else {
+			build_login();
+		}
+	})
+	.catch(function(err) {
+		// TODO: Crap
+		console.log(err);
+	});
+
+	// TODO: Build a live-updating search page
+
+	var el = document.getElementById('app');
+	while(el.firstChild) {
+    	el.removeChild(el.firstChild);
+    }
+
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundColor = 'black';
+
+    var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
+
+	var logout_button = document.createElement('button');
+    logout_button.addEventListener('click', logout);
+    logout_button.id = 'logout_button';
+    logout_button.textContent = 'Logout';
+    nav.appendChild(logout_button);
+
+    var home_button = document.createElement('button');
+    home_button.addEventListener('click', build_home);
+    home_button.textContent = 'Home';
+    nav.appendChild(home_button);
+
+    var input_search = document.createElement('input');
+    input_search.value = term;
+    input_search.id = 'input_search';
+
+    var change_event = function() {
+    	history.replaceState({page: "search", "term": this.value}, "Search", "?page=search&term=<term>".replace("<term>", this.value));
+
+    	var data = JSON.parse(localStorage.getItem("searchdata")) || [];
+
+    	// Break into terms...
+    	var terms = this.value.replace(/\W/g, ' ').toLowerCase().split(' ');
+
+    	// Remove empty elements...
+    	terms = terms.filter(Boolean);
+
+    	// Remove duplicate terms...
+    	var seen = {};
+	    terms = terms.filter(function(item) {
+	        return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+	    });
+
+    	var results = [];
+
+    	// Gather results
+    	for(var term_i = 0; term_i < terms.length; term_i++) {
+    		for(var search_i = 0; search_i < data.length; search_i++) {
+
+    			var current_term = terms[term_i];
+
+    			// Check if we have a year...
+    			if(!isNaN(current_term)) {
+    				if(parseInt(current_term) == data[search_i].year) {
+    					results.push(data[search_i]);
+    				}
+    			}
+
+    			// Search the title
+    			if(data[search_i].title.toLowerCase().indexOf(current_term) !== -1) {
+    				results.push(data[search_i]);
+    			}
+
+    			// Search UUID for sociopaths
+    			if(data[search_i].uuid.toLowerCase().indexOf(current_term) !== -1) {
+    				results.push(data[search_i]);
+    			}
+
+	    		// Search genres
+	    		for(var genre_i = 0; genre_i < data[search_i].genres.length; genre_i++) {
+	    			var current_genre = data[search_i].genres[genre_i];
+	    			if(current_genre.toLowerCase().indexOf(current_term) !== -1) {
+	    				results.push(data[search_i]);
+	    			}
+	    		}
+
+	    		// Search the description
+    			if(data[search_i].description.toLowerCase().indexOf(current_term) !== -1) {
+    				results.push(data[search_i]);
+    			}
+	    	}
+    	}
+
+    	// TODO: Weight results
+    	var weighted_results = results.reduce(function(count, item){
+		    if(typeof count[item.uuid] !== "undefined"){
+		      count[item.uuid]++; 
+		      return count;
+		    } else {
+		        count[item.uuid] = 1; 
+		        return count;
+		    }
+		}, {});
+
+		var new_results = []
+
+		for(var key in weighted_results) {
+			new_results.push(key);
+		}
+
+		// Remove duplicate terms...
+    	var seen = {};
+	    new_results = new_results.filter(function(item) {
+	        return seen.hasOwnProperty(item) ? false : (seen[item] = true);
+	    });
+
+	    // Sort UUIDs by weight...
+	    new_results.sort(function(a, b) {
+			return weighted_results[a] < weighted_results[b];
+		});
+
+		// Build the final array of results...
+		var final_results = [];
+		for(var res_i = 0; res_i < new_results.length; res_i++) {
+			for(var act_i = 0; act_i < results.length; act_i++) {
+				if(new_results[res_i] == results[act_i].uuid) {
+					final_results.push(results[act_i]);
+				}
+			}
+		}
+
+		// Remove duplicate terms...
+    	var seen = {};
+	    final_results = final_results.filter(function(item) {
+	        return seen.hasOwnProperty(item.uuid) ? false : (seen[item.uuid] = true);
+	    });
+		
+		results = final_results;
+
+    	var res_el = document.getElementById('search_results');
+    	while(res_el.firstChild) {
+    		res_el.removeChild(res_el.firstChild);
+    	}
+
+    	for(var item_i = 0; item_i < results.length; item_i++) {
+			// Create children cards...
+			var tmp = document.createElement('li');
+			tmp.classList.add('film');
+			tmp.dataset.uuid = results[item_i].uuid;
+			tmp.style.opacity = 0;
+
+			tmp.addEventListener('click', function() {
+				load_video(this.dataset.uuid);
+			})
+
+			var tmp_img = document.createElement('img');
+			tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', results[item_i].uuid);
+			tmp_img.style.display = 'none';
+			tmp_img.addEventListener('load', function() {
+				this.parentElement.style.opacity = 1;
+				this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
+				this.style.display = 'block';
+				this.classList.add('animate__animated', 'animate__fadeIn');
+			});
+			tmp.appendChild(tmp_img);
+
+			var tmp_title = document.createElement('p');
+			tmp_title.textContent = '<title> (<year>)'
+			.replace("<title>", results[item_i]['title'])
+			.replace("<year>", results[item_i].year);
+			tmp.appendChild(tmp_title);
+
+			var tmp_desc = document.createElement('small')
+			tmp_desc.textContent = results[item_i].description;
+			tmp.appendChild(tmp_desc);
+
+			if(!!results[item_i].progress) {
+				var tmp_time = document.createElement('small');
+				tmp_time.textContent = "<progress> / <runtime>"
+				.replace("<progress>", seconds_to_stamp(results[item_i].progress))
+				.replace("<runtime>", seconds_to_stamp(results[item_i].runtime));
+
+				tmp.appendChild(tmp_time);
+			}
+
+			res_el.appendChild(tmp);
+    	}
+    }
+
+    input_search.addEventListener('change', change_event);
+
+    input_search.dataset.typing_timer;
+    input_search.addEventListener('keyup', function() {
+    	clearTimeout(this.dataset.typing_timer);
+    	this.dataset.typing_timer = setTimeout(1000, function() {
+    		var el = document.getElementById('input_search');
+    		if ("createEvent" in document) {
+				var evt = document.createEvent("HTMLEvents");
+					evt.initEvent("change", false, true);
+					el.dispatchEvent(evt);
+				} else {
+					el.fireEvent("onchange");
+				}
+    	});
+    })
+
+    input_search.addEventListener('keyup', change_event);
+
+    el.appendChild(input_search);
+
+    var search_results = document.createElement('ul');
+    search_results.classList.add('horul');
+    search_results.id = 'search_results';
+    el.appendChild(search_results);
+
+    // Fire initial event
+    if ("createEvent" in document) {
+    	var evt = document.createEvent("HTMLEvents");
+    	evt.initEvent("change", false, true);
+    	input_search.dispatchEvent(evt);
+	} else {
+		input_search.fireEvent("onchange");
+	}
+}
+
 function load_series(uuid) {
 	var username = localStorage.getItem('username');
     var token = localStorage.getItem('token');
@@ -800,6 +1044,7 @@ function build_home() {
 					this.style.display = 'block';
 					this.classList.add('animate__animated', 'animate__fadeIn');
 				});
+
 				tmp.appendChild(tmp_img);	
 
 				var tmp_title = document.createElement('p');
@@ -1205,6 +1450,8 @@ function state_router(state) {
 		logout();
 	} else if(state.page == 'category') {
 		load_category(state.category);
+	} else if(state.page == 'search') {
+		build_search(state.term);
 	} else {
 		build_home();
 	}

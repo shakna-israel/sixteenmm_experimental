@@ -176,3 +176,13 @@ input {
     margin-right: 2em !important;
   }
 }
+
+#input_search {
+  position: sticky;
+  top: 1em;
+  display: block;
+  width: 80%;
+  margin: 2em auto;
+  font-size: 1em;
+  z-index: 999;
+}
