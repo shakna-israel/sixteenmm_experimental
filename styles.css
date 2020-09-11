@@ -154,3 +154,8 @@ input {
   box-shadow: 0 0 8px gray;
   filter: invert(80%);
 }
+
+#nav button:active {
+  box-shadow: 0 0 8px gray;
+  filter: invert(90%);
+}
