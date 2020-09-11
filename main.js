@@ -293,7 +293,6 @@ function build_search(term) {
     	clearTimeout(this.dataset.typing_timer);
     	this.dataset.typing_timer = setTimeout(function() {
     		var el = document.getElementById('input_search');
-    		console.log("FIRING");
     		if ("createEvent" in document) {
 				var evt = document.createEvent("HTMLEvents");
 					evt.initEvent("change", false, true);
@@ -302,7 +301,7 @@ function build_search(term) {
 					el.fireEvent("onchange");
 				}
     	}, 700);
-    })
+    });
 
     el.appendChild(input_search);
 
