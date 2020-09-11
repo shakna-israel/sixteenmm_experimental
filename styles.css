@@ -61,6 +61,7 @@ img {
   outline: auto;
   margin: 2em;
   cursor: pointer;
+  outline-color: blue;
 }
 
 .film:hover {
