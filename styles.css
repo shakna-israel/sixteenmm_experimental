@@ -160,7 +160,14 @@ input {
   filter: invert(90%);
 }
 
-.logout_button {
-  margin-right: 2em !important;
-  margin-bottom: 2em !important;
+@media(max-width: 30em) {
+  #logout_button:first-of-type {
+    margin-bottom: 2em !important;
+  }
+}
+
+@media(min-width: 30em) {
+  #logout_button:first-of-type {
+    margin-right: 2em !important;
+  }
 }
