@@ -93,6 +93,9 @@ img {
   body {
     font-size: 1.5em;
     position: absolute;
+  }
+
+  #app {
     overflow-x: hidden;
   }
 
