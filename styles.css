@@ -178,6 +178,7 @@ input {
 }
 
 #input_search {
+  position: -webkit-sticky;
   position: sticky;
   top: 1em;
   display: block;
