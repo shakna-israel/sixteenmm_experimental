@@ -368,8 +368,6 @@ function load_series(uuid) {
   				document.title = "<title> | SIXTEENmm".replace("<title>", title);
   				history.pushState({page: "series", "uuid": uuid}, title, "?page=series&uuid=<uuid>".replace("<uuid>", uuid));
 
-  				console.log(data);
-
 				var collection = document.createElement('ul');
 				collection.classList.add('horul');
   				for(var i = 0; i < data.children.length; i++) {
@@ -471,8 +469,6 @@ function load_video(uuid) {
   				var title = data.title;
   				var description = data.description;
   				var subtitles = data.subs;
-
-  				console.log("LOADVIDEO", data);
 
   				// Check if series!
   				if(data.genres.includes('series')) {
@@ -1017,7 +1013,6 @@ function build_home() {
 			// Login failure!
 			load_login();
 		} else {
-			console.log(data);
 
 			// New videos...
 
