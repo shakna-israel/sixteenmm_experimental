@@ -591,7 +591,15 @@ function load_category(category) {
     el.appendChild(home_button);
 
     var title = document.createElement('h1');
-    title.textContent = titleCase(category);
+    if(category == 'later') {
+    	title.textContent = 'Watch Later';
+    }
+    else if(category == 'history') {
+    	title.textContent = 'Watch History';
+    }
+    else {
+    	title.textContent = titleCase(category);
+    }
     title.classList.add('title');
     el.appendChild(title);
     
@@ -671,8 +679,6 @@ function load_category(category) {
 		console.log(err);
 	})
 
-    // TODO: Load data before changing history...
-
 	var title = titleCase(category);
 	document.title = "<title> | SIXTEENmm".replace("<title>", title);
 	history.pushState({page: "category", "category": category}, title, "?page=category&category=<category>".replace("<category>", category));
@@ -695,6 +701,33 @@ function build_home() {
     var logout_button = document.createElement('button');
     logout_button.addEventListener('click', logout);
     logout_button.textContent = 'Logout';
+    el.appendChild(logout_button);
+
+    var home_button = document.createElement('button');
+    home_button.addEventListener('click', build_home);
+    home_button.textContent = 'Home';
+    el.appendChild(home_button);
+
+    var new_button = document.createElement('button');
+    new_button.addEventListener('click', function() {
+    	load_category('new');
+    });
+    new_button.textContent = 'New';
+    el.appendChild(new_button);
+
+    var later_button = document.createElement('button');
+    later_button.addEventListener('click', function() {
+    	load_category('later');
+    });
+    later_button.textContent = 'Watch Later';
+    el.appendChild(later_button);
+
+    var history_button = document.createElement('button');
+    history_button.addEventListener('click', function() {
+    	load_category('history');
+    });
+    history_button.textContent = 'Watch History';
+    el.appendChild(history_button);
 
     var username = localStorage.getItem('username');
     var token = localStorage.getItem('token');
@@ -1083,7 +1116,6 @@ function build_home() {
 		console.log(err);
 	})
 
-    el.appendChild(logout_button);
     el.appendChild(video_pack);
 }
 
