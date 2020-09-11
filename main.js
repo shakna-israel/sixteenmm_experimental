@@ -287,10 +287,12 @@ function build_search(term) {
     input_search.addEventListener('change', change_event);
 
     input_search.dataset.typing_timer;
+    input_search.dataset.value = '';
     input_search.addEventListener('keyup', function() {
     	clearTimeout(this.dataset.typing_timer);
-    	this.dataset.typing_timer = setTimeout(1000, function() {
+    	this.dataset.typing_timer = setTimeout(function() {
     		var el = document.getElementById('input_search');
+    		console.log("FIRING");
     		if ("createEvent" in document) {
 				var evt = document.createEvent("HTMLEvents");
 					evt.initEvent("change", false, true);
@@ -298,10 +300,8 @@ function build_search(term) {
 				} else {
 					el.fireEvent("onchange");
 				}
-    	});
+    	}, 700);
     })
-
-    input_search.addEventListener('keyup', change_event);
 
     el.appendChild(input_search);
 
@@ -995,6 +995,13 @@ function build_home() {
     });
     history_button.textContent = 'Watch History';
     nav.appendChild(history_button);
+
+    var search_button = document.createElement('button');
+    search_button.addEventListener('click', function() {
+    	build_search();
+    });
+    search_button.textContent = 'Search';
+    nav.appendChild(search_button);
 
     var username = localStorage.getItem('username');
     var token = localStorage.getItem('token');
