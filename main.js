@@ -17,6 +17,20 @@ function seconds_to_stamp(duration)
     return ret;
 }
 
+function shuffleArray(array) { 
+   for (var i = array.length - 1; i > 0; i--) {  
+    
+       // Generate random number  
+       var j = Math.floor(Math.random() * (i + 1)); 
+                    
+       var temp = array[i]; 
+       array[i] = array[j]; 
+       array[j] = temp; 
+   } 
+        
+   return array; 
+}
+
 function titleCase(str) {
 	str = str.split(' ');
 	for (var i = 0; i < str.length; i++) {
@@ -1015,6 +1029,7 @@ function build_home() {
 		} else {
 
 			// New videos...
+			data.new = shuffleArray(data.new);
 
 			var new_title = document.createElement('h2');
 			new_title.textContent = 'New';
@@ -1087,6 +1102,8 @@ function build_home() {
 			video_pack.appendChild(new_collection);
 
 			// Watch Later
+			data.later = shuffleArray(data.later);
+
 			var later_title = document.createElement('h2');
 			later_title.textContent = 'Watch Later';
 			later_title.classList.add('title');
@@ -1160,6 +1177,8 @@ function build_home() {
 			video_pack.appendChild(later_collection);
 
 			// History
+			data.history = shuffleArray(data.history);
+
 			var history_title = document.createElement('h2');
 			history_title.textContent = 'Watch History';
 			history_title.classList.add('title');
@@ -1233,6 +1252,9 @@ function build_home() {
 
 			// Favourites
 			for (var key in data.favourites) {
+				// Random order
+				data.favourites[key] = shuffleArray(data.favourites[key]);
+
 				var item_title = document.createElement('h2');
 				item_title.textContent = titleCase(key);
 				item_title.classList.add('title');
@@ -1307,6 +1329,9 @@ function build_home() {
 
 			// Categories
 			for (var key in data.categories) {
+				// Random order
+				data.categories[key] = shuffleArray(data.categories[key]);
+
 				var item_title = document.createElement('h2');
 				item_title.textContent = titleCase(key);
 				item_title.classList.add('title');
