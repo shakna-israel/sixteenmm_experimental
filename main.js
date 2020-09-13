@@ -150,7 +150,93 @@ function build_categories() {
 			    	load_category(this.dataset.category);
 			    });
 
+			    var cat_results = document.createElement('ul');
+    			cat_results.classList.add('horul');
+    			cat_results.id = category.replace(" ", "_");
+
 			    el.appendChild(title);
+			    el.appendChild(cat_results);
+
+			    // Fetch
+			    fetch("https://sixteenmm.org/category/<category>/<username>/<token>/json"
+				.replace("<category>", category)
+				.replace("<username>", username)
+				.replace("<token>", token), {
+					mode: 'cors',
+					cache: 'force-cache'
+				}).then(response => response.json())
+				.then(function(data) {
+					if(data.status == 200) {
+						// Find our horul...
+						var el = document.getElementById(data.category.replace(" ", "_"));
+
+						// Change order
+						data.data = shuffleArray(data.data);
+						
+						for(var ix = 0; ix < data.data.length && ix < 4; ix++) {
+							var tmp = document.createElement('li');
+							tmp.classList.add('film');
+							tmp.dataset.uuid = data.data[ix].uuid;
+							tmp.style.opacity = 0;
+
+							tmp.addEventListener('click', function() {
+								load_video(this.dataset.uuid);
+							})
+
+							var tmp_img = document.createElement('img');
+							tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.data[ix].uuid);
+							tmp_img.style.display = 'none';
+							tmp_img.addEventListener('load', function() {
+								this.parentElement.style.opacity = 1;
+								this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
+
+								this.style.display = 'block';
+								this.classList.add('animate__animated', 'animate__fadeIn');
+							});
+							tmp.appendChild(tmp_img);
+
+							var tmp_title = document.createElement('p');
+							tmp_title.textContent = '<title> (<year>)'
+							.replace("<title>", data.data[ix]['title'])
+							.replace("<year>", data.data[ix].year);
+							tmp.appendChild(tmp_title);
+
+							var tmp_desc = document.createElement('small')
+							tmp_desc.textContent = data.data[ix].description;
+							tmp.appendChild(tmp_desc);
+
+							if(!!data.data[ix].progress) {
+								var tmp_time = document.createElement('small');
+								tmp_time.textContent = "<progress> / <runtime>"
+								.replace("<progress>", seconds_to_stamp(data.data[ix].progress))
+								.replace("<runtime>", seconds_to_stamp(data.data[ix].runtime));
+							} else {
+								var tmp_time = document.createElement('small');
+								tmp_time.textContent = "<runtime>"
+								.replace("<runtime>", seconds_to_stamp(data.data[ix].runtime));
+							}
+							tmp.appendChild(document.createElement('br'));
+							tmp.appendChild(tmp_time);
+
+							el.appendChild(tmp);
+						}
+
+
+						// Add a category view button...
+						var tmp_empty = document.createElement('li');
+						tmp_empty.textContent = 'More';
+						tmp_empty.dataset.category = data.category;
+						tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
+						tmp_empty.addEventListener('click', function() {
+							load_category(this.dataset.category);
+						})
+						el.appendChild(tmp_empty);
+					}
+				})
+				.catch(function(err) {
+					// TODO: Err
+					console.log(err);
+				})
 			}
 
 		} else {
