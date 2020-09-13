@@ -90,6 +90,79 @@ function video_tick() {
     }
 }
 
+function build_categories() {
+	var username = localStorage.getItem('username');
+    var token = localStorage.getItem('token');
+
+    var el = document.getElementById('app');
+	while(el.firstChild) {
+    	el.removeChild(el.firstChild);
+    }
+
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundColor = 'black';
+
+    var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
+
+	var logout_button = document.createElement('button');
+    logout_button.addEventListener('click', logout);
+    logout_button.id = 'logout_button';
+    logout_button.textContent = 'Logout';
+    nav.appendChild(logout_button);
+
+    var home_button = document.createElement('button');
+    home_button.addEventListener('click', build_home);
+    home_button.textContent = 'Home';
+    nav.appendChild(home_button);
+
+    document.title = "<title> | SIXTEENmm".replace("<title>", 'Categories');
+    if(history.state.page != 'categories') {
+    	history.pushState({page: "categories"}, 'Categories', "?page=categories");
+    }
+
+    fetch("https://sixteenmm.org/categories/json", {
+    	mode: 'cors'
+    }).then(response => response.json())
+	.then(function(data) {
+		if(data.status == 200) {
+			var cats = data.categories;
+			cats.sort();
+
+			for(var cat_i = 0; cat_i < cats.length; cat_i++) {
+				var category = cats[cat_i];
+				var title = document.createElement('h1');
+			    if(category == 'later') {
+			    	title.textContent = 'Watch Later';
+			    }
+			    else if(category == 'history') {
+			    	title.textContent = 'Watch History';
+			    }
+			    else {
+			    	title.textContent = titleCase(category);
+			    }
+			    title.classList.add('title');
+			    title.dataset.category = category;
+
+			    title.addEventListener('click', function() {
+			    	load_category(this.dataset.category);
+			    });
+
+			    el.appendChild(title);
+			}
+
+		} else {
+			build_login();
+		}
+	})
+	.catch(function(err) {
+		// TODO: Crap
+		console.log(err);
+	});
+}
+
 function build_search(term) {
 	// TODO: Default structure...
 	term = term || '';
@@ -114,7 +187,7 @@ function build_search(term) {
 		console.log(err);
 	});
 
-	// TODO: Build a live-updating search page
+	// Build a live-updating search page
 
 	var el = document.getElementById('app');
 	while(el.firstChild) {
@@ -380,7 +453,9 @@ function load_series(uuid) {
   				var description = data.description;
   				var subtitles = data.subs;
   				document.title = "<title> | SIXTEENmm".replace("<title>", title);
-  				history.pushState({page: "series", "uuid": uuid}, title, "?page=series&uuid=<uuid>".replace("<uuid>", uuid));
+  				if(history.state.page != 'series' && history.state.uuid != 'uuid') {
+  					history.pushState({page: "series", "uuid": uuid}, title, "?page=series&uuid=<uuid>".replace("<uuid>", uuid));
+  				}
 
 				var collection = document.createElement('ul');
 				collection.classList.add('horul');
@@ -490,7 +565,9 @@ function load_video(uuid) {
   					return;
   				} else {
   					document.title = "<title> | SIXTEENmm".replace("<title>", title);
-  					history.pushState({page: "video", "uuid": uuid}, title, "?page=video&uuid=<uuid>".replace("<uuid>", uuid));
+  					if(history.state.page != 'video' && history.state.uuid != uuid) {
+  						history.pushState({page: "video", "uuid": uuid}, title, "?page=video&uuid=<uuid>".replace("<uuid>", uuid));
+  					}
   				}
 
   				var video = document.createElement('video');
@@ -642,7 +719,9 @@ function load_login() {
 	img.src = bg_url;
 
 	document.title = "SIXTEENmm";
-	history.pushState({page: "login"}, document.title, "?page=login");
+	if(history.state.page != 'login') {
+		history.pushState({page: "login"}, document.title, "?page=login");
+	}
 
 	// Generate login form
 	var username_input_hint = document.createElement('label');
@@ -953,7 +1032,9 @@ function load_category(category) {
 
 	var title = titleCase(category);
 	document.title = "<title> | SIXTEENmm".replace("<title>", title);
-	history.pushState({page: "category", "category": category}, title, "?page=category&category=<category>".replace("<category>", category));
+	if(history.state.page != 'category' && history.state.category != category) {
+		history.pushState({page: "category", "category": category}, title, "?page=category&category=<category>".replace("<category>", category));
+	}
 }
 
 function build_home() {
@@ -966,7 +1047,9 @@ function build_home() {
     document.body.style.backgroundColor = 'black';
 
     document.title = "<title> | SIXTEENmm".replace("<title>", 'Home');
-    history.pushState({page: "home"}, "Home", "?page=home");
+    if(history.state.page != 'home') {
+    	history.pushState({page: "home"}, "Home", "?page=home");
+    }
 
     // TODO: Generate a home page.
     var nav = document.getElementById('nav');
@@ -1479,6 +1562,8 @@ function state_router(state) {
 		load_category(state.category);
 	} else if(state.page == 'search') {
 		build_search(state.term);
+	} else if(state.page == 'categories') {
+		build_categories();
 	} else {
 		build_home();
 	}
