@@ -1538,7 +1538,7 @@ window.addEventListener('popstate', function(e) {
 
 function state_router(state) {
 	if(!('page' in state)) {
-  		state.page = 'home';
+  		history.pushState({page: "home"}, "Home", "?page=home");
   	}
 
   	var username = localStorage.getItem('username');
