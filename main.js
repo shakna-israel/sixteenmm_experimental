@@ -811,7 +811,7 @@ function load_login(err) {
 		var err_message = document.createElement('small');
 		err_message.textContent = "Error: <error>"
 		.replace("<error>", err);
-		el.appendChild(err);
+		el.appendChild(err_message);
 	}
 
 	// Generate login form
