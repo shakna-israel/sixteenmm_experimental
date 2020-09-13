@@ -240,7 +240,7 @@ function build_categories() {
 			}
 
 		} else {
-			build_login();
+			load_login('Not logged in.');
 		}
 	})
 	.catch(function(err) {
@@ -265,7 +265,7 @@ function build_search(term) {
 		if(data.status == 200) {
 			localStorage.setItem("searchdata", JSON.stringify(data.all));
 		} else {
-			build_login();
+			load_login('Not logged in.');
 		}
 	})
 	.catch(function(err) {
@@ -530,7 +530,7 @@ function load_series(uuid) {
 		}).then(response => response.json())
   		.then(function(data) {
   			if(data.status == 403) {
-  				load_login();
+  				load_login('Not logged in.');
   			} else if(data.status == 404) {
   				// Video not found
   				return build_home();
@@ -636,7 +636,7 @@ function load_video(uuid) {
 		}).then(response => response.json())
   		.then(function(data) {
   			if(data.status == 403) {
-  				load_login();
+  				load_login('Not logged in.');
   			} else if(data.status == 404) {
   				// Video not found
   				return build_home();
@@ -786,7 +786,7 @@ function logout() {
 	window.location.reload(false);
 }
 
-function load_login() {
+function load_login(err) {
 	var el = document.getElementById('app');
 	while(el.firstChild) {
     	el.removeChild(el.firstChild);
@@ -801,12 +801,17 @@ function load_login() {
 	}
 	// Get what we need for waiting on the background...
 	var bg_url = document.body.style.backgroundImage.match(/\((.*?)\)/)[1].replace(/('|")/g,'');
-	var img = new Image();
-	img.src = bg_url;
 
 	document.title = "SIXTEENmm";
 	if(history.state.page != 'login') {
 		history.pushState({page: "login"}, document.title, "?page=login");
+	}
+
+	if(!!err) {
+		var err_message = document.createElement('small');
+		err_message.textContent = "Error: <error>"
+		.replace("<error>", err);
+		el.appendChild(err);
 	}
 
 	// Generate login form
@@ -901,7 +906,7 @@ function load_login() {
 	.then(function(data) {
 		if(data.status != 200) {
 			// Shouldn't reach here... But if it does...
-			load_login();
+			load_login('Not logged in.');
 		} else {
 			var inject_text = document.createElement('small');
 			inject_text.textContent = 'Enjoy this full film from our collection as a preview.';
@@ -985,17 +990,14 @@ function load_login() {
 		console.log(err);
 	})
 
-	// Once background image has loaded, add elements.
-	img.addEventListener('load', function() {
-		el.textContent = '';
-		el.appendChild(username_input_hint);
-		el.appendChild(username_input);
-		el.appendChild(password_input_hint);
-		el.appendChild(password_input);
-		el.appendChild(login_submit);
-		el.appendChild(title);
-		el.appendChild(data_pack);	
-	})
+	el.textContent = '';
+	el.appendChild(username_input_hint);
+	el.appendChild(username_input);
+	el.appendChild(password_input_hint);
+	el.appendChild(password_input);
+	el.appendChild(login_submit);
+	el.appendChild(title);
+	el.appendChild(data_pack);
 }
 
 function load_category(category) {
@@ -1010,7 +1012,6 @@ function load_category(category) {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
-    var nav = document.getElementById('nav');
     var nav = document.getElementById('nav');
     while(nav.firstChild) {
     	nav.removeChild(nav.firstChild);
@@ -1049,7 +1050,7 @@ function load_category(category) {
 	.then(function(data) {
 
 		if(data.status != 200) {
-			build_login();
+			load_login('Not logged in.');
 		} else {
 			if(!!data.data && data.data.length != 0) {
 				var data_pack = document.createElement('ul');
@@ -1194,7 +1195,7 @@ function build_home() {
 	.then(function(data) {
 		if(data.status !== 200) {
 			// Login failure!
-			load_login();
+			load_login('Not logged in.');
 		} else {
 
 			// New videos...
