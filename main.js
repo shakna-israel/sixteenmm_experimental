@@ -1540,6 +1540,10 @@ function state_router(state) {
 	if(!('page' in state)) {
   		history.pushState({page: "home"}, "Home", "?page=home");
   	}
+  	else if(history.state == null) {
+  		var state = QueryStringToJSON();
+  		history.pushState(state, "?", location.search);
+  	}
 
   	var username = localStorage.getItem('username');
 	var token = localStorage.getItem('token');
