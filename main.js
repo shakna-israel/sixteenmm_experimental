@@ -147,7 +147,7 @@ function build_categories() {
 			    title.dataset.category = category;
 
 			    title.addEventListener('click', function() {
-			    	preventDefault();
+			    	
 			    	load_category(this.dataset.category);
 			    });
 
@@ -181,7 +181,7 @@ function build_categories() {
 							tmp.style.opacity = 0;
 
 							tmp.addEventListener('click', function() {
-								preventDefault();
+								
 								load_video(this.dataset.uuid);
 							})
 
@@ -235,7 +235,7 @@ function build_categories() {
 						tmp_empty.dataset.category = data.category;
 						tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
 						tmp_empty.addEventListener('click', function() {
-							preventDefault();
+							
 							load_category(this.dataset.category);
 						})
 						el.appendChild(tmp_empty);
@@ -428,7 +428,7 @@ function build_search(term) {
 			tmp.style.opacity = 0;
 
 			tmp.addEventListener('click', function() {
-				preventDefault();
+				
 				load_video(this.dataset.uuid);
 			})
 
@@ -567,7 +567,7 @@ function load_series(uuid) {
 					tmp.style.opacity = 0;
 
 					tmp.addEventListener('click', function() {
-						preventDefault();
+						
 						load_video(this.dataset.uuid);
 					})
 
@@ -727,7 +727,7 @@ function load_video(uuid) {
 					// Add a button to go back to episode listing...
 					var series_button = document.createElement('button');
 				    series_button.addEventListener('click', function() {
-				    	preventDefault();
+				    	
 				    	load_series(data['series uuid']);
 				    });
 				    series_button.textContent = 'Episodes';
@@ -744,7 +744,7 @@ function load_video(uuid) {
 				    	var previous_button = document.createElement('button');
 				    	previous_button.dataset.uuid = prev_ep;
 				    	previous_button.addEventListener('click', function() {
-				    		preventDefault();
+				    		
 				    		load_video(this.dataset.uuid);
 				    	});
 				    	previous_button.textContent = 'Previous';
@@ -767,7 +767,7 @@ function load_video(uuid) {
 				    	var next_button = document.createElement('button');
 				    	next_button.dataset.uuid = next_ep;
 				    	next_button.addEventListener('click', function() {
-				    		preventDefault();
+				    		
 				    		load_video(this.dataset.uuid);
 				    	});
 				    	next_button.textContent = 'Next';
@@ -856,7 +856,7 @@ function load_login(err) {
 	password_input.name = 'password_input';
 	password_input.addEventListener("keyup", function(event) {
 		if(event.keyCode === 13) {
-			event.preventDefault();
+			event.
 			document.getElementById('login_submit').click();
 		}
 	});
@@ -993,7 +993,7 @@ function load_login(err) {
 				pack_link.dataset.uuid = data.preview[i].uuid;
 				
 				pack_link.addEventListener('click', function() {
-					preventDefault();
+					
 					load_video(this.dataset.uuid);
 				});
 
@@ -1087,7 +1087,7 @@ function load_category(category) {
 					tmp.dataset.uuid = data.data[i].uuid;
 
 					tmp.addEventListener('click', function() {
-						preventDefault();
+						
 						load_video(this.dataset.uuid);
 					})
 
@@ -1189,7 +1189,7 @@ function build_home() {
 
     var new_button = document.createElement('button');
     new_button.addEventListener('click', function() {
-    	preventDefault();
+    	
     	load_category('new');
     });
     new_button.textContent = 'New';
@@ -1197,7 +1197,7 @@ function build_home() {
 
     var later_button = document.createElement('button');
     later_button.addEventListener('click', function() {
-    	preventDefault();
+    	
     	load_category('later');
     });
     later_button.textContent = 'Watch Later';
@@ -1205,7 +1205,7 @@ function build_home() {
 
     var history_button = document.createElement('button');
     history_button.addEventListener('click', function() {
-    	preventDefault();
+    	
     	load_category('history');
     });
     history_button.textContent = 'Watch History';
@@ -1213,7 +1213,7 @@ function build_home() {
 
     var search_button = document.createElement('button');
     search_button.addEventListener('click', function() {
-    	preventDefault();
+    	
     	build_search();
     });
     search_button.textContent = 'Search';
@@ -1242,7 +1242,7 @@ function build_home() {
 			new_title.classList.add('title');
 			new_title.dataset.category = 'new';
 			new_title.addEventListener('click', function() {
-				preventDefault();
+				
 				return load_category(this.dataset.category);
 			})
 			video_pack.appendChild(new_title);
@@ -1255,7 +1255,7 @@ function build_home() {
 				tmp.dataset.uuid = data.new[i].uuid;
 
 				tmp.addEventListener('click', function() {
-					preventDefault();
+					
 					load_video(this.dataset.uuid);
 				})
 
@@ -1310,7 +1310,7 @@ function build_home() {
 			tmp_empty.textContent = 'More';
 			tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
 			tmp_empty.addEventListener('click', function() {
-				preventDefault();
+				
 				load_category('new');
 			})
 			new_collection.appendChild(tmp_empty);
@@ -1326,7 +1326,7 @@ function build_home() {
 
 			later_title.dataset.category = 'later';
 			later_title.addEventListener('click', function() {
-				preventDefault();
+				
 				return load_category(this.dataset.category);
 			})
 
@@ -1341,7 +1341,7 @@ function build_home() {
 				tmp.dataset.uuid = data.later[i].uuid;
 
 				tmp.addEventListener('click', function() {
-					preventDefault();
+					
 					load_video(this.dataset.uuid);
 				})
 
@@ -1396,7 +1396,7 @@ function build_home() {
 			tmp_empty.textContent = 'More';
 			tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
 			tmp_empty.addEventListener('click', function() {
-				preventDefault();
+				
 				load_category('later');
 			})
 			later_collection.appendChild(tmp_empty);
@@ -1411,7 +1411,7 @@ function build_home() {
 			history_title.classList.add('title');
 			history_title.dataset.category = 'history';
 			history_title.addEventListener('click', function() {
-				preventDefault();
+				
 				return load_category(this.dataset.category);
 			})
 
@@ -1426,7 +1426,7 @@ function build_home() {
 				tmp.dataset.uuid = data.history[i].uuid;
 
 				tmp.addEventListener('click', function() {
-					preventDefault();
+					
 					load_video(this.dataset.uuid);
 				})
 
@@ -1480,7 +1480,7 @@ function build_home() {
 			tmp_empty.textContent = 'More';
 			tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
 			tmp_empty.addEventListener('click', function() {
-				preventDefault();
+				
 				load_category('history');
 			})
 			history_collection.appendChild(tmp_empty);
@@ -1497,7 +1497,7 @@ function build_home() {
 				item_title.classList.add('title');
 				item_title.dataset.category = key;
 				item_title.addEventListener('click', function() {
-					preventDefault();
+					
 					return load_category(this.dataset.category);
 				});
 
@@ -1510,7 +1510,7 @@ function build_home() {
 					tmp.dataset.uuid = data.favourites[key][i].uuid;
 
 					tmp.addEventListener('click', function() {
-						preventDefault();
+						
 						load_video(this.dataset.uuid);
 					})
 
@@ -1565,7 +1565,7 @@ function build_home() {
 				tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
 				tmp_empty.dataset.category = key;
 				tmp_empty.addEventListener('click', function() {
-					preventDefault();
+					
 					load_category(this.dataset.category);
 				})
 				item_collection.appendChild(tmp_empty);
@@ -1584,7 +1584,7 @@ function build_home() {
 				item_title.classList.add('title');
 				item_title.dataset.category = key;
 				item_title.addEventListener('click', function() {
-					preventDefault();
+					
 					return load_category(this.dataset.category);
 				});
 
@@ -1597,7 +1597,7 @@ function build_home() {
 					tmp.dataset.uuid = data.categories[key][i].uuid;
 
 					tmp.addEventListener('click', function() {
-						preventDefault();
+						
 						load_video(this.dataset.uuid);
 					})
 
@@ -1652,7 +1652,7 @@ function build_home() {
 				tmp_empty.classList.add('film', 'animate__animated', 'animate__fadeIn');
 				tmp_empty.dataset.category = key;
 				tmp_empty.addEventListener('click', function() {
-					preventDefault();
+					
 					load_category(this.dataset.category);
 				})
 				item_collection.appendChild(tmp_empty);
