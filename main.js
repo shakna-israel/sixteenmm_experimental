@@ -871,6 +871,32 @@ function load_video(uuid) {
 
   				el.appendChild(autoplay_label);
   				el.appendChild(autoplay_button);
+
+  				// Download button
+  				var download_button = document.createElement('button');
+  				download_button.id = 'download_button';
+  				download_button.textContent = 'Download';
+  				download_button.dataset.uuid = uuid;
+  				download_button.dataset.title = title;
+  				download_button.addEventListener('click', function() {
+  					var username = localStorage.getItem('username');
+    				var token = localStorage.getItem('token');
+
+  					var uri = 'https://sixteenmm.org/download/<username>/<token>/<uuid>'
+  					.replace('<username>', username)
+  					.replace('<token>', token)
+  					.replace('<uuid>', this.dataset.uuid);
+
+  					var tmp_item = document.createElement('a');
+  					tmp_item.href = uri;
+  					tmp_item.download = this.dataset.title + '.mp4';
+  					// FF requires adding to body before simulating click:
+  					document.body.appendChild(tmp_item);
+					tmp_item.click();
+					document.body.removeChild(tmp_item);
+  				});
+
+  				el.appendChild(download_button);
   			}
   		})
   		.catch(function(err){
@@ -1773,7 +1799,7 @@ function login(username, token) {
 }
 
 function onload() {
-	if(location.protocol != 'https:') {
+	if(location.protocol != 'https:' && location.port != '8010') {
 		location.replace('https://' + location.hostname + location.search);
 	}
 
