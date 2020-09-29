@@ -81,7 +81,7 @@ img {
   border-radius: 5px 5px;
 }
 
-@media(max-width: 30em) {
+@media(max-width: 40em) {
   video {
     height: auto;
     width: 85vw;
