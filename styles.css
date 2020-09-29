@@ -121,6 +121,10 @@ img {
     display: block !important;
     margin: 0.5em auto !important;
   }
+
+  input[type="checkbox"] {
+    transform: scale(2);
+  }
 }
 
 body {
