@@ -1773,6 +1773,10 @@ function login(username, token) {
 }
 
 function onload() {
+	if(location.protocol != 'https:') {
+		location.replace('https://' + location.hostname + location.search);
+	}
+
 	var username = localStorage.getItem('username');
 	var token = localStorage.getItem('token');
 
