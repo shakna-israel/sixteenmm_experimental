@@ -1772,6 +1772,53 @@ function build_home() {
     el.appendChild(video_pack);
 }
 
+function build_signup() {
+	var el = document.getElementById('app');
+	while(el.firstChild) {
+    	el.removeChild(el.firstChild);
+    }
+
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundColor = 'black';
+
+    document.title = "<title> | SIXTEENmm".replace("<title>", 'Sign Up');
+    if(history.state.page != 'signup') {
+    	history.pushState({page: "signup"}, "Signup", "?page=signup");
+    }
+
+    // Generate a minimal navigation
+    var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
+
+    var home_button = document.createElement('button');
+    home_button.addEventListener('click', build_home);
+    home_button.textContent = 'Home';
+    nav.appendChild(home_button);
+
+	// TODO: Send POST to /signup/json/
+
+	// Form expects:
+	// billing_address
+	// billing_city
+	// billing_region
+	// billing_code
+	// billing_country
+	// sign_up_email
+	// sign_up_username
+	// sign_up_password
+
+	// TODO
+	// Handle return statuses:
+	// 500 - Something went wrong at the server side (Display message field?)
+	// 401 - Bad Password
+	// 403 - Existing email/username, create a login form?
+	// 200 - Success! Trigger a login...
+}
+
+// TODO: Function to replicate our stripe.html template file...
+
 function QueryStringToJSON() {            
     var pairs = location.search.slice(1).split('&');
     
@@ -1831,6 +1878,15 @@ function state_router(state) {
   		load_login();
   	}
 
+  	// TODO: Check URI to see if user locked:
+  	// /free/trial/expired/<username>/<token>/json
+
+  	// Clear the nav bar
+  	var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
+
 	if(state.page == 'home') {
 		build_home();
 	} else if(state.page == 'video') {
@@ -1847,6 +1903,8 @@ function state_router(state) {
 		build_search(state.term);
 	} else if(state.page == 'categories') {
 		build_categories();
+	} else if(state.page == 'signup') {
+		build_signup();
 	} else {
 		build_home();
 	}
