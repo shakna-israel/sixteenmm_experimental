@@ -915,7 +915,7 @@ function load_login(err) {
     while(nav.firstChild) {
     	nav.removeChild(nav.firstChild);
     }
-	
+
 	var el = document.getElementById('app');
 	while(el.firstChild) {
     	el.removeChild(el.firstChild);
@@ -962,7 +962,6 @@ function load_login(err) {
 	password_input.name = 'password_input';
 	password_input.addEventListener("keyup", function(event) {
 		if(event.keyCode === 13) {
-			event.
 			document.getElementById('login_submit').click();
 		}
 	});
@@ -1276,7 +1275,7 @@ function build_home() {
     	history.pushState({page: "home"}, "Home", "?page=home");
     }
 
-    // TODO: Generate a home page.
+    // Generate a home page.
     var nav = document.getElementById('nav');
     while(nav.firstChild) {
     	nav.removeChild(nav.firstChild);
@@ -1802,17 +1801,169 @@ function build_signup() {
     home_button.textContent = 'Home';
     nav.appendChild(home_button);
 
-	// TODO: Send POST to /signup/json/
+    var title = document.createElement('h1');
+	title.textContent = 'Sign Up';
+	title.id = 'site_title';
+	title.classList.add('animate__animated', 'animate__flipInX');
+	el.appendChild(title);
 
 	// Form expects:
-	// billing_address
-	// billing_city
-	// billing_region
-	// billing_code
-	// billing_country
+
+	// billing_name
+	var billing_name_label = document.createElement('label');
+	billing_name_label.for = 'billing_name';
+	billing_name_label.textContent = 'Legal Name:';
+	var billing_name_el = document.createElement('input');
+	billing_name_el.name = 'billing_name';
+	billing_name_el.id = 'billing_name';
+	billing_name_el.placeholder = 'John Smith';
+	el.appendChild(billing_name_label);
+	el.appendChild(billing_name_el);
+	el.appendChild(document.createElement('br'));
+
 	// sign_up_email
+	var sign_up_email_label = document.createElement('label');
+	sign_up_email_label.for = 'sign_up_email';
+	sign_up_email_label.textContent = 'Email:';
+	var sign_up_email_el = document.createElement('input');
+	sign_up_email_el.name = 'sign_up_email';
+	sign_up_email_el.id = 'sign_up_email';
+	sign_up_email_el.placeholder = 'john.smith@example.com';
+	el.appendChild(sign_up_email_label);
+	el.appendChild(sign_up_email_el);
+	el.appendChild(document.createElement('br'));
+
 	// sign_up_username
+	var sign_up_username_label = document.createElement('label');
+	sign_up_username_label.for = 'sign_up_username';
+	sign_up_username_label.textContent = 'Username:';
+	var sign_up_username_el = document.createElement('input');
+	sign_up_username_el.name = 'sign_up_username';
+	sign_up_username_el.id = 'sign_up_username';
+	sign_up_username_el.placeholder = 'myuser';
+	sign_up_username_el.autocapitalize='none';
+	el.appendChild(sign_up_username_label);
+	el.appendChild(sign_up_username_el);
+	el.appendChild(document.createElement('br'));
+
 	// sign_up_password
+	var sign_up_password_label = document.createElement('label');
+	sign_up_password_label.for = 'sign_up_password';
+	sign_up_password_label.textContent = 'Password:';
+	var sign_up_password_el = document.createElement('input');
+	sign_up_password_el.name = 'sign_up_password';
+	sign_up_password_el.id = 'sign_up_password';
+	sign_up_password_el.placeholder = '*****';
+	sign_up_password_el.autocapitalize='none';
+	sign_up_password_el.type='password';
+	el.appendChild(sign_up_password_label);
+	el.appendChild(sign_up_password_el);
+	el.appendChild(document.createElement('br'));
+	el.appendChild(document.createElement('hr'));
+
+	// billing_address
+	var billing_address_label = document.createElement('label');
+	billing_address_label.for = 'billing_address';
+	billing_address_label.textContent = 'Address:'
+	var billing_address_el = document.createElement('input');
+	billing_address_el.name = 'billing_address';
+	billing_address_el.id = 'billing_address';
+	billing_address_el.placeholder="123a Example Street";
+	el.appendChild(billing_address_label);
+	el.appendChild(billing_address_el);
+	el.appendChild(document.createElement('br'));
+
+	// billing_city
+	var billing_city_label = document.createElement('label');
+	billing_city_label.for = 'billing_city';
+	billing_city_label.textContent = 'City or Suburb:'
+	var billing_city_el = document.createElement('input');
+	billing_city_el.name = 'billing_city';
+	billing_city_el.id = 'billing_city';
+	billing_city_el.placeholder="Footscray";
+	el.appendChild(billing_city_label);
+	el.appendChild(billing_city_el);
+	el.appendChild(document.createElement('br'));
+	el.appendChild(document.createElement('hr'));
+
+	// billing_region
+	var billing_region_label = document.createElement('label');
+	billing_region_label.for = 'billing_region';
+	billing_region_label.textContent = 'State or Territory or Region:'
+	var billing_region_el = document.createElement('input');
+	billing_region_el.name = 'billing_region';
+	billing_region_el.id = 'billing_region';
+	billing_region_el.placeholder="Victoria";
+	el.appendChild(billing_region_label);
+	el.appendChild(billing_region_el);
+	el.appendChild(document.createElement('br'));
+
+	// billing_code
+	var billing_code_label = document.createElement('label');
+	billing_code_label.for = 'billing_code';
+	billing_code_label.textContent = 'Postal Code:'
+	var billing_code_el = document.createElement('input');
+	billing_code_el.name = 'billing_code';
+	billing_code_el.id = 'billing_code';
+	billing_code_el.placeholder="0000";
+	el.appendChild(billing_code_label);
+	el.appendChild(billing_code_el);
+	el.appendChild(document.createElement('br'));
+	el.appendChild(document.createElement('hr'));
+
+	// billing_country
+	var billing_country_label = document.createElement('label');
+	billing_country_label.for = 'billing_country';
+	billing_country_label.textContent = 'Country:'
+	var billing_country_el = document.createElement('input');
+	billing_country_el.name = 'billing_country';
+	billing_country_el.id = 'billing_country';
+	billing_country_el.placeholder="Australia";
+	el.appendChild(billing_country_label);
+	el.appendChild(billing_country_el);
+	el.appendChild(document.createElement('br'));
+	el.appendChild(document.createElement('hr'));
+
+	var pre_text = document.createElement('small');
+	pre_text.textContent = 'Signing up gives you free access for 30 days, after which you will be asked to either purchase a lifetime access, or create a subscription.';
+	el.appendChild(pre_text);
+	el.appendChild(document.createElement('br'));
+
+	var pre_text2 = document.createElement('small');
+	pre_text2.textContent = 'Take a moment to review our: '
+	var pre_text2_link = document.createElement('a');
+	pre_text2_link.textContent = 'Privacy Policy';
+	pre_text2_link.href = 'https://sixteenmm.org/policy/privacy';
+	pre_text2_link.target="_blank";
+	pre_text2_link.rel="noreferrer noopener";
+
+	var nbsp = document.createElement('small');
+	nbsp.textContent = ' ';
+	var nbsp2 = document.createElement('small');
+	nbsp2.textContent = ' ';
+
+	var pre_text2_link2 = document.createElement('a');
+	pre_text2_link2.textContent = 'Security Policy';
+	pre_text2_link2.href = 'https://sixteenmm.org/policy/security';
+	pre_text2_link2.target="_blank";
+	pre_text2_link2.rel="noreferrer noopener";
+
+	pre_text2.appendChild(pre_text2_link);
+	pre_text2.appendChild(nbsp);
+	pre_text2.appendChild(pre_text2_link2);
+	pre_text2.appendChild(nbsp2);
+	el.appendChild(pre_text2);
+	el.appendChild(document.createElement('br'));
+
+	var signup_button = document.createElement('button');
+	signup_button.textContent = 'Signup';
+	signup_button.addEventListener('click', function() {
+		// TODO: Send POST to /signup/json/
+		//var data = new URLSearchParams();
+		//data.append('user', username);
+		//data.append('passw', password);
+	});
+	el.appendChild(signup_button);
 
 	// TODO
 	// Handle return statuses:
