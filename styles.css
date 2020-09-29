@@ -10,6 +10,7 @@ video {
   display: block;
   margin: 0 auto;
   height: 75vh;
+  max-width: 100%;
   filter: invert(100%);
 }
 
