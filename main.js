@@ -86,6 +86,17 @@ function video_tick() {
     if(!!el) {
     	if(!el.paused) {
 			record_progress(username, token, el.dataset.uuid, el.currentTime);
+
+			var history_list = localStorage.getItem('history');
+			if(!history_list) {
+				history_list = [];
+			} else {
+				history_list = JSON.parse(history_list);
+			}
+			if(history_list[history_list.length - 1] != el.dataset.uuid) {
+				history_list.push(el.dataset.uuid);
+			}
+			localStorage.setItem('history', JSON.stringify(history_list));
 		}
     }
 }
@@ -723,17 +734,7 @@ function load_video(uuid) {
 					}
 				}
 
-				if(data.kind == 'episode') {
-					// Add a button to go back to episode listing...
-					var series_button = document.createElement('button');
-				    series_button.addEventListener('click', function() {
-				    	
-				    	load_series(data['series uuid']);
-				    });
-				    series_button.textContent = 'Episodes';
-				    nav.appendChild(series_button);
-
-				    // TODO: Check for next/previous episodes
+				// Check for next/previous episodes and/or history
 				    var next_ep = data['next episode'];
 				    var prev_ep = data['previous episode'];
 
@@ -752,15 +753,33 @@ function load_video(uuid) {
 				    } else {
 				    	var previous_button = document.createElement('button');
 				    	previous_button.textContent = '-----';
-				    	nav.appendChild(previous_button);
+
+				    	// Check local history and add last watched here...
+				    	var history_list = localStorage.getItem('history');
+						if(!history_list) {
+							history_list = [];
+						} else {
+							history_list = JSON.parse(history_list);
+						}
+						if(!!history_list[history_list.length - 2] && history_list[history_list.length - 2] != uuid) {
+							previous_button.dataset.uuid = history_list[history_list.length - 2];
+							previous_button.addEventListener('click', function() {
+				    			load_video(this.dataset.uuid);
+				    		});
+				    		previous_button.textContent = 'Previous';
+						}
+
+						nav.appendChild(previous_button);
 				    }
 
 				    if(!!next_ep) {
 				    	video.dataset.next = next_ep;
 
-				    	// TODO: Allow disabling autoplay
+				    	// Allow disabling autoplay
 				    	video.addEventListener('ended', function() {
-				    		load_video(this.dataset.next);
+				    		if(document.getElementById('autoplay_button').checked) {
+				    			load_video(this.dataset.next);
+				    		}
 				    	});
 
 				    	// Add Next Episode button
@@ -775,9 +794,34 @@ function load_video(uuid) {
 				    } else {
 				    	var next_button = document.createElement('button');
 				    	next_button.textContent = '---';
+
+				    	// Check local history and add last watched here...
+				    	var history_list = localStorage.getItem('history');
+						if(!history_list) {
+							history_list = [];
+						} else {
+							history_list = JSON.parse(history_list);
+						}
+						if(!!history_list[history_list.length - 1] && history_list[history_list.length - 1] != uuid) {
+							next_button.dataset.uuid = history_list[history_list.length - 1];
+							next_button.addEventListener('click', function() {
+				    			load_video(this.dataset.uuid);
+				    		});
+				    		next_button.textContent = 'Next';
+						}
+
 				    	nav.appendChild(next_button);
 				    }
 
+				if(data.kind == 'episode') {
+					// Add a button to go back to episode listing...
+					var series_button = document.createElement('button');
+				    series_button.addEventListener('click', function() {
+				    	
+				    	load_series(data['series uuid']);
+				    });
+				    series_button.textContent = 'Episodes';
+				    nav.appendChild(series_button);
 				}
 
 				// Allow restoring volume
@@ -796,6 +840,31 @@ function load_video(uuid) {
   				// TODO: Add any more info we want to the page...
 
   				el.appendChild(video);
+
+  				// Set up autoplay control
+  				var autoplay_label = document.createElement('label');
+  				autoplay_label.for = 'autoplay_button';
+  				autoplay_label.textContent = 'Autoplay Next:';
+
+  				var autoplay_button = document.createElement('input');
+  				autoplay_button.type = 'checkbox';
+  				autoplay_button.id = 'autoplay_button';
+  				// Set checked according to a localStorage value...
+  				if(localStorage.getItem('autoplay') == 'true') {
+  					autoplay_button.checked = true;
+  				}
+
+  				// Anytime autoplay changes, store it...
+  				autoplay_button.addEventListener('change', function() {
+  					if(this.checked) {
+  						localStorage.setItem('autoplay', true);
+  					} else {
+  						localStorage.setItem('autoplay', false);
+  					}
+  				});
+
+  				el.appendChild(autoplay_label);
+  				el.appendChild(autoplay_button);
   			}
   		})
   		.catch(function(err){
