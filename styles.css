@@ -11,6 +11,7 @@ video {
   margin: 0 auto;
   height: 75vh;
   max-width: 100%;
+  background-color: white;
   filter: invert(100%);
 }
 
