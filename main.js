@@ -911,6 +911,11 @@ function logout() {
 }
 
 function load_login(err) {
+	var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
+	
 	var el = document.getElementById('app');
 	while(el.firstChild) {
     	el.removeChild(el.firstChild);
