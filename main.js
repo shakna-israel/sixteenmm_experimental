@@ -181,7 +181,7 @@ function build_categories() {
 				.replace("<username>", username)
 				.replace("<token>", token), {
 					mode: 'cors',
-					cache: 'cache'
+					cache: 'default'
 				}).then(response => response.json())
 				.then(function(data) {
 					if(data.status == 200) {
@@ -668,7 +668,7 @@ function load_video(uuid) {
 		.replace("<token>", token)
 		.replace("<uuid>", uuid), {
 			method: 'GET',
-			cache: "cache",
+			cache: "default",
 			mode: 'cors'
 		}).then(response => response.json())
   		.then(function(data) {
@@ -1028,7 +1028,7 @@ function load_login(err) {
 	// Fetch some preview tiles
 	var data_pack = document.createElement('div');
 	fetch('https://sixteenmm.org/preview/json', {
-		cache: "cache",
+		cache: "default",
 		mode: 'cors'
 	}).then(response => response.json())
 	.then(function(data) {
