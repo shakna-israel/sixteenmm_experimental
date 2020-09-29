@@ -96,6 +96,12 @@ function video_tick() {
 			if(history_list[history_list.length - 1] != el.dataset.uuid) {
 				history_list.push(el.dataset.uuid);
 			}
+
+			// Max history length
+			while(history_list.length > 10) {
+				history_list.shift();
+			}
+
 			localStorage.setItem('history', JSON.stringify(history_list));
 		}
     }
