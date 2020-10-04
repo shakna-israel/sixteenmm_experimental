@@ -1958,7 +1958,7 @@ function build_signup() {
 	var signup_button = document.createElement('button');
 	signup_button.textContent = 'Signup';
 	signup_button.addEventListener('click', function() {
-		// TODO: Send POST to /signup/json/
+		// Create our payload
 		var data = new URLSearchParams();
 		data.append('billing_name', document.getElementById('billing_name').value);
 		data.append('billing_city', document.getElementById('billing_city').value);
@@ -1970,7 +1970,8 @@ function build_signup() {
 		data.append('sign_up_username', document.getElementById('sign_up_username').value);
 		data.append('sign_up_password', document.getElementById('sign_up_password').value);
 
-		fetch('https://sixteenmm.org/signup/json', {
+		// Process our payload
+		fetch('https://sixteenmm.org/signup/json/', {
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			method: 'POST',
 			cache: 'no-cache',
