@@ -1952,7 +1952,7 @@ function build_userdata() {
 				el.appendChild(meta_code);
 
 				// Billing info
-				var billing_info = document.createElement('p');
+				var billing_info = document.createElement('small');
 				billing_info.textContent = 'This was decrypted when the request was made. We do not store it in plain text.';
 				el.appendChild(billing_info);
 				el.appendChild(document.createElement('hr'));
