@@ -1097,6 +1097,12 @@ function load_login(err) {
 			var sign_up_link = document.createElement('a');
 			sign_up_link.textContent = 'Signup';
 			sign_up_link.href = 'https://sixteenmm.org/signup';
+
+			sign_up_link.addEventListener('click', function(event) {
+				event.preventDefault();
+				build_signup();
+			});
+
 			sign_up_link.style.textAlign = 'center';
 			sign_up_link.style.display = 'block';
 			data_pack.appendChild(sign_up_link)
