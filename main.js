@@ -1970,16 +1970,40 @@ function build_signup() {
 		data.append('sign_up_username', document.getElementById('sign_up_username').value);
 		data.append('sign_up_password', document.getElementById('sign_up_password').value);
 
-		for (let p of data) {
-  			console.log(p);
-		}
+		fetch('https://sixteenmm.org/signup/json', {
+			headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+			method: 'POST',
+			cache: 'no-cache',
+			mode: 'cors',
+			body: data
+		}).then(response => response.json())
+  		.then(function(data) {
+  			console.log(data);
 
-		// TODO
-		// Handle return statuses:
-		// 500 - Something went wrong at the server side (Display message field?)
-		// 401 - Bad Password
-		// 403 - Existing email/username, create a login form?
-		// 200 - Success! Trigger a login...
+			if(data.status == 200) {
+				// 200 - Success! Trigger a login...
+				// TODO
+			} else
+			if(data.status == 401) {
+				// 401 - Bad Password
+				// TODO
+			} else
+			if(data.status == 403) {
+				// 403 - Existing email/username, attempt a login...
+				// TODO
+			} else
+			if(data.status == 500) {
+				// 500 - Something went wrong at the server side (Display message field?)
+				// TODO
+			}
+			else {
+				// TODO: Something unknown went wrong, treat as serverside error.
+			}
+  		})
+  		.catch(function(err) {
+  			// TODO: Crap
+  			console.log(err);
+  		})
 	});
 	el.appendChild(signup_button);
 }
