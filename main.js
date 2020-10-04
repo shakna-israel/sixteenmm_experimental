@@ -1866,20 +1866,34 @@ function build_userdata() {
 				meta_title.classList.add('animate__animated', 'animate__flipInX');
 				el.appendChild(meta_title);
 
+				// API Token
 				var meta_apitoken = document.createElement('p');
 				meta_apitoken.textContent = "API Token: <token>"
 					.replace("<token>", data.data.metadata.apitoken);
 				meta_apitoken.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_apitoken);
 
+				// User Class
 				var meta_class = document.createElement('p');
 				meta_class.textContent = "User Class: <class>"
 					.replace("<class>", data.data.metadata.class);
 				meta_class.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_class);
 
-				// TODO: Metadata Locked
-				// TODO: Metadata Email
+				// User Locked?
+				var meta_locked = document.createElement('p');
+				meta_locked.textContent = "Account Locked: <locked>"
+					.replace("<locked>", (data.data.metadata.locked ? "true" : "false"));
+				meta_locked.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_locked);
+
+				// Email Address
+				var meta_email = document.createElement('p');
+				meta_email.textContent = "Email Address [Decrypted]: <email>"
+					.replace("<email>", data.data.metadata['email[decrypted]']);
+				meta_email.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_email);
+
 				// TODO: Metadata Billing
 
 				// TODO: Favourite Categories
