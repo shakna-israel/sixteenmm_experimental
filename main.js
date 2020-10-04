@@ -65,12 +65,13 @@ function record_progress(username, token, uuid, timestamp) {
 		mode: 'cors'}
 	).then(response => response.json())
   	.then(function(data) {
-  		// TODO: Check status code
-  		console.log(data);
+  		if(data.status == 403) {
+  			// Not authenticated
+  			build_login();
+  		}
   	})
   	.catch(function(err) {
-  		// TODO: Shit
-  		console.log(err);
+  		// We can safely ignore this...
   	})
 }
 
@@ -297,7 +298,6 @@ function build_categories() {
 }
 
 function build_search(term) {
-	// TODO: Default structure...
 	term = term || '';
 
 	var username = localStorage.getItem('username');
@@ -408,7 +408,7 @@ function build_search(term) {
 	    	}
     	}
 
-    	// TODO: Weight results
+    	// Weight results
     	var weighted_results = results.reduce(function(count, item){
 		    if(typeof count[item.uuid] !== "undefined"){
 		      count[item.uuid]++; 
@@ -558,7 +558,7 @@ function load_series(uuid) {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
-    // TODO: Generate a video page.
+    // Generate a video page.
     var nav = document.getElementById('nav');
     while(nav.firstChild) {
     	nav.removeChild(nav.firstChild);
