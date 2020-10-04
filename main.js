@@ -1860,6 +1860,36 @@ function build_userdata() {
   			console.log(data);
 
 			if(data.status == 200) {
+				// TODO: Metadata
+				var meta_title = document.createElement('h2');
+				meta_title.textContent = 'Metadata';
+				meta_title.classList.add('animate__animated', 'animate__flipInX');
+				el.appendChild(meta_title);
+
+				var meta_apitoken = document.createElement('p');
+				meta_apitoken.textContent = "API Token: <token>"
+					.replace(data.metadata.apitoken);
+				meta_apitoken.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_apitoken);
+
+				var meta_class = document.createElement('p');
+				meta_class.textContent = "User Class: <class>"
+					.replace(data.metadata.class);
+				meta_class.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_class);
+
+				// TODO: Metadata Locked
+				// TODO: Metadata Email
+				// TODO: Metadata Billing
+
+				// TODO: Favourite Categories
+				// TODO: Watch History
+				// TODO: Watch Later
+				// TODO: Blacklisted Categories
+				// TODO: Blacklisted Films
+			} else {
+				// TODO: Oh no!
+				console.log(data);
 			}
 		})
 		.catch(function(err) {
