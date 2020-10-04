@@ -1556,7 +1556,11 @@ function build_home() {
 			video_pack.appendChild(later_collection);
 
 			// History
-			data.history = shuffleArray(data.history);
+
+			// History comes in reverse order
+			data.history.reverse();
+			// Extract a shuffled from the most recent...
+			data.history = shuffleArray(data.history.slice(1, 6));
 
 			var history_title = document.createElement('h2');
 			history_title.textContent = 'Watch History';
