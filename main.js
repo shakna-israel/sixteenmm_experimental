@@ -110,7 +110,7 @@ function video_tick() {
 function check_user_expired(username, token) {
 	var url = 'https://sixteenmm.org/free/trial/expired/<username>/<token>/json'
 		.replace("<username>", username)
-		.replace("<token>");
+		.replace("<token>", token);
 
 	fetch(url, {
 		method: 'GET',
@@ -118,7 +118,6 @@ function check_user_expired(username, token) {
 		cache: 'no-cache'}
 	).then(response => response.json())
   	.then(function(data) {
-  		console.log(url);
   		console.log(data);
   		// TODO
   		// 403 - Not logged in
