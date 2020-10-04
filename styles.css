@@ -193,3 +193,7 @@ input {
   font-size: 1em;
   z-index: 999;
 }
+
+.signupButton {
+  filter: invert(100%);
+}

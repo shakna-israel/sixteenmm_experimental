@@ -1807,6 +1807,10 @@ function build_signup() {
 	title.classList.add('animate__animated', 'animate__flipInX');
 	el.appendChild(title);
 
+	var global_hint = document.createElement('small');
+	global_hint.id = 'global_hint';
+	el.appendChild(global_hint);
+
 	// Form expects:
 
 	// billing_name
@@ -2005,6 +2009,7 @@ function build_signup() {
 
 	var signup_button = document.createElement('button');
 	signup_button.textContent = 'Signup';
+	signup_button.classList.add('animate__animated', 'animate__swing', 'signupButton');
 	signup_button.addEventListener('click', function() {
 		// Create our payload
 		var data = new URLSearchParams();
@@ -2027,15 +2032,51 @@ function build_signup() {
 			body: data
 		}).then(response => response.json())
   		.then(function(data) {
-  			console.log(data);
-
 			if(data.status == 200) {
-				// 200 - Success! Trigger a login...
-				// TODO
+				// 200 - Success! Trigger a login
+				var data = new URLSearchParams();
+				data.append('user', document.getElementById('sign_up_username').value);
+				data.append('passw', document.getElementById('sign_up_password').value);
+
+				fetch('https://sixteenmm.org/login/json', {
+					headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+					method: 'POST',
+					cache: 'no-cache',
+					mode: 'cors',
+					body: data
+				}).then(response => response.json())
+		  		.then(function(data) {
+		  			if(data.status != 200) {
+		  				// TODO: Failed login.
+		  				// The hell??
+		  				console.log(data.status);
+		  			}
+		  			else {
+		  				// Attempt login
+		  				var token = data.token;
+		  				var username = document.getElementById('sign_up_username').value;
+  						login(username, token);
+		  			}
+		  		})
+		  		.catch(function(err) {
+		  			// TODO: Crap
+		  			console.log(err);
+		  		});
 			} else
 			if(data.status == 401) {
 				// 401 - Bad Password
-				// TODO
+				var password_input = document.getElementById('sign_up_password');
+				password_input.setAttributeNS(null, 'class', '');
+  				password_input.classList.add('animate__animated', 'animate__shakeX', 'error');
+  				password_input.scrollIntoView();
+
+  				var password_hint = document.getElementById('sign_up_password_hint');
+  				password_hint.textContent = 'Sorry, you cannot use that password. It is probably insecure or has been stolen several times.';
+
+  				password_input.addEventListener('animationend', function() {
+  					password_input.setAttributeNS(null, 'class', '');
+  					password_input.value = '';
+  				});
 			} else
 			if(data.status == 403) {
 				// 403 - Existing email/username
@@ -2051,14 +2092,22 @@ function build_signup() {
   					username_input.setAttributeNS(null, 'class', '');
   					username_input.value = '';
   				});
-
 			} else
 			if(data.status == 500) {
-				// 500 - Something went wrong at the server side (Display message field?)
-				// TODO
+				// 500 - Something went wrong at the server side (Display message field).
+				var hint = document.getElementById('global_hint');
+				hint.setAttributeNS(null, 'class', '');
+				hint.classList.add('animate__animated', 'animate__shakeX', 'error');
+				hint.scrollIntoView();
+				hint.textContent = data.message;
 			}
 			else {
-				// TODO: Something unknown went wrong, treat as serverside error.
+				// Something unknown went wrong, treat as serverside error.
+				var hint = document.getElementById('global_hint');
+				hint.setAttributeNS(null, 'class', '');
+				hint.classList.add('animate__animated', 'animate__shakeX', 'error');
+				hint.scrollIntoView();
+				hint.textContent = 'Sorry, something went wrong with that request.';
 			}
   		})
   		.catch(function(err) {
