@@ -1816,8 +1816,8 @@ function build_userdata() {
     document.body.style.backgroundColor = 'black';
 
     document.title = "<title> | SIXTEENmm".replace("<title>", 'Sign Up');
-    if(history.state.page != 'signup') {
-    	history.pushState({page: "signup"}, "Signup", "?page=signup");
+    if(history.state.page != 'whoami') {
+    	history.pushState({page: "whoami"}, "User Data", "?page=whoami");
     }
 
     // Generate a minimal navigation
@@ -1832,7 +1832,7 @@ function build_userdata() {
     nav.appendChild(home_button);
 
     var title = document.createElement('h1');
-	title.textContent = 'Sign Up';
+	title.textContent = 'User Data';
 	title.id = 'site_title';
 	title.classList.add('animate__animated', 'animate__flipInX');
 	el.appendChild(title);
@@ -1843,15 +1843,29 @@ function build_userdata() {
 	// Needs a logged in user...
 	if(!username || !token) {
 		build_login();
+		return;
 	}
 
-	var url = "/user/whoami/<username>/<token>/json"
+	var url = "https://sixteenmm.org/user/whoami/<username>/<token>/json"
 		.replace("<username>", username)
 		.replace("<token>", token);
 
 
-	console.log(url);
+	fetch(url, {
+			method: 'GET',
+			cache: 'no-cache',
+			mode: 'cors',
+		}).then(response => response.json())
+  		.then(function(data) {
+  			console.log(data);
 
+			if(data.status == 200) {
+			}
+		})
+		.catch(function(err) {
+			// TODO: Crap
+			console.log(err);
+		})
 }
 
 function build_signup() {
