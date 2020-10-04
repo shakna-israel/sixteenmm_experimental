@@ -1970,7 +1970,9 @@ function build_signup() {
 		data.append('sign_up_username', document.getElementById('sign_up_username').value);
 		data.append('sign_up_password', document.getElementById('sign_up_password').value);
 
-		console.log(data);
+		for (let p of data) {
+  			console.log(p);
+		}
 
 		// TODO
 		// Handle return statuses:
