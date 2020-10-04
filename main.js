@@ -1817,8 +1817,20 @@ function build_signup() {
 	billing_name_el.name = 'billing_name';
 	billing_name_el.id = 'billing_name';
 	billing_name_el.placeholder = 'John Smith';
+
+	billing_name_hint = document.createElement('small');
+	billing_name_hint.id = 'billing_name_hint';
+
+	billing_name_el.addEventListener('change', function() {
+		var ele = document.getElementById('billing_name_hint');
+		if(ele.textContent != '') {
+			ele.textContent = '';
+		}
+	});
+
 	el.appendChild(billing_name_label);
 	el.appendChild(billing_name_el);
+	el.appendChild(billing_name_hint);
 	el.appendChild(document.createElement('br'));
 
 	// sign_up_email
@@ -1829,8 +1841,20 @@ function build_signup() {
 	sign_up_email_el.name = 'sign_up_email';
 	sign_up_email_el.id = 'sign_up_email';
 	sign_up_email_el.placeholder = 'john.smith@example.com';
+
+	sign_up_email_hint = document.createElement('small');
+	sign_up_email_hint.id = 'sign_up_email_hint';
+
+	sign_up_email_el.addEventListener('change', function() {
+		var ele = document.getElementById('sign_up_email_hint');
+		if(ele.textContent != '') {
+			ele.textContent = '';
+		}
+	});
+
 	el.appendChild(sign_up_email_label);
 	el.appendChild(sign_up_email_el);
+	el.appendChild(sign_up_email_hint);
 	el.appendChild(document.createElement('br'));
 
 	// sign_up_username
@@ -1842,8 +1866,20 @@ function build_signup() {
 	sign_up_username_el.id = 'sign_up_username';
 	sign_up_username_el.placeholder = 'myuser';
 	sign_up_username_el.autocapitalize='none';
+
+	sign_up_username_hint = document.createElement('small');
+	sign_up_username_hint.id = 'sign_up_username_hint';
+
+	sign_up_username_el.addEventListener('change', function() {
+		var ele = document.getElementById('sign_up_username_hint');
+		if(ele.textContent != '') {
+			ele.textContent = '';
+		}
+	});
+
 	el.appendChild(sign_up_username_label);
 	el.appendChild(sign_up_username_el);
+	el.appendChild(sign_up_username_hint);
 	el.appendChild(document.createElement('br'));
 
 	// sign_up_password
@@ -1856,8 +1892,20 @@ function build_signup() {
 	sign_up_password_el.placeholder = '*****';
 	sign_up_password_el.autocapitalize='none';
 	sign_up_password_el.type='password';
+
+	sign_up_password_hint = document.createElement('small');
+	sign_up_password_hint.id = 'sign_up_password_hint';
+
+	sign_up_password_el.addEventListener('change', function() {
+		var ele = document.getElementById('sign_up_password_hint');
+		if(ele.textContent != '') {
+			ele.textContent = '';
+		}
+	});
+
 	el.appendChild(sign_up_password_label);
 	el.appendChild(sign_up_password_el);
+	el.appendChild(sign_up_password_hint);
 	el.appendChild(document.createElement('br'));
 	el.appendChild(document.createElement('hr'));
 
@@ -1995,6 +2043,10 @@ function build_signup() {
 				username_input.setAttributeNS(null, 'class', '');
   				username_input.classList.add('animate__animated', 'animate__shakeX', 'error');
   				username_input.scrollIntoView();
+
+  				var username_hint = document.getElementById('sign_up_username_hint');
+  				username_hint.textContent = 'Sorry, you cannot use that username.';
+
   				username_input.addEventListener('animationend', function() {
   					username_input.setAttributeNS(null, 'class', '');
   					username_input.value = '';
