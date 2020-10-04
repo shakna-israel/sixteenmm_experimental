@@ -1897,10 +1897,15 @@ function build_userdata() {
 
 				// Email Address
 				var meta_email = document.createElement('p');
-				meta_email.textContent = "Email Address [Decrypted]: <email>"
+				meta_email.textContent = "Email Address: <email>"
 					.replace("<email>", data.data.metadata['email[decrypted]']);
 				meta_email.classList.add('animate__animated', 'animate__backInLeft');
+
+				var meta_email_info = document.createElement('small');
+				meta_email_info.textContent = 'This was decrypted when the request was made. We do not store it in plain text.';
+
 				el.appendChild(meta_email);
+				el.appendChild(meta_email_info);
 				el.appendChild(document.createElement('hr'));
 
 				// TODO: Metadata Billing
