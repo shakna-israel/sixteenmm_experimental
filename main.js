@@ -1222,6 +1222,11 @@ function load_category(category) {
 				var data_pack = document.createElement('ul');
 				data_pack.classList.add('horul');
 
+				if(category == 'history') {
+					// History comes in reverse watch order...
+					data.data.reverse();
+				}
+
 				for(var i = 0; i < data.data.length; i++) {
 					var tmp = document.createElement('li');
 
