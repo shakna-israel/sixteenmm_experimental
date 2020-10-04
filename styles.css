@@ -197,3 +197,8 @@ input {
 .signupButton {
   filter: invert(100%);
 }
+
+.invertab {
+  background-color: white;
+  filter: invert(100%);
+}

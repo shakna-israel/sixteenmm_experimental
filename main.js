@@ -1858,6 +1858,8 @@ function build_userdata() {
   		.then(function(data) {
   			console.log(data);
 
+  			el.classList.add('invertab');
+
 			if(data.status == 200) {
 				// Metadata
 				var meta_title = document.createElement('h2');
