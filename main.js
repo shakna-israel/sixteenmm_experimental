@@ -1959,18 +1959,27 @@ function build_signup() {
 	signup_button.textContent = 'Signup';
 	signup_button.addEventListener('click', function() {
 		// TODO: Send POST to /signup/json/
-		//var data = new URLSearchParams();
-		//data.append('user', username);
-		//data.append('passw', password);
+		var data = new URLSearchParams();
+		data.append('billing_name', document.getElementById('billing_name').value);
+		data.append('billing_city', document.getElementById('billing_city').value);
+		data.append('billing_region', document.getElementById('billing_region').value);
+		data.append('billing_code', document.getElementById('billing_code').value);
+		data.append('billing_country', document.getElementById('billing_country').value);
+		data.append('billing_address', document.getElementById('billing_address').value);
+		data.append('sign_up_email', document.getElementById('sign_up_email').value);
+		data.append('sign_up_username', document.getElementById('sign_up_username').value);
+		data.append('sign_up_password', document.getElementById('sign_up_password').value);
+
+		console.log(data);
+
+		// TODO
+		// Handle return statuses:
+		// 500 - Something went wrong at the server side (Display message field?)
+		// 401 - Bad Password
+		// 403 - Existing email/username, create a login form?
+		// 200 - Success! Trigger a login...
 	});
 	el.appendChild(signup_button);
-
-	// TODO
-	// Handle return statuses:
-	// 500 - Something went wrong at the server side (Display message field?)
-	// 401 - Bad Password
-	// 403 - Existing email/username, create a login form?
-	// 200 - Success! Trigger a login...
 }
 
 // TODO: Function to replicate our stripe.html template file...
