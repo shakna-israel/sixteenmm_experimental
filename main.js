@@ -1848,6 +1848,12 @@ function build_userdata() {
     	nav.removeChild(nav.firstChild);
     }
 
+    var logout_button = document.createElement('button');
+    logout_button.addEventListener('click', logout);
+    logout_button.id = 'logout_button';
+    logout_button.textContent = 'Logout';
+    nav.appendChild(logout_button);
+
     var home_button = document.createElement('button');
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
