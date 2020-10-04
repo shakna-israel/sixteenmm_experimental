@@ -1805,6 +1805,55 @@ function build_home() {
     el.appendChild(video_pack);
 }
 
+function build_userdata() {
+
+	var el = document.getElementById('app');
+	while(el.firstChild) {
+    	el.removeChild(el.firstChild);
+    }
+
+    document.body.style.backgroundImage = '';
+    document.body.style.backgroundColor = 'black';
+
+    document.title = "<title> | SIXTEENmm".replace("<title>", 'Sign Up');
+    if(history.state.page != 'signup') {
+    	history.pushState({page: "signup"}, "Signup", "?page=signup");
+    }
+
+    // Generate a minimal navigation
+    var nav = document.getElementById('nav');
+    while(nav.firstChild) {
+    	nav.removeChild(nav.firstChild);
+    }
+
+    var home_button = document.createElement('button');
+    home_button.addEventListener('click', build_home);
+    home_button.textContent = 'Home';
+    nav.appendChild(home_button);
+
+    var title = document.createElement('h1');
+	title.textContent = 'Sign Up';
+	title.id = 'site_title';
+	title.classList.add('animate__animated', 'animate__flipInX');
+	el.appendChild(title);
+
+	var username = localStorage.getItem('username');
+	var token = localStorage.getItem('token');
+
+	// Needs a logged in user...
+	if(!username || !token) {
+		build_login();
+	}
+
+	var url = "/user/whoami/<username>/<token>/json"
+		.replace("<username>", username)
+		.replace("<token>", token);
+
+
+	console.log(url);
+
+}
+
 function build_signup() {
 	var el = document.getElementById('app');
 	while(el.firstChild) {
@@ -2256,6 +2305,8 @@ function state_router(state) {
 		build_categories();
 	} else if(state.page == 'signup') {
 		build_signup();
+	} else if(state.page == 'whoami') {
+		build_userdata();
 	} else {
 		build_home();
 	}
