@@ -1815,7 +1815,7 @@ function build_userdata() {
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
-    document.title = "<title> | SIXTEENmm".replace("<title>", 'Sign Up');
+    document.title = "<title> | SIXTEENmm".replace("<title>", 'User Data');
     if(history.state.page != 'whoami') {
     	history.pushState({page: "whoami"}, "User Data", "?page=whoami");
     }
