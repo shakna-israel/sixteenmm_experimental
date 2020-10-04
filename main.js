@@ -1320,6 +1320,11 @@ function build_home() {
     home_button.textContent = 'Home';
     nav.appendChild(home_button);
 
+    var me_button = document.createElement('button');
+    me_button.addEventListener('click', build_userdata);
+    me_button.textContent = 'Me';
+    nav.appendChild(me_button);
+
     var new_button = document.createElement('button');
     new_button.addEventListener('click', function() {
     	
