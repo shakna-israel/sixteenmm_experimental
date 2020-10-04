@@ -1877,12 +1877,15 @@ function build_userdata() {
 				meta_apitoken_warn.textContent = 'Keep the API Token secret!';
 				el.appendChild(meta_apitoken_warn);
 
+				el.appendChild(document.createElement('hr'));
+
 				// User Class
 				var meta_class = document.createElement('p');
 				meta_class.textContent = "User Class: <class>"
 					.replace("<class>", data.data.metadata.class);
 				meta_class.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_class);
+				el.appendChild(document.createElement('hr'));
 
 				// User Locked?
 				var meta_locked = document.createElement('p');
@@ -1890,6 +1893,7 @@ function build_userdata() {
 					.replace("<locked>", (data.data.metadata.locked ? "true" : "false"));
 				meta_locked.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_locked);
+				el.appendChild(document.createElement('hr'));
 
 				// Email Address
 				var meta_email = document.createElement('p');
@@ -1897,6 +1901,7 @@ function build_userdata() {
 					.replace("<email>", data.data.metadata['email[decrypted]']);
 				meta_email.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_email);
+				el.appendChild(document.createElement('hr'));
 
 				// TODO: Metadata Billing
 
