@@ -201,4 +201,7 @@ input {
 .invertab {
   background-color: white;
   filter: invert(100%);
+  padding: 1em;
+  margin: 1em;
+  border-radius: 1em;
 }
