@@ -1868,13 +1868,13 @@ function build_userdata() {
 
 				var meta_apitoken = document.createElement('p');
 				meta_apitoken.textContent = "API Token: <token>"
-					.replace(data.metadata.apitoken);
+					.replace(data.data.metadata.apitoken);
 				meta_apitoken.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_apitoken);
 
 				var meta_class = document.createElement('p');
 				meta_class.textContent = "User Class: <class>"
-					.replace(data.metadata.class);
+					.replace(data.data.metadata.class);
 				meta_class.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_class);
 
