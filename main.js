@@ -107,6 +107,29 @@ function video_tick() {
     }
 }
 
+function check_user_expired(username, token) {
+	var url = 'https://sixteenmm.org/free/trial/expired/<username>/<token>/json'
+		.replace("<username>", username)
+		.replace("<token>");
+
+	fetch(url, {
+		method: 'GET',
+		mode: 'cors',
+		cache: 'no-cache'}
+	).then(response => response.json())
+  	.then(function(data) {
+  		console.log(data);
+  		// TODO
+  		// 403 - Not logged in
+  		// 404 - User _not_ locked
+  		// 200 - Locked
+  	})
+  	.catch(function(err) {
+  		// TODO: Crap
+  		console.log(err);
+  	})
+}
+
 function build_categories() {
 	var username = localStorage.getItem('username');
     var token = localStorage.getItem('token');
@@ -2198,8 +2221,10 @@ function state_router(state) {
   		load_login();
   	}
 
-  	// TODO: Check URI to see if user locked:
-  	// /free/trial/expired/<username>/<token>/json
+  	// Check URI to see if user locked:
+  	if(!!username && !!token) {
+  		check_user_expired(username, token);
+  	}
 
   	// Clear the nav bar
   	var nav = document.getElementById('nav');
