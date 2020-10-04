@@ -1821,6 +1821,7 @@ function build_signup() {
 	billing_name_el.name = 'billing_name';
 	billing_name_el.id = 'billing_name';
 	billing_name_el.placeholder = 'John Smith';
+	billing_name_el.classList.add('animate__animated', 'animate__backInLeft');
 
 	billing_name_hint = document.createElement('small');
 	billing_name_hint.id = 'billing_name_hint';
@@ -1845,6 +1846,7 @@ function build_signup() {
 	sign_up_email_el.name = 'sign_up_email';
 	sign_up_email_el.id = 'sign_up_email';
 	sign_up_email_el.placeholder = 'john.smith@example.com';
+	sign_up_email_el.classList.add('animate__animated', 'animate__backInLeft');
 
 	sign_up_email_hint = document.createElement('small');
 	sign_up_email_hint.id = 'sign_up_email_hint';
@@ -1870,6 +1872,7 @@ function build_signup() {
 	sign_up_username_el.id = 'sign_up_username';
 	sign_up_username_el.placeholder = 'myuser';
 	sign_up_username_el.autocapitalize='none';
+	sign_up_username_el.classList.add('animate__animated', 'animate__backInLeft');
 
 	sign_up_username_hint = document.createElement('small');
 	sign_up_username_hint.id = 'sign_up_username_hint';
@@ -1896,6 +1899,7 @@ function build_signup() {
 	sign_up_password_el.placeholder = '*****';
 	sign_up_password_el.autocapitalize='none';
 	sign_up_password_el.type='password';
+	sign_up_password_el.classList.add('animate__animated', 'animate__backInLeft');
 
 	sign_up_password_hint = document.createElement('small');
 	sign_up_password_hint.id = 'sign_up_password_hint';
@@ -1921,6 +1925,7 @@ function build_signup() {
 	billing_address_el.name = 'billing_address';
 	billing_address_el.id = 'billing_address';
 	billing_address_el.placeholder="123a Example Street";
+	billing_address_el.classList.add('animate__animated', 'animate__backInLeft');
 	el.appendChild(billing_address_label);
 	el.appendChild(billing_address_el);
 	el.appendChild(document.createElement('br'));
@@ -1933,6 +1938,7 @@ function build_signup() {
 	billing_city_el.name = 'billing_city';
 	billing_city_el.id = 'billing_city';
 	billing_city_el.placeholder="Footscray";
+	billing_city_el.classList.add('animate__animated', 'animate__backInLeft');
 	el.appendChild(billing_city_label);
 	el.appendChild(billing_city_el);
 	el.appendChild(document.createElement('br'));
@@ -1946,6 +1952,7 @@ function build_signup() {
 	billing_region_el.name = 'billing_region';
 	billing_region_el.id = 'billing_region';
 	billing_region_el.placeholder="Victoria";
+	billing_region_el.classList.add('animate__animated', 'animate__backInLeft');
 	el.appendChild(billing_region_label);
 	el.appendChild(billing_region_el);
 	el.appendChild(document.createElement('br'));
@@ -1958,6 +1965,7 @@ function build_signup() {
 	billing_code_el.name = 'billing_code';
 	billing_code_el.id = 'billing_code';
 	billing_code_el.placeholder="0000";
+	billing_code_el.classList.add('animate__animated', 'animate__backInLeft');
 	el.appendChild(billing_code_label);
 	el.appendChild(billing_code_el);
 	el.appendChild(document.createElement('br'));
@@ -1971,6 +1979,7 @@ function build_signup() {
 	billing_country_el.name = 'billing_country';
 	billing_country_el.id = 'billing_country';
 	billing_country_el.placeholder="Australia";
+	billing_country_el.classList.add('animate__animated', 'animate__backInLeft');
 	el.appendChild(billing_country_label);
 	el.appendChild(billing_country_el);
 	el.appendChild(document.createElement('br'));
@@ -2006,6 +2015,7 @@ function build_signup() {
 	pre_text2.appendChild(nbsp2);
 	el.appendChild(pre_text2);
 	el.appendChild(document.createElement('br'));
+	el.appendChild(document.createElement('hr'));
 
 	var signup_button = document.createElement('button');
 	signup_button.textContent = 'Signup';
