@@ -1838,6 +1838,7 @@ function build_userdata() {
 
 	var inner_el = document.createElement('div');
 	inner_el.classList.add('invertab');
+	el.appendChild(inner_el);
 	el = inner_el;
 
 	var username = localStorage.getItem('username');
