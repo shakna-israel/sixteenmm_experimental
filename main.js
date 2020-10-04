@@ -1836,6 +1836,10 @@ function build_userdata() {
 	title.classList.add('animate__animated', 'animate__flipInX');
 	el.appendChild(title);
 
+	var inner_el = document.createElement('div');
+	inner_el.classList.add('invertab');
+	el = inner_el;
+
 	var username = localStorage.getItem('username');
 	var token = localStorage.getItem('token');
 
@@ -1857,8 +1861,6 @@ function build_userdata() {
 		}).then(response => response.json())
   		.then(function(data) {
   			console.log(data);
-
-  			el.classList.add('invertab');
 
 			if(data.status == 200) {
 				// Metadata
