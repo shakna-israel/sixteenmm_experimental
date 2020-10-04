@@ -1990,8 +1990,16 @@ function build_signup() {
 				// TODO
 			} else
 			if(data.status == 403) {
-				// 403 - Existing email/username, attempt a login...
-				// TODO
+				// 403 - Existing email/username
+				var username_input = document.getElementById('sign_up_username');
+				username_input.setAttributeNS(null, 'class', '');
+  				username_input.classList.add('animate__animated', 'animate__shakeX', 'error');
+  				username_input.scrollIntoView();
+  				username_input.addEventListener('animationend', function() {
+  					username_input.setAttributeNS(null, 'class', '');
+  					username_input.value = '';
+  				});
+
 			} else
 			if(data.status == 500) {
 				// 500 - Something went wrong at the server side (Display message field?)
