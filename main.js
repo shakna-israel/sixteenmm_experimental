@@ -67,7 +67,7 @@ function record_progress(username, token, uuid, timestamp) {
   	.then(function(data) {
   		if(data.status == 403) {
   			// Not authenticated
-  			build_login();
+  			load_login();
   		}
   	})
   	.catch(function(err) {
@@ -1851,7 +1851,7 @@ function build_userdata() {
 
 	// Needs a logged in user...
 	if(!username || !token) {
-		build_login();
+		load_login();
 		return;
 	}
 
