@@ -126,6 +126,10 @@ img {
   input[type="checkbox"] {
     transform: scale(2);
   }
+
+  hr {
+    margin-bottom: 1.5em;
+  }
 }
 
 body {
