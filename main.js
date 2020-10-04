@@ -118,11 +118,10 @@ function check_user_expired(username, token) {
 		cache: 'no-cache'}
 	).then(response => response.json())
   	.then(function(data) {
-  		console.log(data);
-  		// TODO
-  		// 403 - Not logged in
-  		// 404 - User _not_ locked
   		// 200 - Locked
+  		if(data.status == 200) {
+  			// TODO: Show subscription/payment signup form.
+  		}
   	})
   	.catch(function(err) {
   		// TODO: Crap
@@ -1860,7 +1859,7 @@ function build_userdata() {
   			console.log(data);
 
 			if(data.status == 200) {
-				// TODO: Metadata
+				// Metadata
 				var meta_title = document.createElement('h2');
 				meta_title.textContent = 'Metadata';
 				meta_title.classList.add('animate__animated', 'animate__flipInX');
@@ -1908,7 +1907,55 @@ function build_userdata() {
 				el.appendChild(meta_email_info);
 				el.appendChild(document.createElement('hr'));
 
-				// TODO: Metadata Billing
+				// Metadata Billing
+				var billing = data.data.metadata['billing[decrypted]'];
+				// Legal Name
+				var meta_legal = document.createElement('p');
+				meta_legal.textContent = "Legal Name: <name>"
+					.replace("<name>", billing['legal name']);
+				meta_legal.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_legal);
+
+				// billing.address
+				var meta_address = document.createElement('p');
+				meta_address.textContent = "Address: <address>"
+					.replace("<address>", billing.address);
+				meta_address.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_address);
+
+				// billing.city
+				var meta_city = document.createElement('p');
+				meta_city.textContent = "City or Suburb: <city>"
+					.replace("<city>", billing.city);
+				meta_city.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_city);
+
+				// billing.region
+				var meta_region = document.createElement('p');
+				meta_region.textContent = "Region: <region>"
+					.replace("<region>", billing.region);
+				meta_region.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_region);
+
+				// billing.country
+				var meta_country = document.createElement('p');
+				meta_country.textContent = "Country: <country>"
+					.replace("<country>", billing.country);
+				meta_country.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_country);
+
+				// billing['postal code']
+				var meta_code = document.createElement('p');
+				meta_code.textContent = "Postal: <code>"
+					.replace("<code>", billing['postal code']);
+				meta_code.classList.add('animate__animated', 'animate__backInLeft');
+				el.appendChild(meta_code);
+
+				// Billing info
+				var billing_info = document.createElement('p');
+				billing_info.textContent = 'This was decrypted when the request was made. We do not store it in plain text.';
+				el.appendChild(billing_info);
+				el.appendChild(document.createElement('hr'));
 
 				// TODO: Favourite Categories
 				// TODO: Watch History
