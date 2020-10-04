@@ -1041,6 +1041,14 @@ function load_login(err) {
   		})
 	})
 
+	var signup_submit = document.createElement('button');
+	signup_submit.id = 'signup_submit';
+	signup_submit.textContent = 'Signup';
+	signup_submit.addEventListener('click', function() {
+		// TODO: Allow adding desired username/password from form
+		build_signup();
+	});
+
 	// Make the title
 	var title = document.createElement('h1');
 	title.textContent = 'SIXTEENmm';
@@ -1153,6 +1161,7 @@ function load_login(err) {
 	el.appendChild(password_input_hint);
 	el.appendChild(password_input);
 	el.appendChild(login_submit);
+	el.appendChild(signup_submit);
 	el.appendChild(title);
 	el.appendChild(data_pack);
 }
