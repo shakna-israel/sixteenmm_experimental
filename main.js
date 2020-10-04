@@ -1873,6 +1873,10 @@ function build_userdata() {
 				meta_apitoken.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_apitoken);
 
+				var meta_apitoken_warn = document.createElement('small');
+				meta_apitoken_warn.textContent = 'Keep the API Token secret!';
+				el.appendChild(meta_apitoken_warn);
+
 				// User Class
 				var meta_class = document.createElement('p');
 				meta_class.textContent = "User Class: <class>"
