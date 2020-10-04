@@ -1782,6 +1782,15 @@ function build_signup() {
     	el.removeChild(el.firstChild);
     }
 
+    // A logged in user should login, not sign up.
+    (function() {
+    	var username = localStorage.getItem('username');
+		var token = localStorage.getItem('token');
+		if(!!username && !!token) {
+			login(username, token);
+		}
+    })();
+
     document.body.style.backgroundImage = '';
     document.body.style.backgroundColor = 'black';
 
