@@ -118,6 +118,7 @@ function check_user_expired(username, token) {
 		cache: 'no-cache'}
 	).then(response => response.json())
   	.then(function(data) {
+  		console.log(url);
   		console.log(data);
   		// TODO
   		// 403 - Not logged in
