@@ -1973,6 +1973,38 @@ function build_userdata() {
   			console.log(data);
 
 			if(data.status == 200) {
+				// TOC
+				var toc_title = document.createElement('h2');
+				toc_title.textContent = 'Table of Contents';
+				toc_title.id = 'toc';
+				toc_title.classList.add('animate__animated', 'animate__flipInX');
+				el.appendChild(toc_title);
+
+				var toc_container = document.createElement('ul');
+
+				var meta_toc = document.createElement('li');
+				var meta_toc_link = document.createElement('a');
+				meta_toc_link.textContent = 'Metadata';
+				meta_toc_link.href = '#metadata';
+				meta_toc.appendChild(meta_toc_link);
+				toc_container.appendChild(meta_toc);
+
+				var fav_toc = document.createElement('li');
+				var fav_toc_link = document.createElement('a');
+				fav_toc_link.textContent = 'Favourites';
+				fav_toc_link.href = '#favorites';
+				fav_toc.appendChild(fav_toc_link);
+				toc_container.appendChild(fav_toc);
+
+				var wh_toc = document.createElement('li');
+				var wh_toc_link = document.createElement('a');
+				wh_toc_link.textContent = 'Watch History';
+				wh_toc_link.href = '#watchhistory';
+				wh_toc.appendChild(wh_toc_link);
+				toc_container.appendChild(wh_toc);
+
+				el.appendChild(toc_container);
+
 				// Metadata
 				var meta_title = document.createElement('h2');
 				meta_title.textContent = 'Metadata';
