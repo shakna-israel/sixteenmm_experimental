@@ -1987,9 +1987,10 @@ function build_userdata() {
 				var meta_toc_link = document.createElement('a');
 				meta_toc_link.textContent = 'Metadata';
 				meta_toc_link.href = '#metadata';
+				meta_toc_link.dataset.id = 'metadata';
 				meta_toc_link.addEventListener('click', function(event) {
 					event.preventDefault();
-					var id = this.href.substring(1);
+					var id = this.dataset.id;
 					document.getElementById(id).scrollIntoView();
 				});
 
@@ -2001,9 +2002,10 @@ function build_userdata() {
 				var fav_toc_link = document.createElement('a');
 				fav_toc_link.textContent = 'Favourites';
 				fav_toc_link.href = '#favorites';
+				fav_toc_link.dataset.id = 'favorites';
 				fav_toc_link.addEventListener('click', function(event) {
 					event.preventDefault();
-					var id = this.href.substring(1);
+					var id = this.dataset.id;
 					document.getElementById(id).scrollIntoView();
 				});
 
@@ -2015,9 +2017,10 @@ function build_userdata() {
 				var wh_toc_link = document.createElement('a');
 				wh_toc_link.textContent = 'Watch History';
 				wh_toc_link.href = '#watchhistory';
+				wh_toc_link.dataset.id = 'watchhistory';
 				wh_toc_link.addEventListener('click', function(event) {
 					event.preventDefault();
-					var id = this.href.substring(1);
+					var id = this.dataset.id;
 					document.getElementById(id).scrollIntoView();
 				});
 
@@ -2029,9 +2032,10 @@ function build_userdata() {
 				var wl_toc_link = document.createElement('a');
 				wl_toc_link.textContent = 'Watch Later';
 				wl_toc_link.href = '#watchlater';
+				wl_toc_link.dataset.id = 'watchlater';
 				wl_toc_link.addEventListener('click', function(event) {
 					event.preventDefault();
-					var id = this.href.substring(1);
+					var id = this.dataset.id;
 					document.getElementById(id).scrollIntoView();
 				});
 
