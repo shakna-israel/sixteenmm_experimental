@@ -2191,7 +2191,7 @@ function build_userdata() {
 
 					var wl_progress = document.createElement('small');
 					wl_progress.textContent = "  <runtime>"
-						.replace("<runtime>", seconds_to_stamp(datapack.film.runtime));
+						.replace("<runtime>", seconds_to_stamp(datapack.runtime));
 
 					wl_el.appendChild(wl_el_title);
 					wl_el.appendChild(wl_progress);
