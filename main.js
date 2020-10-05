@@ -1342,8 +1342,8 @@ function load_login(err) {
 	signup_submit.id = 'signup_submit';
 	signup_submit.textContent = 'Signup';
 	signup_submit.addEventListener('click', function() {
-		// TODO: Allow adding desired username/password from form
-		build_signup();
+		// Allow adding desired username/password from form
+		build_signup(document.getElementById('username_input').value, document.getElementById('password_input').value);
 	});
 
 	// Make the title
@@ -2643,9 +2643,7 @@ function build_userdata() {
 				el.appendChild(cancel_info);
 				el.appendChild(document.createElement('hr'));
 
-				// TODO: Delete account
-				// /user/cancel/<username>/<token>/json
-
+				// Delete account
 				var cancel_account = document.createElement('a');
 				cancel_account.href="javascript:void(0)";
 				cancel_account.textContent = 'Delete account, and cancel any existing payment account.';
@@ -2699,7 +2697,7 @@ function build_userdata() {
 		})
 }
 
-function build_signup() {
+function build_signup(initusername, initpassword) {
 	var el = document.getElementById('app');
 	while(el.firstChild) {
     	el.removeChild(el.firstChild);
@@ -2816,6 +2814,11 @@ function build_signup() {
 		}
 	});
 
+	// If we got an initial username, include it
+	if(!!initusername) {
+		sign_up_username_el.value = initusername;
+	}
+
 	el.appendChild(sign_up_username_label);
 	el.appendChild(sign_up_username_el);
 	el.appendChild(sign_up_username_hint);
@@ -2842,6 +2845,11 @@ function build_signup() {
 			ele.textContent = '';
 		}
 	});
+
+	// If we got an initial password, use it
+	if(!!initpassword) {
+		sign_up_password_el.value = initpassword;
+	}
 
 	el.appendChild(sign_up_password_label);
 	el.appendChild(sign_up_password_el);
@@ -3079,8 +3087,6 @@ function build_signup() {
 	});
 	el.appendChild(signup_button);
 }
-
-// TODO: Function to replicate our stripe.html template file...
 
 function QueryStringToJSON() {            
     var pairs = location.search.slice(1).split('&');
