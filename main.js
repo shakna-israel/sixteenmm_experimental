@@ -2094,7 +2094,7 @@ function build_userdata() {
 				wh_title.textContent = 'Watch History';
 				wh_title.id = 'watchhistory';
 				wh_title.classList.add('animate__animated', 'animate__flipInX');
-				el.appendChild(favs_title);
+				el.appendChild(wh_title);
 
 				var wh_container = document.createElement('ul');
 
@@ -2112,7 +2112,7 @@ function build_userdata() {
 						.replace("<uuid>", datapack.film.uuid);
 
 					var wh_progress = document.createElement('small');
-					wh_progress.textContent = "<progress> / <runtime>"
+					wh_progress.textContent = "  <progress> / <runtime>"
 						.replace("<progress>", seconds_to_stamp(datapack.progress))
 						.replace("<runtime>", seconds_to_stamp(datapack.film.runtime));
 
