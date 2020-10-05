@@ -1982,6 +1982,7 @@ function build_userdata() {
 
 				var toc_container = document.createElement('ul');
 
+				// Metadata link
 				var meta_toc = document.createElement('li');
 				var meta_toc_link = document.createElement('a');
 				meta_toc_link.textContent = 'Metadata';
@@ -1989,6 +1990,7 @@ function build_userdata() {
 				meta_toc.appendChild(meta_toc_link);
 				toc_container.appendChild(meta_toc);
 
+				// Favourites link
 				var fav_toc = document.createElement('li');
 				var fav_toc_link = document.createElement('a');
 				fav_toc_link.textContent = 'Favourites';
@@ -1996,12 +1998,21 @@ function build_userdata() {
 				fav_toc.appendChild(fav_toc_link);
 				toc_container.appendChild(fav_toc);
 
+				// Watch History link
 				var wh_toc = document.createElement('li');
 				var wh_toc_link = document.createElement('a');
 				wh_toc_link.textContent = 'Watch History';
 				wh_toc_link.href = '#watchhistory';
 				wh_toc.appendChild(wh_toc_link);
 				toc_container.appendChild(wh_toc);
+
+				// Watch Later link
+				var wl_toc = document.createElement('li');
+				var wl_toc_link = document.createElement('a');
+				wl_toc_link.textContent = 'Watch Later';
+				wl_toc_link.href = '#watchlater';
+				wl_toc.appendChild(wl_toc_link);
+				toc_container.appendChild(wl_toc);
 
 				el.appendChild(toc_container);
 
@@ -2156,7 +2167,40 @@ function build_userdata() {
 				el.appendChild(wh_container);
 				el.appendChild(document.createElement('hr'));
 
-				// TODO: Watch Later
+				// Watch Later
+				var wl_title = document.createElement('h2');
+				wl_title.textContent = 'Watch Later';
+				wl_title.id = 'watchlater';
+				wl_title.classList.add('animate__animated', 'animate__flipInX');
+				el.appendChild(wl_title);
+
+				var wl_container = document.createElement('ul');
+
+				for(var ix = 0; ix < data.data['watch later'].length; ix++) {
+					var datapack = data.data['watch later'][ix];
+
+					var wl_el = document.createElement('li');
+
+					// Title and link
+					var wl_el_title = document.createElement('a');
+					wl_el_title.textContent = "<title>, <year>"
+						.replace("<title>", datapack.title)
+						.replace("<year>", datapack.year);
+					wl_el_title.href = '?page=video&uuid=<uuid>'
+						.replace("<uuid>", datapack.uuid);
+
+					var wl_progress = document.createElement('small');
+					wl_progress.textContent = "  <runtime>"
+						.replace("<runtime>", seconds_to_stamp(datapack.film.runtime));
+
+					wl_el.appendChild(wl_el_title);
+					wl_el.appendChild(wl_progress);
+					wl_container.appendChild(wl_el);
+
+				}
+				el.appendChild(wl_container);
+				el.appendChild(document.createElement('hr'));
+
 				// TODO: Blacklisted Categories
 				// TODO: Blacklisted Films
 			} else {
