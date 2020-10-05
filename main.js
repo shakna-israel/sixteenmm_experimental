@@ -2042,6 +2042,21 @@ function build_userdata() {
 				wl_toc.appendChild(wl_toc_link);
 				toc_container.appendChild(wl_toc);
 
+				// Blacklisted Categories link
+				var bl_toc = document.createElement('li');
+				var bl_toc_link = document.createElement('a');
+				bl_toc_link.textContent = 'Blacklisted Categories';
+				bl_toc_link.href = '#blacklistedcategories';
+				bl_toc_link.dataset.id = 'blacklistedcategories';
+				bl_toc_link.addEventListener('click', function(event) {
+					event.preventDefault();
+					var id = this.dataset.id;
+					document.getElementById(id).scrollIntoView();
+				});
+
+				bl_toc.appendChild(bl_toc_link);
+				toc_container.appendChild(bl_toc);
+
 				el.appendChild(toc_container);
 
 				// Metadata
@@ -2229,7 +2244,23 @@ function build_userdata() {
 				el.appendChild(wl_container);
 				el.appendChild(document.createElement('hr'));
 
-				// TODO: Blacklisted Categories
+				// Blacklisted Categories
+				var bl_title = document.createElement('h2');
+				bl_title.textContent = 'Blacklisted Categories';
+				bl_title.id = 'blacklistedcategories';
+				bl_title.classList.add('animate__animated', 'animate__flipInX');
+				el.appendChild(bl_title);
+
+				var bl_container = document.createElement('ul');
+
+				for(var ix = 0; ix < data.data.blacklisted_category.length; ix++) {
+					var bl_item = document.createElement('li');
+					bl_item.textContent = data.data.blacklisted_category[ix];
+					bl_container.appendChild(bl_item);
+				}
+				el.appendChild(bl_container);
+				el.appendChild(document.createElement('hr'));
+
 				// TODO: Blacklisted Films
 			} else {
 				// TODO: Oh no!
