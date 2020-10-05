@@ -165,7 +165,7 @@ function check_user_expired(username, token) {
   				stripe_payload.src = "https://js.stripe.com/v3/";
   				el.appendChild(stripe_payload);
 
-  				// TODO: Add the form
+  				// Add the form
   				var form = document.createElement('form')
   				form.method = 'post';
   				form.id='payment-form';
@@ -2212,8 +2212,6 @@ function build_userdata() {
 			if(data.status == 200) {
 				// TODO: Make fields editable...
 
-				// TODO: Cancel account section...
-
 				// TOC
 				var toc_title = document.createElement('h2');
 				toc_title.textContent = 'Table of Contents';
@@ -2561,6 +2559,37 @@ function build_userdata() {
 				}
 				el.appendChild(blf_container);
 				el.appendChild(document.createElement('hr'));
+
+				// TODO: Cancel account section...
+				var cancel_title = document.createElement('h2');
+				cancel_title.textContent = 'Cancel Account';
+				cancel_title.id = 'cancelaccount';
+				cancel_title.classList.add('animate__animated', 'animate__flipInX');
+				el.appendChild(cancel_title);
+
+				el.appendChild(document.createElement('hr'));
+				var cancel_info = document.createElement('small');
+				cancel_info.textContent = 'This is IRREVERSIBLE.';
+				el.appendChild(cancel_info);
+				el.appendChild(document.createElement('hr'));
+
+				var cancel_payment = document.createElement('a');
+				cancel_payment.textContent = 'Cancel payment account.';
+				cancel_payment.addEventListener('click', function(event) {
+					event.preventDefault();
+
+					// TODO:
+					// /user/payment/cancel/<username>/<token>/json
+				})
+
+				el.appendChild(document.createElement('hr'));
+				var cancel_info = document.createElement('small');
+				cancel_info.textContent = 'This is IRREVERSIBLE.';
+				el.appendChild(cancel_info);
+				el.appendChild(document.createElement('hr'));
+
+				// TODO: Delete account
+				// /user/cancel/<username>/<token>/json
 
 			} else {
 				// User not authorised...
