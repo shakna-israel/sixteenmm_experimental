@@ -2611,7 +2611,8 @@ function build_userdata() {
 			  			console.log(err);
 			  		});
 
-				})
+				});
+				el.appendChild(cancel_payment);
 
 				el.appendChild(document.createElement('hr'));
 				var cancel_info = document.createElement('small');
