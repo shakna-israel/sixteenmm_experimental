@@ -121,7 +121,24 @@ function check_user_expired(username, token) {
   	.then(function(data) {
   		// 200 - Locked
   		if(data.status == 200) {
-  			// TODO: Show subscription/payment signup form.
+  			var url = 'https://sixteenmm.org/stripe/<username>/<token>/json'
+  			fetch(url, {
+  				method: 'GET',
+  				mode: 'cors',
+  				cache: 'no-cache'}
+  			).then(response => response.json())
+  			.then(function(data) {
+  				// TODO: Show subscription/payment signup form.
+  				// data.data.key
+  				// data.data.monthly (cents)
+  				// data.data.yearly (cents)
+  				// data.data.lifetime (cents)
+  			})
+  			.catch(function(err) {
+  				// TODO: Network error! Crap.
+  				console.log(err);
+  			})
+
   		}
   	})
   	.catch(function(err) {
@@ -1973,6 +1990,10 @@ function build_userdata() {
   			console.log(data);
 
 			if(data.status == 200) {
+				// TODO: Make fields editable...
+
+				// TODO: Cancel account section...
+
 				// TOC
 				var toc_title = document.createElement('h2');
 				toc_title.textContent = 'Table of Contents';
@@ -2631,9 +2652,11 @@ function build_signup() {
 				}).then(response => response.json())
 		  		.then(function(data) {
 		  			if(data.status != 200) {
-		  				// TODO: Failed login.
-		  				// The hell??
-		  				console.log(data.status);
+		  				// Failed login.
+		  				// The hell?? (Race condition, that shouldn't be possible...)
+		  				console.log(data);
+
+		  				load_login();
 		  			}
 		  			else {
 		  				// Attempt login
