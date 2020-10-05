@@ -2604,12 +2604,12 @@ window.addEventListener('popstate', function(e) {
 });
 
 function state_router(state) {
-	if(!('page' in state)) {
-  		history.pushState({page: "home"}, "Home", "?page=home");
-  	}
-  	else if(history.state == null) {
+	if(history.state == null) {
   		var state = QueryStringToJSON();
   		history.pushState(state, "?", location.search);
+  	} else
+  	if(!('page' in state)) {
+  		history.pushState({page: "home"}, "Home", "?page=home");
   	}
 
   	var username = localStorage.getItem('username');
