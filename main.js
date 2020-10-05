@@ -1209,7 +1209,8 @@ function load_video(uuid) {
 }
 
 function logout() {
-	localStorage.clear();
+	// Only clear the token, keep the username...
+	localStorage.removeItem('token');
 	window.location.reload(false);
 }
 
@@ -1254,6 +1255,12 @@ function load_login(err) {
 	var username_input = document.createElement('input');
 	username_input.id = 'username_input';
 	username_input.name = 'username_input';
+
+	// Load the username if we have it...
+	var username = localStorage.getItem('username');
+	if(!!username) {
+		username_input.value = username;
+	}
 
 	var password_input_hint = document.createElement('label');
 	password_input_hint.for = 'password_input';
@@ -2638,6 +2645,39 @@ function build_userdata() {
 
 				// TODO: Delete account
 				// /user/cancel/<username>/<token>/json
+
+				var cancel_account = document.createElement('a');
+				cancel_account.href="javascript:void(0)";
+				cancel_account.textContent = 'Cancel payment account.';
+				cancel_account.addEventListener('click', function(event) {
+					event.preventDefault();
+
+					// Cancel the payment account
+					var url = "https://sixteenmm.org/user/cancel/<username>/<token>/json"
+						.replace("<username>", username)
+						.replace("<token>", token);
+
+					fetch(url, {
+						method: 'GET',
+						cache: 'no-cache',
+						mode: 'cors',
+					}).then(response => response.json())
+			  		.then(function(data) {
+			  			if(data.status == 200) {
+			  				// Account deleted
+			  				localStorage.clear();
+			  				load_login();
+			  			} else {
+			  				// Not logged in
+			  				load_login();
+			  			}
+			  		})
+			  		.catch(function(err) {
+			  			// TODO: Network error
+			  			console.log(err);
+			  		});
+				});
+				el.appendChild(cancel_account);
 
 			} else {
 				// User not authorised...
