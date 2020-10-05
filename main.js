@@ -2589,6 +2589,7 @@ function build_userdata() {
 				el.appendChild(document.createElement('hr'));
 
 				var cancel_payment = document.createElement('a');
+				cancel_payment.href="javascript:void(0)";
 				cancel_payment.textContent = 'Cancel payment account.';
 				cancel_payment.addEventListener('click', function(event) {
 					event.preventDefault();
