@@ -128,7 +128,230 @@ function check_user_expired(username, token) {
   				cache: 'no-cache'}
   			).then(response => response.json())
   			.then(function(data) {
-  				// TODO: Show subscription/payment signup form.
+  				// Show subscription/payment signup form.
+
+  				var el = document.getElementById('app');
+				while(el.firstChild) {
+			    	el.removeChild(el.firstChild);
+			    }
+
+			    document.body.style.backgroundImage = '';
+			    document.body.style.backgroundColor = 'black';
+
+			    var nav = document.getElementById('nav');
+			    while(nav.firstChild) {
+			    	nav.removeChild(nav.firstChild);
+			    }
+
+				var logout_button = document.createElement('button');
+			    logout_button.addEventListener('click', logout);
+			    logout_button.id = 'logout_button';
+			    logout_button.textContent = 'Logout';
+			    nav.appendChild(logout_button);
+
+			    var home_button = document.createElement('button');
+			    home_button.addEventListener('click', build_home);
+			    home_button.textContent = 'Home';
+			    nav.appendChild(home_button);
+
+  				// Add the Stripe payload
+  				var stripe_payload = document.createElement('script');
+  				stripe_payload.type = "text/javascript";
+  				stripe_payload.src = "https://js.stripe.com/v3/";
+  				el.appendChild(stripe_payload);
+
+  				// TODO: Add the form
+  				var form = document.createElement('form')
+  				form.method = 'post';
+  				form.id='payment-form';
+
+  				var plan_label = document.createElement('label');
+  				plan_label.for='plan';
+  				plan_label.textContent='Plan:';
+  				form.appendChild(plan_label);
+
+  				// Monthly Plan
+  				var monthly_container = document.createElement('p');
+  				monthly_container.textContent = "$<month>/month AUD"
+  					.replace("<month>", data.data.monthly / 100);
+  				var monthly_select = document.createElement('input');
+  				monthly_select.name = 'plan';
+  				monthly_select.type = 'radio';
+  				monthly_select.value = 'monthly';
+  				monthly_container.appendChild(monthly_select);
+  				form.appendChild(monthly_container);
+
+  				// Yearly Plan
+  				var yearly_container = document.createElement('p');
+  				yearly_container.textContent = "$<year>/year AUD"
+  					.replace("<year>", data.data.yearly / 100);
+  				var yearly_select = document.createElement('input');
+  				yearly_select.name = 'plan';
+  				yearly_select.type = 'radio';
+  				yearly_select.value = 'yearly';
+  				yearly_container.appendChild(yearly_select);
+  				form.appendChild(yearly_container);
+
+  				// Lifetime Plan
+  				var lifetime_container = document.createElement('p');
+  				lifetime_container.textContent = "$<lifetime> AUD"
+  					.replace("<lifetime>", data.data.lifetime / 100);
+  				var lifetime_select = document.createElement('input');
+  				lifetime_select.name = 'plan';
+  				lifetime_select.type = 'radio';
+  				lifetime_select.value = 'yearly';
+  				lifetime_container.appendChild(lifetime_select);
+  				form.appendChild(lifetime_container);
+
+  				// Label for card element
+  				var card_element_label = document.createElement('label');
+  				card_element_label.for = 'card-element';
+  				card_element_label.textContent = 'Credit or debit card';
+  				form.appendChild(card_element_label);
+
+  				// Card element (Stripe handled)
+  				var card_element = document.createElement('div');
+  				card_element.id = 'card-element';
+  				form.appendChild(card_element);
+
+  				// Card errors (Stripe handled)
+  				var card_errors = document.createElement('div');
+  				card_errors.id = 'card-errors';
+  				card_errors.role = 'alert';
+  				form.appendChild(card_errors);
+
+  				// Info
+  				form.appendChild(document.createElement('hr'));
+
+  				var info_a = document.createElement('small');
+  				info_a.textContent = 'Yearly and Monthly are a "cancel anytime" subscription, with no ongoing commitment required.';
+  				form.appendChild(info_a);
+  				form.appendChild(document.createElement('br'));
+
+  				var info_b = document.createElement('small');
+  				info_b.textContent = 'The lifetime plan is a one-off payment, for the lifetime of the service.';
+  				form.appendChild(info_b);
+  				form.appendChild(document.createElement('br'));
+
+  				var info_c = document.createElement('small');
+  				info_c.textContent = 'The above information is never processed by us, or held by us. It is kept securely by our payment provider.';
+  				form.appendChild(info_c);
+  				form.appendChild(document.createElement('br'));
+
+  				form.appendChild(document.createElement('hr'));
+  				// Powered by Stripe
+  				var stripe_powered = document.createElement('small');
+  				stripe_powered.textContent = 'Powered by ';
+  				var stripe_link = document.createElement('a');
+  				stripe_link.href = 'https://stripe.com/';
+  				stripe_link.textContent = 'Stripe';
+  				stripe_powered.appendChild(stripe_link);
+  				form.appendChild(stripe_powered);
+  				form.appendChild(document.createElement('hr'));
+
+  				// Submit button
+  				var submit_button = document.createElement('button');
+  				submit_button.addEventListener('click', function(event) {
+					  event.preventDefault();
+					  var f = document.getElementById('payment-form');
+					  f.submit();
+  				});
+
+  				// Main Stripe submission handler...
+  				function stripeSourceHandler(token) {
+					var username = localStorage.getItem('username');
+    				var token = localStorage.getItem('token');
+
+					// Form url...
+					var url = "https://sixteenmm.org/user/payment/setup/<username>/<token>/json"
+						.replace("<username>", username)
+						.replace("<token>", token);
+
+					var dataPayload = new URLSearchParams();
+					// Get the Stripe token...
+					dataPayload.append('stripeSource', token.id);
+
+					// Get which plan...
+					var radios = document.getElementsByName('plan');
+					for (var i = 0, length = radios.length; i < length; i++) {
+						if (radios[i].checked) {
+							dataPayload.append('plan', radios[i].value);
+							break;
+						}
+					}
+
+					// Submit the form...
+					fetch(url, {
+						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+						method: 'POST',
+						cache: 'no-cache',
+						mode: 'cors',
+						body: data
+					}).then(response => response.json())
+			  		.then(function(data) {
+			  			if(data.status == 200) {
+			  				// Success!
+			  				// Reload the current API page...
+			  				window.history.go(0);
+			  			} else {
+			  				// Failure!
+			  				var err_el = document.getElementById('card-errors');
+			  				err_el.textContent = "Error: <error>"
+			  					.replace("<error>", data.message);
+			  			}
+			  		})
+			  		.catch(function(err) {
+			  			// TODO: Shit.
+			  			console.log(err);
+			  		})
+					
+				}
+
+  				form.addEventListener('submit', function(event) {
+					  event.preventDefault();
+
+					  ownerInfo = {owner: {}};
+
+					  stripe.createSource(card, ownerInfo).then(function(result) {
+					    if (result.error) {
+					      // Inform the customer that there was an error.
+					      var errorElement = document.getElementById('card-errors');
+					      errorElement.textContent = result.error.message;
+					    } else {
+					      // Send the token to your server.
+					      stripeSourceHandler(result.source);
+					    }
+					  });
+  				})
+
+  				// Set up stripe handler...
+  				var stripe = Stripe(data.data.key);
+				var elements = stripe.elements();
+
+				var style = {
+				  base: {
+				    fontSize: '18px',
+				    color: "black",
+				  }
+				};
+
+				var card = elements.create('card', {style: style});
+				card.mount('#card-element');
+
+				card.addEventListener('change', function(event) {
+				  var displayError = document.getElementById('card-errors');
+				  if (event.error) {
+				    displayError.textContent = event.error.message;
+				  } else {
+				    displayError.textContent = '';
+				  }
+				});
+
+				form.appendChild(submit_button);
+  				el.appendChild(form);
+
+  				// TODO: Add the scripting
+
   				// data.data.key
   				// data.data.monthly (cents)
   				// data.data.yearly (cents)
