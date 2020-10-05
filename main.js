@@ -125,8 +125,7 @@ function check_user_expired(username, token) {
   		}
   	})
   	.catch(function(err) {
-  		// TODO: Crap
-  		console.log(err);
+  		// Network error, ignore it here.
   	})
 }
 
@@ -282,7 +281,16 @@ function build_categories() {
 					}
 				})
 				.catch(function(err) {
-					// TODO: Err
+					var net_error = document.createElement('p');
+					net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+					var net_error_internal = document.createElement('a');
+					net_error_internal.textContent = 'Click here to try again.'
+					net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+					net_error.appendChild(net_error_internal);
+					el.appendChild(net_error);
+
 					console.log(err);
 				})
 			}
@@ -292,7 +300,16 @@ function build_categories() {
 		}
 	})
 	.catch(function(err) {
-		// TODO: Crap
+		var net_error = document.createElement('p');
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+		var net_error_internal = document.createElement('a');
+		net_error_internal.textContent = 'Click here to try again.'
+		net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+		net_error.appendChild(net_error_internal);
+		el.appendChild(net_error);
+
 		console.log(err);
 	});
 }
@@ -316,7 +333,16 @@ function build_search(term) {
 		}
 	})
 	.catch(function(err) {
-		// TODO: Crap
+		var net_error = document.createElement('p');
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+		var net_error_internal = document.createElement('a');
+		net_error_internal.textContent = 'Click here to try again.'
+		net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+		net_error.appendChild(net_error_internal);
+		el.appendChild(net_error);
+
 		console.log(err);
 	});
 
@@ -653,8 +679,17 @@ function load_series(uuid) {
   			}
   		})
   		.catch(function(err){
-  			// TODO: Crap.
-  			console.log(err);
+			var net_error = document.createElement('p');
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+			var net_error_internal = document.createElement('a');
+			net_error_internal.textContent = 'Click here to try again.'
+			net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+			net_error.appendChild(net_error_internal);
+			el.appendChild(net_error);
+
+			console.log(err);
   		});
 }
 
@@ -922,8 +957,17 @@ function load_video(uuid) {
   			}
   		})
   		.catch(function(err){
-  			// TODO: Crap.
-  			console.log(err);
+			var net_error = document.createElement('p');
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+			var net_error_internal = document.createElement('a');
+			net_error_internal.textContent = 'Click here to try again.'
+			net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+			net_error.appendChild(net_error_internal);
+			el.appendChild(net_error);
+
+			console.log(err);
   		});
 }
 
@@ -1036,8 +1080,17 @@ function load_login(err) {
   			}
   		})
   		.catch(function(err) {
-  			// TODO: Oh, shit.
-  			console.log(err);
+			var net_error = document.createElement('p');
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+			var net_error_internal = document.createElement('a');
+			net_error_internal.textContent = 'Click here to try again.'
+			net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+			net_error.appendChild(net_error_internal);
+			el.appendChild(net_error);
+
+			console.log(err);
   		})
 	})
 
@@ -1151,7 +1204,16 @@ function load_login(err) {
 		}
 	})
 	.catch(function(err) {
-		// TODO: Oh, shit.
+		var net_error = document.createElement('p');
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+		var net_error_internal = document.createElement('a');
+		net_error_internal.textContent = 'Click here to try again.'
+		net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+		net_error.appendChild(net_error_internal);
+		el.appendChild(net_error);
+
 		console.log(err);
 	})
 
@@ -1292,7 +1354,16 @@ function load_category(category) {
 		}
 	})
 	.catch(function(err) {
-		// TODO: Shit
+		var net_error = document.createElement('p');
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+		var net_error_internal = document.createElement('a');
+		net_error_internal.textContent = 'Click here to try again.'
+		net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+		net_error.appendChild(net_error_internal);
+		el.appendChild(net_error);
+
 		console.log(err);
 	})
 
@@ -1820,7 +1891,16 @@ function build_home() {
 		}
 	})
 	.catch(function(err) {
-		// TODO: Crap.
+		var net_error = document.createElement('p');
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+		var net_error_internal = document.createElement('a');
+		net_error_internal.textContent = 'Click here to try again.'
+		net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+		net_error.appendChild(net_error_internal);
+		el.appendChild(net_error);
+
 		console.log(err);
 	})
 
@@ -2002,7 +2082,16 @@ function build_userdata() {
 			}
 		})
 		.catch(function(err) {
-			// TODO: Crap
+			var net_error = document.createElement('p');
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+			var net_error_internal = document.createElement('a');
+			net_error_internal.textContent = 'Click here to try again.'
+			net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+			net_error.appendChild(net_error_internal);
+			el.appendChild(net_error);
+
 			console.log(err);
 		})
 }
@@ -2309,8 +2398,17 @@ function build_signup() {
 		  			}
 		  		})
 		  		.catch(function(err) {
-		  			// TODO: Crap
-		  			console.log(err);
+					var net_error = document.createElement('p');
+					net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+					var net_error_internal = document.createElement('a');
+					net_error_internal.textContent = 'Click here to try again.'
+					net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+					net_error.appendChild(net_error_internal);
+					el.appendChild(net_error);
+
+					console.log(err);
 		  		});
 			} else
 			if(data.status == 401) {
@@ -2361,8 +2459,17 @@ function build_signup() {
 			}
   		})
   		.catch(function(err) {
-  			// TODO: Crap
-  			console.log(err);
+			var net_error = document.createElement('p');
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+
+			var net_error_internal = document.createElement('a');
+			net_error_internal.textContent = 'Click here to try again.'
+			net_error_internal.href = location.protocol + '//' + location.hostname + location.search;
+
+			net_error.appendChild(net_error_internal);
+			el.appendChild(net_error);
+
+			console.log(err);
   		})
 	});
 	el.appendChild(signup_button);
