@@ -2057,6 +2057,21 @@ function build_userdata() {
 				bl_toc.appendChild(bl_toc_link);
 				toc_container.appendChild(bl_toc);
 
+				// Blacklisted Films link
+				var blf_toc = document.createElement('li');
+				var blf_toc_link = document.createElement('a');
+				blf_toc_link.textContent = 'Blacklisted Films';
+				blf_toc_link.href = '#blacklistedfilms';
+				blf_toc_link.dataset.id = 'blacklistedfilms';
+				blf_toc_link.addEventListener('click', function(event) {
+					event.preventDefault();
+					var id = this.dataset.id;
+					document.getElementById(id).scrollIntoView();
+				});
+
+				blf_toc.appendChild(blf_toc_link);
+				toc_container.appendChild(blf_toc);
+
 				el.appendChild(toc_container);
 
 				// Metadata
@@ -2273,7 +2288,39 @@ function build_userdata() {
 				el.appendChild(bl_container);
 				el.appendChild(document.createElement('hr'));
 
-				// TODO: Blacklisted Films
+				// Blacklisted Films
+				var blf_title = document.createElement('h2');
+				blf_title.textContent = 'Blacklisted Films';
+				blf_title.id = 'blacklistedfilms';
+				blf_title.classList.add('animate__animated', 'animate__flipInX');
+				el.appendChild(blf_title);
+
+				var blf_container = document.createElement('ul');
+
+				for(var ix = 0; ix < data.data.blacklisted_film.length; ix++) {
+					var datapack = data.data.blacklisted_film[ix];
+
+					var blf_el = document.createElement('li');
+
+					// Title and link
+					var blf_el_title = document.createElement('a');
+					blf_el_title.textContent = "<title>, <year>"
+						.replace("<title>", datapack.title)
+						.replace("<year>", datapack.year);
+					blf_el_title.href = '?page=video&uuid=<uuid>'
+						.replace("<uuid>", datapack.uuid);
+
+					var blf_progress = document.createElement('small');
+					blf_progress.textContent = "  <runtime>"
+						.replace("<runtime>", seconds_to_stamp(datapack.runtime));
+
+					blf_el.appendChild(blf_el_title);
+					blf_el.appendChild(blf_progress);
+					blf_container.appendChild(blf_el);
+				}
+				el.appendChild(blf_container);
+				el.appendChild(document.createElement('hr'));
+
 			} else {
 				// TODO: Oh no!
 				console.log(data);
