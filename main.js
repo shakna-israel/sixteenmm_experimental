@@ -2650,14 +2650,14 @@ window.addEventListener('popstate', function(e) {
 function state_router(state) {
 	if(!state) {
 		var state = QueryStringToJSON();
-  		history.pushState(state, "?", location.search);
+  		history.pushState(state, "?", location.search + location.hash);
 	} else
 	if(!('page' in state)) {
   		history.pushState({page: "home"}, "Home", "?page=home");
   	}
   	else if(history.state == null) {
   		var state = QueryStringToJSON();
-  		history.pushState(state, "?", location.search);
+  		history.pushState(state, "?", location.search + location.hash);
   	}
 
   	var username = localStorage.getItem('username');
