@@ -2311,6 +2311,21 @@ function build_userdata() {
 				blf_toc.appendChild(blf_toc_link);
 				toc_container.appendChild(blf_toc);
 
+				// Cancel Account link...
+				var cancel_toc = document.createElement('li');
+				var cancel_toc_link = document.createElement('a');
+				cancel_toc_link.textContent = 'Cancel';
+				cancel_toc_link.href = '#cancelaccount';
+				cancel_toc_link.dataset.id = 'cancelaccount';
+				cancel_toc_link.addEventListener('click', function(event) {
+					event.preventDefault();
+					var id = this.dataset.id;
+					document.getElementById(id).scrollIntoView();
+				});
+
+				cancel_toc.appendChild(cancel_toc_link);
+				toc_container.appendChild(cancel_toc);
+
 				el.appendChild(toc_container);
 
 				// Metadata
