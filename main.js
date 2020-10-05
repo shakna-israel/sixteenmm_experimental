@@ -620,7 +620,7 @@ function build_search(term) {
     	var data = JSON.parse(localStorage.getItem("searchdata")) || [];
 
     	// Go back to top of search...
-    	this.scrollIntoView();
+    	document.getElementById('app').scrollIntoView();
 
     	// Break into terms...
     	var terms = this.value.replace(/\W/g, ' ').toLowerCase().split(' ');
