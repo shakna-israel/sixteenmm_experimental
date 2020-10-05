@@ -1976,6 +1976,7 @@ function build_userdata() {
 				// Metadata
 				var meta_title = document.createElement('h2');
 				meta_title.textContent = 'Metadata';
+				meta_title.id = 'metadata';
 				meta_title.classList.add('animate__animated', 'animate__flipInX');
 				el.appendChild(meta_title);
 
@@ -2074,6 +2075,7 @@ function build_userdata() {
 				// Favourite Categories
 				var favs_title = document.createElement('h2');
 				favs_title.textContent = 'Favourites';
+				favs_title.id = 'favorites';
 				favs_title.classList.add('animate__animated', 'animate__flipInX');
 				el.appendChild(favs_title);
 
@@ -2087,7 +2089,41 @@ function build_userdata() {
 				el.appendChild(fav_container);
 				el.appendChild(document.createElement('hr'));
 
-				// TODO: Watch History
+				// Watch History
+				var wh_title = document.createElement('h2');
+				wh_title.textContent = 'Watch History';
+				wh_title.id = 'watchhistory';
+				wh_title.classList.add('animate__animated', 'animate__flipInX');
+				el.appendChild(favs_title);
+
+				var wh_container = document.createElement('ul');
+
+				for(var ix = 0; ix < data.data['watch history'].length; ix++) {
+					var datapack = data.data['watch history'][ix];
+
+					var wh_el = document.createElement('li');
+
+					// Title and link
+					var wh_el_title = document.createElement('a');
+					wh_el_title.textContent = "<title>, <year>"
+						.replace("<title>", datapack.film.title)
+						.replace("<year>", datapack.film.year);
+					wh_el_title.href = '?page=video&uuid=<uuid>'
+						.replace("<uuid>", datapack.film.uuid);
+
+					var wh_progress = document.createElement('small');
+					wh_progress.textContent = "<progress> / <runtime>"
+						.replace("<progress>", seconds_to_stamp(datapack.progress))
+						.replace("<runtime>", seconds_to_stamp(datapack.film.runtime));
+
+					wh_el.appendChild(wh_el_title);
+					wh_el.appendChild(wh_progress);
+					wh_container.appendChild(wh_el);
+
+				}
+				el.appendChild(wh_container);
+				el.appendChild(document.createElement('hr'));
+
 				// TODO: Watch Later
 				// TODO: Blacklisted Categories
 				// TODO: Blacklisted Films
