@@ -2169,7 +2169,13 @@ function build_userdata() {
 
 				for(var ix = 0; ix < data.data.favourite_category.length; ix++) {
 					var fav = document.createElement('li');
-					fav.textContent = data.data.favourite_category[ix];
+
+					var fav_link = document.createElement('a');
+					fav_link.href = '?page=category&category=<category>'
+						.replace("<category>", data.data.favourite_category[ix]);
+					fav_link.textContent = data.data.favourite_category[ix];
+					fav.appendChild(fav_link);
+					
 					fav_container.appendChild(fav);
 				}
 				el.appendChild(fav_container);
@@ -2255,7 +2261,13 @@ function build_userdata() {
 
 				for(var ix = 0; ix < data.data.blacklisted_category.length; ix++) {
 					var bl_item = document.createElement('li');
-					bl_item.textContent = data.data.blacklisted_category[ix];
+
+					var bl_item_link = document.createElement('a');
+					bl_item_link.href = '?page=category&category=<ategory>'
+						.replace("<category>", data.data.blacklisted_category[ix]);
+					bl_item_link.textContent = data.data.blacklisted_category[ix];
+					bl_item.appendChild(bl_item_link);
+
 					bl_container.appendChild(bl_item);
 				}
 				el.appendChild(bl_container);
