@@ -2745,6 +2745,7 @@ function build_signup(initusername, initpassword) {
 	el.appendChild(global_hint);
 
 	// Form expects:
+	var form = document.createElement('form');
 
 	// billing_name
 	var billing_name_label = document.createElement('label');
@@ -2766,10 +2767,10 @@ function build_signup(initusername, initpassword) {
 		}
 	});
 
-	el.appendChild(billing_name_label);
-	el.appendChild(billing_name_el);
-	el.appendChild(billing_name_hint);
-	el.appendChild(document.createElement('br'));
+	form.appendChild(billing_name_label);
+	form.appendChild(billing_name_el);
+	form.appendChild(billing_name_hint);
+	form.appendChild(document.createElement('br'));
 
 	// sign_up_email
 	var sign_up_email_label = document.createElement('label');
@@ -2791,10 +2792,10 @@ function build_signup(initusername, initpassword) {
 		}
 	});
 
-	el.appendChild(sign_up_email_label);
-	el.appendChild(sign_up_email_el);
-	el.appendChild(sign_up_email_hint);
-	el.appendChild(document.createElement('br'));
+	form.appendChild(sign_up_email_label);
+	form.appendChild(sign_up_email_el);
+	form.appendChild(sign_up_email_hint);
+	form.appendChild(document.createElement('br'));
 
 	// sign_up_username
 	var sign_up_username_label = document.createElement('label');
@@ -2822,10 +2823,10 @@ function build_signup(initusername, initpassword) {
 		sign_up_username_el.value = initusername;
 	}
 
-	el.appendChild(sign_up_username_label);
-	el.appendChild(sign_up_username_el);
-	el.appendChild(sign_up_username_hint);
-	el.appendChild(document.createElement('br'));
+	form.appendChild(sign_up_username_label);
+	form.appendChild(sign_up_username_el);
+	form.appendChild(sign_up_username_hint);
+	form.appendChild(document.createElement('br'));
 
 	// sign_up_password
 	var sign_up_password_label = document.createElement('label');
@@ -2854,11 +2855,11 @@ function build_signup(initusername, initpassword) {
 		sign_up_password_el.value = initpassword;
 	}
 
-	el.appendChild(sign_up_password_label);
-	el.appendChild(sign_up_password_el);
-	el.appendChild(sign_up_password_hint);
-	el.appendChild(document.createElement('br'));
-	el.appendChild(document.createElement('hr'));
+	form.appendChild(sign_up_password_label);
+	form.appendChild(sign_up_password_el);
+	form.appendChild(sign_up_password_hint);
+	form.appendChild(document.createElement('br'));
+	form.appendChild(document.createElement('hr'));
 
 	// billing_address
 	var billing_address_label = document.createElement('label');
@@ -2869,9 +2870,9 @@ function build_signup(initusername, initpassword) {
 	billing_address_el.id = 'billing_address';
 	billing_address_el.placeholder="123a Example Street";
 	billing_address_el.classList.add('animate__animated', 'animate__backInLeft');
-	el.appendChild(billing_address_label);
-	el.appendChild(billing_address_el);
-	el.appendChild(document.createElement('br'));
+	form.appendChild(billing_address_label);
+	form.appendChild(billing_address_el);
+	form.appendChild(document.createElement('br'));
 
 	// billing_city
 	var billing_city_label = document.createElement('label');
@@ -2882,10 +2883,10 @@ function build_signup(initusername, initpassword) {
 	billing_city_el.id = 'billing_city';
 	billing_city_el.placeholder="Footscray";
 	billing_city_el.classList.add('animate__animated', 'animate__backInLeft');
-	el.appendChild(billing_city_label);
-	el.appendChild(billing_city_el);
-	el.appendChild(document.createElement('br'));
-	el.appendChild(document.createElement('hr'));
+	form.appendChild(billing_city_label);
+	form.appendChild(billing_city_el);
+	form.appendChild(document.createElement('br'));
+	form.appendChild(document.createElement('hr'));
 
 	// billing_region
 	var billing_region_label = document.createElement('label');
@@ -2896,9 +2897,9 @@ function build_signup(initusername, initpassword) {
 	billing_region_el.id = 'billing_region';
 	billing_region_el.placeholder="Victoria";
 	billing_region_el.classList.add('animate__animated', 'animate__backInLeft');
-	el.appendChild(billing_region_label);
-	el.appendChild(billing_region_el);
-	el.appendChild(document.createElement('br'));
+	form.appendChild(billing_region_label);
+	form.appendChild(billing_region_el);
+	form.appendChild(document.createElement('br'));
 
 	// billing_code
 	var billing_code_label = document.createElement('label');
@@ -2909,10 +2910,10 @@ function build_signup(initusername, initpassword) {
 	billing_code_el.id = 'billing_code';
 	billing_code_el.placeholder="0000";
 	billing_code_el.classList.add('animate__animated', 'animate__backInLeft');
-	el.appendChild(billing_code_label);
-	el.appendChild(billing_code_el);
-	el.appendChild(document.createElement('br'));
-	el.appendChild(document.createElement('hr'));
+	form.appendChild(billing_code_label);
+	form.appendChild(billing_code_el);
+	form.appendChild(document.createElement('br'));
+	form.appendChild(document.createElement('hr'));
 
 	// billing_country
 	var billing_country_label = document.createElement('label');
@@ -2923,15 +2924,15 @@ function build_signup(initusername, initpassword) {
 	billing_country_el.id = 'billing_country';
 	billing_country_el.placeholder="Australia";
 	billing_country_el.classList.add('animate__animated', 'animate__backInLeft');
-	el.appendChild(billing_country_label);
-	el.appendChild(billing_country_el);
-	el.appendChild(document.createElement('br'));
-	el.appendChild(document.createElement('hr'));
+	form.appendChild(billing_country_label);
+	form.appendChild(billing_country_el);
+	form.appendChild(document.createElement('br'));
+	form.appendChild(document.createElement('hr'));
 
 	var pre_text = document.createElement('small');
 	pre_text.textContent = 'Signing up gives you free access for 30 days, after which you will be asked to either purchase a lifetime access, or create a subscription.';
-	el.appendChild(pre_text);
-	el.appendChild(document.createElement('br'));
+	form.appendChild(pre_text);
+	form.appendChild(document.createElement('br'));
 
 	var pre_text2 = document.createElement('small');
 	pre_text2.textContent = 'Take a moment to review our: '
@@ -2956,9 +2957,9 @@ function build_signup(initusername, initpassword) {
 	pre_text2.appendChild(nbsp);
 	pre_text2.appendChild(pre_text2_link2);
 	pre_text2.appendChild(nbsp2);
-	el.appendChild(pre_text2);
-	el.appendChild(document.createElement('br'));
-	el.appendChild(document.createElement('hr'));
+	form.appendChild(pre_text2);
+	form.appendChild(document.createElement('br'));
+	form.appendChild(document.createElement('hr'));
 
 	var signup_button = document.createElement('button');
 	signup_button.textContent = 'Signup';
@@ -3088,7 +3089,9 @@ function build_signup(initusername, initpassword) {
 			console.log(err);
   		})
 	});
-	el.appendChild(signup_button);
+	form.appendChild(signup_button);
+
+	el.appendChild(form);
 }
 
 function QueryStringToJSON() {            
