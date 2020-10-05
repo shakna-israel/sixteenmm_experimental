@@ -130,6 +130,10 @@ img {
   hr {
     margin-bottom: 1.5em;
   }
+
+  form {
+    max-width: 80vw;
+  }
 }
 
 body {
@@ -208,4 +212,10 @@ input {
   padding: 1em;
   margin: 1em;
   border-radius: 1em;
+}
+
+form {
+  display: block;
+  margin: 0 auto;
+  max-width: 50vw;
 }
