@@ -2322,8 +2322,8 @@ function build_userdata() {
 				el.appendChild(document.createElement('hr'));
 
 			} else {
-				// TODO: Oh no!
-				console.log(data);
+				// User not authorised...
+				load_login();
 			}
 		})
 		.catch(function(err) {
