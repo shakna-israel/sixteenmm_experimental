@@ -2648,7 +2648,7 @@ function build_userdata() {
 
 				var cancel_account = document.createElement('a');
 				cancel_account.href="javascript:void(0)";
-				cancel_account.textContent = 'Cancel payment account.';
+				cancel_account.textContent = 'Delete account, and cancel any existing payment account.';
 				cancel_account.addEventListener('click', function(event) {
 					event.preventDefault();
 
