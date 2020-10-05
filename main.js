@@ -2963,6 +2963,7 @@ function build_signup(initusername, initpassword) {
 
 	var signup_button = document.createElement('button');
 	signup_button.textContent = 'Signup';
+	signup_button.id = 'signup_button';
 	signup_button.classList.add('animate__animated', 'animate__swing', 'signupButton');
 	signup_button.addEventListener('click', function() {
 		// Create our payload
@@ -3090,6 +3091,12 @@ function build_signup(initusername, initpassword) {
   		})
 	});
 	form.appendChild(signup_button);
+
+	form.addEventListener('submit', function(event) {
+		event.preventDefault();
+
+		document.getElementById('signup_button').click();
+	})
 
 	el.appendChild(form);
 }
