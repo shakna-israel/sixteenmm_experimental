@@ -2346,6 +2346,7 @@ function build_userdata() {
 				el.appendChild(meta_title);
 
 				// API Token
+				// TODO: Click to refresh token...
 				var meta_apitoken = document.createElement('p');
 				meta_apitoken.textContent = "API Token: <token>"
 					.replace("<token>", data.data.metadata.apitoken);
@@ -2359,6 +2360,7 @@ function build_userdata() {
 				el.appendChild(document.createElement('hr'));
 
 				// User Class
+				// TODO: Click to go to plan change...
 				var meta_class = document.createElement('p');
 				meta_class.textContent = "User Class: <class>"
 					.replace("<class>", data.data.metadata.class);
@@ -2375,6 +2377,7 @@ function build_userdata() {
 				el.appendChild(document.createElement('hr'));
 
 				// Email Address
+				// TODO: Click to change email...
 				var meta_email = document.createElement('p');
 				meta_email.textContent = "Email Address: <email>"
 					.replace("<email>", data.data.metadata['email[decrypted]']);
@@ -2390,6 +2393,7 @@ function build_userdata() {
 				// Metadata Billing
 				var billing = data.data.metadata['billing[decrypted]'];
 				// Legal Name
+				// TODO: Click to change...
 				var meta_legal = document.createElement('p');
 				meta_legal.textContent = "Legal Name: <name>"
 					.replace("<name>", billing['legal name']);
@@ -2397,6 +2401,7 @@ function build_userdata() {
 				el.appendChild(meta_legal);
 
 				// billing.address
+				// TODO: Click to change...
 				var meta_address = document.createElement('p');
 				meta_address.textContent = "Address: <address>"
 					.replace("<address>", billing.address);
@@ -2404,6 +2409,7 @@ function build_userdata() {
 				el.appendChild(meta_address);
 
 				// billing.city
+				// TODO: Click to change...
 				var meta_city = document.createElement('p');
 				meta_city.textContent = "City or Suburb: <city>"
 					.replace("<city>", billing.city);
@@ -2411,6 +2417,7 @@ function build_userdata() {
 				el.appendChild(meta_city);
 
 				// billing.region
+				// TODO: Click to change...
 				var meta_region = document.createElement('p');
 				meta_region.textContent = "Region: <region>"
 					.replace("<region>", billing.region);
@@ -2418,6 +2425,7 @@ function build_userdata() {
 				el.appendChild(meta_region);
 
 				// billing.country
+				// TODO: Click to change...
 				var meta_country = document.createElement('p');
 				meta_country.textContent = "Country: <country>"
 					.replace("<country>", billing.country);
@@ -2425,6 +2433,7 @@ function build_userdata() {
 				el.appendChild(meta_country);
 
 				// billing['postal code']
+				// TODO: Click to change...
 				var meta_code = document.createElement('p');
 				meta_code.textContent = "Postal: <code>"
 					.replace("<code>", billing['postal code']);
@@ -2454,6 +2463,8 @@ function build_userdata() {
 						.replace("<category>", data.data.favourite_category[ix]);
 					fav_link.textContent = data.data.favourite_category[ix];
 					fav.appendChild(fav_link);
+
+					// TODO: Use tickbox to allow removing favourite category...
 					
 					fav_container.appendChild(fav);
 				}
@@ -2486,6 +2497,8 @@ function build_userdata() {
 					wh_progress.textContent = "  <progress> / <runtime>"
 						.replace("<progress>", seconds_to_stamp(datapack.progress))
 						.replace("<runtime>", seconds_to_stamp(datapack.film.runtime));
+
+					// TODO: Use tickbox to allow removing from history...
 
 					wh_el.appendChild(wh_el_title);
 					wh_el.appendChild(wh_progress);
@@ -2521,6 +2534,8 @@ function build_userdata() {
 					wl_progress.textContent = "  <runtime>"
 						.replace("<runtime>", seconds_to_stamp(datapack.runtime));
 
+					// TODO: Use tickbox to allow removing from list...
+
 					wl_el.appendChild(wl_el_title);
 					wl_el.appendChild(wl_progress);
 					wl_container.appendChild(wl_el);
@@ -2546,6 +2561,8 @@ function build_userdata() {
 						.replace("<category>", data.data.blacklisted_category[ix]);
 					bl_item_link.textContent = data.data.blacklisted_category[ix];
 					bl_item.appendChild(bl_item_link);
+
+					// TODO: Use tickbox to allow removing from blacklist...
 
 					bl_container.appendChild(bl_item);
 				}
@@ -2578,6 +2595,8 @@ function build_userdata() {
 					blf_progress.textContent = "  <runtime>"
 						.replace("<runtime>", seconds_to_stamp(datapack.runtime));
 
+					// TODO: Use tickbox to allow removing from blacklist...
+
 					blf_el.appendChild(blf_el_title);
 					blf_el.appendChild(blf_progress);
 					blf_container.appendChild(blf_el);
@@ -2595,12 +2614,24 @@ function build_userdata() {
 				el.appendChild(document.createElement('hr'));
 				var cancel_info = document.createElement('small');
 				cancel_info.textContent = 'This is IRREVERSIBLE.';
+				cancel_info.id = 'cancel_info';
+
+				cancel_info.addEventListener('animationend', function() {
+					this.classList.remove('animate__animated');
+					this.classList.remove('animate__flash');
+				})
+
 				el.appendChild(cancel_info);
 				el.appendChild(document.createElement('hr'));
 
 				var cancel_payment = document.createElement('a');
 				cancel_payment.href="javascript:void(0)";
 				cancel_payment.textContent = 'Cancel payment account.';
+
+				cancel_payment.addEventListener('mouseover', function() {
+					document.getElementById('cancel_info').classList.add('animate__animated', 'animate__flash');
+				});
+
 				cancel_payment.addEventListener('click', function(event) {
 					event.preventDefault();
 
@@ -2643,6 +2674,12 @@ function build_userdata() {
 				el.appendChild(document.createElement('hr'));
 				var cancel_info = document.createElement('small');
 				cancel_info.textContent = 'This is IRREVERSIBLE.';
+				cancel_info.id = 'cancel_info2';
+
+				cancel_info.addEventListener('animationend', function() {
+					this.classList.remove('animate__animated');
+					this.classList.remove('animate__flash');
+				})
 				el.appendChild(cancel_info);
 				el.appendChild(document.createElement('hr'));
 
@@ -2650,6 +2687,11 @@ function build_userdata() {
 				var cancel_account = document.createElement('a');
 				cancel_account.href="javascript:void(0)";
 				cancel_account.textContent = 'Delete account, and cancel any existing payment account.';
+
+				cancel_account.addEventListener('mouseover', function() {
+					document.getElementById('cancel_info2').classList.add('animate__animated', 'animate__flash');
+				});
+
 				cancel_account.addEventListener('click', function(event) {
 					event.preventDefault();
 
