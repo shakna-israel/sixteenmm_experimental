@@ -2560,7 +2560,7 @@ function build_userdata() {
 				el.appendChild(blf_container);
 				el.appendChild(document.createElement('hr'));
 
-				// TODO: Cancel account section...
+				// Cancel account section...
 				var cancel_title = document.createElement('h2');
 				cancel_title.textContent = 'Cancel Account';
 				cancel_title.id = 'cancelaccount';
@@ -2578,8 +2578,39 @@ function build_userdata() {
 				cancel_payment.addEventListener('click', function(event) {
 					event.preventDefault();
 
-					// TODO:
-					// /user/payment/cancel/<username>/<token>/json
+					// Cancel the payment account
+					var url = "https://sixteenmm.org/user/payment/cancel/<username>/<token>/json"
+						.replace("<username>", username)
+						.replace("<token>", token);
+
+					fetch(url, {
+						method: 'GET',
+						cache: 'no-cache',
+						mode: 'cors',
+					}).then(response => response.json())
+			  		.then(function(data) {
+			  			if(data.status == 403) {
+			  				// Not logged in
+			  				load_login();
+			  			}
+			  			else if(data.status == 400) {
+			  				// TODO: Error, no payment account found.
+			  				window.history.go(0);
+			  			}
+			  			else if(data.status == 200) {
+			  				// Success!
+			  				window.history.go(0);
+			  			}
+			  			else {
+			  				// TODO: WAT!
+			  				console.log(data);
+			  			}
+			  		})
+			  		.catch(function(err) {
+			  			// TODO: Network error
+			  			console.log(err);
+			  		});
+
 				})
 
 				el.appendChild(document.createElement('hr'));
