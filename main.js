@@ -118,9 +118,9 @@ function check_user_expired(username, token) {
 		mode: 'cors',
 		cache: 'no-cache'}
 	).then(response => response.json())
-  	.then(function(data) {
+  	.then(function(lockeddata) {
   		// 200 - Locked
-  		if(data.status == 200) {
+  		if(lockeddata.status == 200) {
   			var url = 'https://sixteenmm.org/stripe/<username>/<token>/json'
   			fetch(url, {
   				method: 'GET',
@@ -153,6 +153,11 @@ function check_user_expired(username, token) {
 			    home_button.addEventListener('click', build_home);
 			    home_button.textContent = 'Home';
 			    nav.appendChild(home_button);
+
+			    // Add some information as to why you're on this page.
+			    var info_pre = document.createElement('p');
+			    info_pre.textContent = lockeddata.reason;
+			    el.appendChild(info_pre);
 
   				// Add the Stripe payload
   				var stripe_payload = document.createElement('script');
@@ -303,8 +308,7 @@ function check_user_expired(username, token) {
 			  		.catch(function(err) {
 			  			// TODO: Shit.
 			  			console.log(err);
-			  		})
-					
+			  		});
 				}
 
   				form.addEventListener('submit', function(event) {
@@ -349,13 +353,6 @@ function check_user_expired(username, token) {
 
 				form.appendChild(submit_button);
   				el.appendChild(form);
-
-  				// TODO: Add the scripting
-
-  				// data.data.key
-  				// data.data.monthly (cents)
-  				// data.data.yearly (cents)
-  				// data.data.lifetime (cents)
   			})
   			.catch(function(err) {
   				// TODO: Network error! Crap.
