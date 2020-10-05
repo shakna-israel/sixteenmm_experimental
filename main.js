@@ -2071,7 +2071,22 @@ function build_userdata() {
 				el.appendChild(billing_info);
 				el.appendChild(document.createElement('hr'));
 
-				// TODO: Favourite Categories
+				// Favourite Categories
+				var favs_title = document.createElement('h2');
+				favs_title.textContent = 'Favourites';
+				favs_title.classList.add('animate__animated', 'animate__flipInX');
+				el.appendChild(favs_title);
+
+				var fav_container = document.createElement('ul');
+
+				for(var ix = 0; ix < data.data.favourite_category.length; ix++) {
+					var fav = document.createElement('li');
+					fav.textContent = data.data.favourite_category[ix];
+					fav_container.appendChild(fav);
+				}
+				el.appendChild(fav_container);
+				el.appendChild(document.createElement('hr'));
+
 				// TODO: Watch History
 				// TODO: Watch Later
 				// TODO: Blacklisted Categories
