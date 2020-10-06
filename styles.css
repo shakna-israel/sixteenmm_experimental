@@ -19,6 +19,13 @@ video:fullscreen {
   filter: invert(0%);
 }
 
+.video_preview {
+  display: block;
+  margin: 0 auto;
+  height: 75vh;
+  max-width: 100%;
+}
+
 .video_watch {
   width: auto    !important;
 }

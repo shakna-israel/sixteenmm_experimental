@@ -990,6 +990,11 @@ function load_video(uuid) {
   					}
   				}
 
+  				var preview_frame = document.createElement('img');
+  				preview_frame.src = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
+  				preview_frame.id = 'preview_frame';
+  				preview_frame.classList.add('video_preview');
+
   				var video = document.createElement('video');
   				video.classList.add('animate__animated', 'animate__fadeInUp', 'video_watch');
 				video.controls = true;
@@ -1000,6 +1005,7 @@ function load_video(uuid) {
 				video.style.display = 'none';
 				video.addEventListener('loadeddata', function() {
 					video.style.display = 'block';
+					document.getElementById('preview_frame').style.display = 'none';
 				});
 
 				// Set up to record playback history
@@ -1146,6 +1152,7 @@ function load_video(uuid) {
 
   				// TODO: Add any more info we want to the page...
 
+  				el.appendChild(preview_frame);
   				el.appendChild(video);
 
   				// Set up autoplay control
