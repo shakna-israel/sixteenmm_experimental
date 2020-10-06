@@ -108,77 +108,6 @@ function video_tick() {
     }
 }
 
-function check_watch_later() {
-	// Get the auth
-	var username = localStorage.getItem('username');
-	var token = localStorage.getItem('token');
-	if(!username || !token) {
-		return;
-	}
-
-	// TODO: Add Watch Later buttons...
-
-	var list_uuids = [];
-
-	var els = document.getElementsByClassName('film');
-	for(var i = 0; i < els.length; i++) {
-		list_uuids[i] = els[i].dataset.uuid;
-	}
-
-	var url = 'https://sixteenmm.org/get/watchlater/<username>/<token>/json'
-		.replace("<username>", username)
-		.replace("<token>", token);
-
-	fetch(url, {
-		method: 'POST',
-		mode: 'cors',
-		cache: 'no-cache',
-		headers: {'Content-Type': 'application/json', "Accept": "application/json"},
-		body: JSON.stringify(list_uuids)
-	}).then(response => response.json())
-  	.then(function(data) {
-  		if(data.status == 200) {
-  			for(var i = 0; i < els.length; i++) {
-  				if(!!els[i].dataset.uuid) {
-  					var watchlater_label = document.createElement('label');
-  					watchlater_label.for = 'watchlater_button_' + els[i].dataset.uuid;
-  					watchlater_label.textContent = 'Watch Later:'
-
-  					var watchlater_button = document.createElement('input');
-  					watchlater_button.type = 'checkbox';
-  					watchlater_button.id = 'watchlater_button_' + els[i].dataset.uuid;
-  					watchlater_button.classList.add('watchlater_button');
-
-		  			if(data.data[i]) {
-		  				watchlater_button.checked = true;
-		  			} else {
-		  				watchlater_button.checked = false;
-		  			}
-
-		  			// TODO: eventlistener
-		  			watchlater_button.addEventListener('click', function(event) {
-		  				event.preventDefault();
-
-		  				if(this.checked) {
-		  					this.checked = false;
-		  				} else {
-		  					this.checked = true;
-		  				}
-		  			});
-
-		  			els[i].appendChild(document.createElement('br'));
-		  			els[i].appendChild(watchlater_label);
-		  			els[i].appendChild(watchlater_button);
-  				}
-	  		}
-  		}
-  	})
-  	.catch(function(err) {
-  		// TODO: Network error
-  		console.log(err);
-  	})
-}
-
 function check_user_expired(username, token) {
 	var url = 'https://sixteenmm.org/free/trial/expired/<username>/<token>/json'
 		.replace("<username>", username)
@@ -2269,8 +2198,6 @@ function build_home() {
 				video_pack.appendChild(item_title);
 				video_pack.appendChild(item_collection);
 			}
-
-			window.setTimeout(check_watch_later, 3000);
 		}
 	})
 	.catch(function(err) {
