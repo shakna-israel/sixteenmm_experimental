@@ -108,6 +108,41 @@ function video_tick() {
     }
 }
 
+function check_watch_later() {
+	// Get the auth
+	var username = localStorage.getItem('username');
+	var token = localStorage.getItem('token');
+	if(!!username || !!token) {
+		return;
+	}
+
+	// TODO: Add Watch Later buttons...
+
+	var list_uuids = [];
+
+	var els = document.getElementsByClassName('film');
+	for(var i = 0; i < els.length; i++) {
+		list_uuids[i] = els[i].dataset.uuid;
+	}
+
+	var url = 'https://sixteenmm.org/get/watchlater/<username>/<token>/json'
+		.replace("<username>", username)
+		.replace("<token>", token);
+
+	fetch(url, {
+		method: 'GET',
+		mode: 'cors',
+		headers: {'Content-Type': 'application/json', "Accept": "application/json"},
+		body: list_uuids
+	}).then(response => response.json())
+  	.then(function(data) {
+  		console.log(data);
+  	})
+  	.catch(function(err) {
+  		// TODO: Network error
+  	})
+}
+
 function check_user_expired(username, token) {
 	var url = 'https://sixteenmm.org/free/trial/expired/<username>/<token>/json'
 		.replace("<username>", username)
