@@ -997,6 +997,10 @@ function load_video(uuid) {
 				video.cover = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
 				video.id = 'playingfilm';
 				video.dataset.uuid = uuid;
+				video.style.display = 'none';
+				video.addEventListener('loadeddata', function() {
+					video.style.display = 'block';
+				});
 
 				// Set up to record playback history
 				setInterval(video_tick, 30000);
