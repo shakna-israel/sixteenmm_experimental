@@ -113,6 +113,7 @@ function check_watch_later() {
 	var username = localStorage.getItem('username');
 	var token = localStorage.getItem('token');
 	if(!!username || !!token) {
+		console.log("Auth Error");
 		return;
 	}
 
