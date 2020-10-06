@@ -156,6 +156,15 @@ function check_watch_later() {
 		  			}
 
 		  			// TODO: eventlistener
+		  			watchlater_button.addEventListener('click', function(event) {
+		  				event.preventDefault();
+
+		  				if(this.checked) {
+		  					this.checked = false;
+		  				} else {
+		  					this.checked = true;
+		  				}
+		  			});
 
 		  			els[i].appendChild(document.createElement('br'));
 		  			els[i].appendChild(watchlater_label);
