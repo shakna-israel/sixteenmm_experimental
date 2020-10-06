@@ -2260,9 +2260,9 @@ function build_home() {
 				video_pack.appendChild(item_title);
 				video_pack.appendChild(item_collection);
 			}
-
-			check_watch_later();
 		}
+
+		check_watch_later();
 	})
 	.catch(function(err) {
 		var net_error = document.createElement('p');
