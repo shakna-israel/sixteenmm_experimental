@@ -24,6 +24,8 @@ video:fullscreen {
   margin: 0 auto;
   height: 75vh;
   max-width: 100%;
+  animation: fadeIn;
+  animation-duration: 2s;
 }
 
 .video_watch {

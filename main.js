@@ -993,7 +993,7 @@ function load_video(uuid) {
   				var preview_frame = document.createElement('img');
   				preview_frame.src = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
   				preview_frame.id = 'preview_frame';
-  				preview_frame.classList.add('video_preview');
+  				preview_frame.classList.add('animate__animated', 'video_preview');
 
   				var video = document.createElement('video');
   				video.classList.add('animate__animated', 'animate__fadeInUp', 'video_watch');
