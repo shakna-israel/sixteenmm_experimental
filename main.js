@@ -2261,8 +2261,6 @@ function build_home() {
 				video_pack.appendChild(item_collection);
 			}
 		}
-
-		check_watch_later();
 	})
 	.catch(function(err) {
 		var net_error = document.createElement('p');
@@ -2279,6 +2277,7 @@ function build_home() {
 	})
 
     el.appendChild(video_pack);
+    check_watch_later();
 }
 
 function build_userdata() {
