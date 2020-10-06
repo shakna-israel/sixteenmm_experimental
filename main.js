@@ -1015,6 +1015,19 @@ function load_video(uuid) {
 					console.log("Video stalled...");
 				});
 
+				// Video controls
+				document.addEventListener('keyup', document.kbfn=function kbfn(event) {
+					var video = document.getElementById('playingfilm');
+					if(!!video) {
+						if(event.key == 'f') {
+							video.requestFullscreen();
+						}
+					} else {
+						// Kill the event listener when it is inappropriate
+						document.removeEventListener('keyup', document.kbfn);
+					}
+				});
+
 				// Set up to record playback history
 				setInterval(video_tick, 30000);
 
