@@ -1039,6 +1039,20 @@ function load_video(uuid) {
 									video.volume = 1;
 								}
 								break;
+							case "Left":
+							case "LeftArrow":
+								if(video.currentTime > 10) {
+									video.currentTime -= 10;
+								} else {
+									video.currentTime = 0;
+								}
+								break;
+							case "Right":
+							case "RightArrow":
+								if(video.currentTime < (video.duration + 10)) {
+									video.currentTime += 10;
+								}
+								break;
 						}
 
 					} else {
