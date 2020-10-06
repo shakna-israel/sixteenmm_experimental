@@ -137,7 +137,15 @@ function check_watch_later() {
 		body: JSON.stringify(list_uuids)
 	}).then(response => response.json())
   	.then(function(data) {
-  		console.log(data);
+  		if(data.status == 200) {
+  			for(var i = 0; i < els.length; i++) {
+	  			if(!!els[i].dataset.uuid && data.data[i]) {
+	  				console.log("WatchLater!");
+	  			} else {
+	  				console.log("Nope.");
+	  			}
+	  		}
+  		}
   	})
   	.catch(function(err) {
   		// TODO: Network error
