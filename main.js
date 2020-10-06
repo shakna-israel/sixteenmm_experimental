@@ -133,7 +133,7 @@ function check_watch_later() {
 		method: 'POST',
 		mode: 'cors',
 		headers: {'Content-Type': 'application/json', "Accept": "application/json"},
-		body: list_uuids
+		body: JSON.stringify(list_uuids)
 	}).then(response => response.json())
   	.then(function(data) {
   		console.log(data);
