@@ -147,6 +147,7 @@ function check_watch_later() {
   					var watchlater_button = document.createElement('input');
   					watchlater_button.type = 'checkbox';
   					watchlater_button.id = 'watchlater_button_' + els[i].dataset.uuid;
+  					watchlater_button.classList.add('watchlater_button');
 
 		  			if(data.data[i]) {
 		  				watchlater_button.checked = true;
@@ -156,6 +157,7 @@ function check_watch_later() {
 
 		  			// TODO: eventlistener
 
+		  			els[i].appendChild(document.createElement('br'));
 		  			els[i].appendChild(watchlater_label);
 		  			els[i].appendChild(watchlater_button);
   				}
@@ -2259,6 +2261,7 @@ function build_home() {
 				video_pack.appendChild(item_collection);
 			}
 
+			check_watch_later();
 		}
 	})
 	.catch(function(err) {

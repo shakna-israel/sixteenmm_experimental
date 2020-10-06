@@ -229,3 +229,7 @@ form {
   margin: 0 auto;
   max-width: 50vw;
 }
+
+.watchlater_button {
+  z-index: 300;
+}
