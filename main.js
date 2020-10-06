@@ -1049,7 +1049,7 @@ function load_video(uuid) {
 								break;
 							case "Right":
 							case "RightArrow":
-								if(video.currentTime < (video.duration + 10)) {
+								if(video.currentTime < (video.duration - 10)) {
 									video.currentTime += 10;
 								}
 								break;
