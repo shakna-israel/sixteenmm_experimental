@@ -1003,9 +1003,16 @@ function load_video(uuid) {
 				video.id = 'playingfilm';
 				video.dataset.uuid = uuid;
 				video.style.display = 'none';
+
+				// Swap from preview frame to video...
 				video.addEventListener('loadeddata', function() {
 					video.style.display = 'block';
 					document.getElementById('preview_frame').style.display = 'none';
+				});
+
+				video.addEventListener('stalled', function() {
+					// TODO
+					console.log("Video stalled...");
 				});
 
 				// Set up to record playback history
