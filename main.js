@@ -140,6 +140,7 @@ function check_watch_later() {
   	})
   	.catch(function(err) {
   		// TODO: Network error
+  		console.log(err);
   	})
 }
 
