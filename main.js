@@ -139,11 +139,26 @@ function check_watch_later() {
   	.then(function(data) {
   		if(data.status == 200) {
   			for(var i = 0; i < els.length; i++) {
-	  			if(!!els[i].dataset.uuid && data.data[i]) {
-	  				console.log("WatchLater!");
-	  			} else {
-	  				console.log("Nope.");
-	  			}
+  				if(!!els[i].dataset.uuid) {
+  					var watchlater_label = document.createElement('label');
+  					watchlater_label.for = 'watchlater_button_' + els[i].dataset.uuid;
+  					watchlater_label.textContent = 'Watch Later:'
+
+  					var watchlater_button = document.createElement('input');
+  					watchlater_button.type = 'checkbox';
+  					watchlater_button.id = 'watchlater_button_' + els[i].dataset.uuid;
+
+		  			if(data.data[i]) {
+		  				watchlater_button.checked = true;
+		  			} else {
+		  				watchlater_button.checked = false;
+		  			}
+
+		  			// TODO: eventlistener
+
+		  			els[i].appendChild(watchlater_label);
+		  			els[i].appendChild(watchlater_button);
+  				}
 	  		}
   		}
   	})
