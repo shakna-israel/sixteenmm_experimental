@@ -129,11 +129,14 @@ function check_watch_later() {
 		.replace("<username>", username)
 		.replace("<token>", token);
 
+	var bodydata = new FormData();
+	bodydata.append("json", JSON.stringify(list_uuids));
+
 	fetch(url, {
 		method: 'POST',
 		mode: 'cors',
 		headers: {'Content-Type': 'application/json', "Accept": "application/json"},
-		body: JSON.stringify(list_uuids)
+		body: bodydata
 	}).then(response => response.json())
   	.then(function(data) {
   		console.log(data);
