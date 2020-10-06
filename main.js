@@ -130,7 +130,7 @@ function check_watch_later() {
 		.replace("<token>", token);
 
 	fetch(url, {
-		method: 'GET',
+		method: 'POST',
 		mode: 'cors',
 		headers: {'Content-Type': 'application/json', "Accept": "application/json"},
 		body: list_uuids
