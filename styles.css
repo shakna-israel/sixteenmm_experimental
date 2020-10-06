@@ -69,8 +69,8 @@ img {
 
 .film:hover {
   transition: background-color 0.3s ease-in-out;
-  background-color: white;
-  filter: invert(80%);
+  background-color: antiquewhite;
+  filter: invert(100%);
 }
 
 .film:hover img {
