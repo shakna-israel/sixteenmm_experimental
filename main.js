@@ -2270,7 +2270,7 @@ function build_home() {
 				video_pack.appendChild(item_collection);
 			}
 
-			check_watch_later();
+			window.setTimeout(check_watch_later, 3000);
 		}
 	})
 	.catch(function(err) {
