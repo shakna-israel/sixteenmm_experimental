@@ -1019,9 +1019,28 @@ function load_video(uuid) {
 				document.addEventListener('keyup', document.kbfn=function kbfn(event) {
 					var video = document.getElementById('playingfilm');
 					if(!!video) {
-						if(event.key == 'f') {
-							video.requestFullscreen();
+						switch(event.key) {
+							case "f":
+								video.requestFullscreen();
+								break;
+							case "Down":
+							case "ArrowDown":
+								if(video.volume > 0.1) {
+									video.volume -= 0.1;
+								} else {
+									video.volume = 0;
+								}
+								break;
+							case "Up":
+							case "ArrowUp":
+								if(video.volume < 0.9) {
+									video.volume += 0.1;
+								} else {
+									video.volume = 1;
+								}
+								break;
 						}
+
 					} else {
 						// Kill the event listener when it is inappropriate
 						document.removeEventListener('keyup', document.kbfn);
