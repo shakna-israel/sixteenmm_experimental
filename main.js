@@ -2657,8 +2657,8 @@ function build_userdata() {
 							var token = localStorage.getItem('token');
 
 							var url = "https://sixteenmm.org/favourite/remove/<category>/<username>/<token>/json"
-								.replace("<category>", this.dataset.category);
-								.replace("<username>", username);
+								.replace("<category>", this.dataset.category)
+								.replace("<username>", username)
 								.replace("<token>", token);
 
 							fetch(url, {
@@ -2683,8 +2683,8 @@ function build_userdata() {
 							var token = localStorage.getItem('token');
 
 							var url = "https://sixteenmm.org/favourite/add/<category>/<username>/<token>/json"
-								.replace("<category>", this.dataset.category);
-								.replace("<username>", username);
+								.replace("<category>", this.dataset.category)
+								.replace("<username>", username)
 								.replace("<token>", token);
 
 							fetch(url, {
