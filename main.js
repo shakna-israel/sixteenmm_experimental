@@ -2509,7 +2509,7 @@ function build_userdata() {
 
 							var url = 'https://sixteenmm.org/change/email/<username>/<token>/json'
 								.replace("<username>", username)
-								.replace("<token>");
+								.replace("<token>", token);
 
 							var data = new URLSearchParams();
 							data.append('email', this.value);
