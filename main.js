@@ -2479,6 +2479,7 @@ function build_userdata() {
 				el.appendChild(document.createElement('hr'));
 
 				// User Locked?
+				// TODO: If true, click to change plan...?
 				var meta_locked = document.createElement('p');
 				meta_locked.textContent = "Account Locked: <locked>"
 					.replace("<locked>", (data.data.metadata.locked ? "true" : "false"));
@@ -2491,6 +2492,44 @@ function build_userdata() {
 				var meta_email = document.createElement('p');
 				meta_email.textContent = "Email Address: <email>"
 					.replace("<email>", data.data.metadata['email[decrypted]']);
+				meta_email.title = 'Click to change.';
+
+				meta_email.addEventListener('click', function(event) {
+					event.preventDefault();
+
+					var email_input = document.createElement('input');
+					email_input.id = 'email_input';
+					email_input.value = this.textContent;
+
+					this.parentNode.replaceChild(this, data.data.metadata['email[decrypted]']);
+
+					/*
+					var username = localStorage.getItem('username');
+					var token = localStorage.getItem('token');
+
+					var url = 'https://sixteenmm.org/change/email/<username>/<token>/json'
+						.replace("<username>", username)
+						.replace("<token>");
+
+					var data = URLSearchParams();
+					data.append('email', );
+
+					fetch('https://sixteenmm.org/signup/json/', {
+						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+						method: 'POST',
+						cache: 'no-cache',
+						mode: 'cors',
+						body: data
+					}).then(response => response.json())
+			  		.then(function(data) {
+			  		})
+			  		.catch(function(err) {
+			  			// TODO: Network error
+			  			console.log(err);
+			  		})
+			  		*/
+				});
+
 				meta_email.classList.add('animate__animated', 'animate__backInLeft');
 
 				var meta_email_info = document.createElement('small');
