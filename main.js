@@ -2423,7 +2423,7 @@ function build_userdata() {
 					var username = localStorage.getItem('username');
 					var token = localStorage.getItem('token');
 
-					var url = '/roll/token/<username>/<token>/json'
+					var url = 'https://sixteenmm.org/roll/token/<username>/<token>/json'
 						.replace("<username>", username)
 						.replace("<token>", token);
 
