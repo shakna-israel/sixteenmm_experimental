@@ -2644,14 +2644,64 @@ function build_userdata() {
 					var fav_tick = document.createElement('input');
 					fav_tick.type = "checkbox";
 					fav_tick.checked = true;
+					fav_tick.dataset.category = data.data.favourite_category[ix];
+					fav_tick.id = 'fav_tick_' + data.data.favourite_category[ix];
 
 					fav_tick.addEventListener('click', function(event) {
 						event.preventDefault();
 
 						if(this.checked == true) {
-							// TODO: Make sure added to favourites
+							// Make sure removed from favourites
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = "https://sixteenmm.org/favourite/remove/<category>/<username>/<token>/json"
+								.replace("<category>", this.dataset.category);
+								.replace("<username>", username);
+								.replace("<token>", token);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(favdatum) {
+					  			// On success, untick
+					  			if(favdatum.status == 200) {
+					  				document.getElementById('fav_tick_' + favdatum.data).checked = false;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		})
 						} else {
-							// TODO: Make sure removed from favourites
+							// Make sure added to favourites
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = "https://sixteenmm.org/favourite/add/<category>/<username>/<token>/json"
+								.replace("<category>", this.dataset.category);
+								.replace("<username>", username);
+								.replace("<token>", token);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(favdatum) {
+					  			// On success, untick
+					  			if(favdatum.status == 200) {
+					  				document.getElementById('fav_tick_' + favdatum.data).checked = true;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		})
 						}
 					});
 
