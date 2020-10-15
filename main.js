@@ -2488,7 +2488,7 @@ function build_userdata() {
 				el.appendChild(document.createElement('hr'));
 
 				// Email Address
-				// TODO: Click to change email...
+				// Click to change email...
 				var meta_email = document.createElement('p');
 				meta_email.textContent = "Email Address: <email>"
 					.replace("<email>", data.data.metadata['email[decrypted]']);
@@ -2501,33 +2501,66 @@ function build_userdata() {
 					email_input.id = 'email_input';
 					email_input.value = data.data.metadata['email[decrypted]'];
 
+					email_input.addEventListener("keyup", function(event) {
+						if(event.keyCode === 13) {
+							// Submit change!
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = 'https://sixteenmm.org/change/email/<username>/<token>/json'
+								.replace("<username>", username)
+								.replace("<token>");
+
+							var data = URLSearchParams();
+							data.append('email', this.value);
+
+							fetch(url, {
+								headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+								method: 'POST',
+								cache: 'no-cache',
+								mode: 'cors',
+								body: data
+							}).then(response => response.json())
+					  		.then(function(emaildatum) {
+					  			if(emaildatum.status == 500 || emaildatum.status == 400) {
+					  				// Rejected = 500
+					  				// Bad Request = 400
+					  				var err_info = document.geteElementById('email_input_err');
+					  				err_info.textContent = 'Sorry, that change was rejected.';
+
+					  				err_info.classList.add('animate__animated', 'animate__shakeX', 'error');
+					  				err_info.addEventListener('animationend', function() {
+					  					err_info.setAttributeNS(null, 'class', '');
+					  				});
+					  			} else
+					  			if(emaildatum.status == 401) {
+					  				// Not authenticated
+					  				return load_login();
+					  			} else
+					  			if(emaildatum.status == 200) {
+					  				// Change accepted
+
+					  				// No easy way to rebuild this nested function... Just reload the page!
+					  				window.location.reload(true);
+					  			} else {
+					  				// TODO: Error!
+					  				console.log(emaildatum);
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		})
+
+						}
+					});
+
+					var email_input_err = document.createElement('small');
+					email_input_err.id = 'email_input_err';
+
+					// Replace with an input field...
 					this.parentNode.replaceChild(email_input, this);
-
-					/*
-					var username = localStorage.getItem('username');
-					var token = localStorage.getItem('token');
-
-					var url = 'https://sixteenmm.org/change/email/<username>/<token>/json'
-						.replace("<username>", username)
-						.replace("<token>");
-
-					var data = URLSearchParams();
-					data.append('email', );
-
-					fetch('https://sixteenmm.org/signup/json/', {
-						headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-						method: 'POST',
-						cache: 'no-cache',
-						mode: 'cors',
-						body: data
-					}).then(response => response.json())
-			  		.then(function(data) {
-			  		})
-			  		.catch(function(err) {
-			  			// TODO: Network error
-			  			console.log(err);
-			  		})
-			  		*/
+					this.parentNode.insertBefore(email_input_err, this.nextSibling);
 				});
 
 				meta_email.classList.add('animate__animated', 'animate__backInLeft');
