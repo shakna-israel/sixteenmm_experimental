@@ -2560,7 +2560,7 @@ function build_userdata() {
 
 					// Replace with an input field...
 					this.parentNode.replaceChild(email_input, this);
-					this.parentNode.insertBefore(email_input_err, this.nextSibling);
+					this.insertBefore(email_input_err, this.nextSibling);
 				});
 
 				meta_email.classList.add('animate__animated', 'animate__backInLeft');
