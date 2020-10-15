@@ -2499,9 +2499,9 @@ function build_userdata() {
 
 					var email_input = document.createElement('input');
 					email_input.id = 'email_input';
-					email_input.value = this.textContent;
+					email_input.value = data.data.metadata['email[decrypted]'];
 
-					this.parentNode.replaceChild(this, data.data.metadata['email[decrypted]']);
+					this.parentNode.replaceChild(this, email_input);
 
 					/*
 					var username = localStorage.getItem('username');
