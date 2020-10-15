@@ -2650,6 +2650,8 @@ function build_userdata() {
 					fav_tick.addEventListener('click', function(event) {
 						event.preventDefault();
 
+						// BUG TODO: This seems to call add always...
+
 						if(this.checked == true) {
 							// Make sure removed from favourites
 
@@ -2667,10 +2669,8 @@ function build_userdata() {
 								mode: 'cors',
 							}).then(response => response.json())
 					  		.then(function(favdatum) {
-					  			console.log(favdatum);
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
-					  				console.log('fav_tick_' + favdatum.data);
 					  				document.getElementById('fav_tick_' + favdatum.data).checked = false;
 					  			}
 					  		})
