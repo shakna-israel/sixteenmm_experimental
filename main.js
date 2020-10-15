@@ -2410,9 +2410,50 @@ function build_userdata() {
 
 				// API Token
 				// TODO: Click to refresh token...
-				var meta_apitoken = document.createElement('p');
+				var meta_apitoken = document.createElement('a');
 				meta_apitoken.textContent = "API Token: <token>"
 					.replace("<token>", data.data.metadata.apitoken);
+				meta_apitoken.id = 'meta_apitoken';
+				meta_apitoken.href = 'javascript:void(0)';
+				meta_apitoken.title = 'Click to roll token.';
+
+				meta_apitoken.addEventListener('click', function(event) {
+					event.preventDefault();
+
+					var username = localStorage.getItem('username');
+					var token = localStorage.getItem('token');
+
+					var url = '/roll/token/<username>/<token>/json'
+						.replace("<username>", username)
+						.replace("<token>", token);
+
+					fetch(url, {
+						method: 'GET',
+						cache: 'no-cache',
+						mode: 'cors',
+					}).then(response => response.json())
+			  		.then(function(apidatum) {
+			  			// Success!
+						if(apidatum.status == 200) {
+							// Change the token in storage...
+							localStorage.setItem('token', apidatum.data);
+
+							// Update the element
+							document.getElementById('meta_apitoken').textContent = "API Token: <token>"
+								.replace("<token>", apidatum.data);
+						}
+						// Failure!
+						else {
+							// TODO: Error happened... Uh...
+						}
+			  		})
+			  		.catch(function(err) {
+			  			// TODO: Network error
+			  			console.log(err);
+			  		});
+
+				});
+
 				meta_apitoken.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_apitoken);
 
