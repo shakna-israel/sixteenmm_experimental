@@ -2667,6 +2667,7 @@ function build_userdata() {
 								mode: 'cors',
 							}).then(response => response.json())
 					  		.then(function(favdatum) {
+					  			console.log(favdatum);
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
 					  				console.log('fav_tick_' + favdatum.data);
