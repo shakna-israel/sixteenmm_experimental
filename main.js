@@ -2641,6 +2641,22 @@ function build_userdata() {
 				for(var ix = 0; ix < data.data.favourite_category.length; ix++) {
 					var fav = document.createElement('li');
 
+					var fav_tick = document.createElement('input');
+					fav_tick.type = "checkbox";
+					fav_tick.checked = true;
+
+					fav_tick.addEventListener('click', function(event) {
+						event.preventDefault();
+
+						if(this.checked == true) {
+							// TODO: Make sure added to favourites
+						} else {
+							// TODO: Make sure removed from favourites
+						}
+					});
+
+					fav.appendChild(fav_tick);
+
 					var fav_link = document.createElement('a');
 					fav_link.href = '?page=category&category=<category>'
 						.replace("<category>", data.data.favourite_category[ix]);
