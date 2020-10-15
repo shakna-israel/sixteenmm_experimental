@@ -2456,10 +2456,16 @@ function build_userdata() {
 
 				meta_apitoken.classList.add('animate__animated', 'animate__backInLeft');
 				el.appendChild(meta_apitoken);
+				el.appendChild(document.createElement('br'));
 
 				var meta_apitoken_warn = document.createElement('small');
 				meta_apitoken_warn.textContent = 'Keep the API Token secret!';
 				el.appendChild(meta_apitoken_warn);
+				el.appendChild(document.createElement('br'));
+
+				var meta_apitoken_warn2 = document.createElement('small');
+				meta_apitoken_warn2.textContent = 'Changing the token will logout all other devices from new.sixteenmm.org';
+				el.appendChild(meta_apitoken_warn2);
 
 				el.appendChild(document.createElement('hr'));
 
