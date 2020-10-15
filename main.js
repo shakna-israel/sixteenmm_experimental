@@ -2493,6 +2493,7 @@ function build_userdata() {
 				meta_email.textContent = "Email Address: <email>"
 					.replace("<email>", data.data.metadata['email[decrypted]']);
 				meta_email.title = 'Click to change.';
+				meta_email.classList.add('can_click');
 
 				meta_email.addEventListener('click', function(event) {
 					event.preventDefault();
