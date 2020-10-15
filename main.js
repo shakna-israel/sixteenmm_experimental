@@ -2669,6 +2669,7 @@ function build_userdata() {
 					  		.then(function(favdatum) {
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
+					  				console.log('fav_tick_' + favdatum.data);
 					  				document.getElementById('fav_tick_' + favdatum.data).checked = false;
 					  			}
 					  		})
