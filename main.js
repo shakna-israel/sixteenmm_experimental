@@ -2511,7 +2511,7 @@ function build_userdata() {
 								.replace("<username>", username)
 								.replace("<token>");
 
-							var data = URLSearchParams();
+							var data = new URLSearchParams();
 							data.append('email', this.value);
 
 							fetch(url, {
