@@ -2840,6 +2840,72 @@ function build_userdata() {
 
 					var wl_el = document.createElement('li');
 
+					// Use tickbox to allow removing from list...
+					var wl_el_tick = document.createElement('input');
+					wl_el_tick.type = 'checkbox';
+					wl_el_tick.dataset.uuid = datapack.uuid;
+					wl_el_tick.id = 'wl_el_tick_' + datapack.uuid;
+
+					wl_el_tick.addEventListener('click', function() {
+						event.preventDefault();
+
+						// This seems odd, but works...
+						if(this.checked != true) {
+							// Remove from watch later
+
+							var url = 'https://sixteenmm.org/watchlater/remove/<username>/<token>/<uuid>/json'
+								.replace("<username>", username)
+								.replace('<token>', token)
+								.replace("<uuid>", datapack.uuid);
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(wldatum) {
+					  			// On success, untick
+					  			if(wldatum.status == 200) {
+					  				document.getElementById('wl_el_tick_' + wldatum.data).checked = false;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		});
+
+						} else {
+							// Add to watch later
+
+							var url = 'https://sixteenmm.org/watchlater/add/<username>/<token>/<uuid>/json'
+								.replace("<username>", username)
+								.replace('<token>', token)
+								.replace("<uuid>", datapack.uuid);
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(wldatum) {
+					  			// On success, tick
+					  			if(wldatum.status == 200) {
+					  				document.getElementById('wl_el_tick_' + wldatum.data).checked = true;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		});
+						}
+					});
+
 					// Title and link
 					var wl_el_title = document.createElement('a');
 					wl_el_title.textContent = "<title>, <year>"
@@ -2852,8 +2918,7 @@ function build_userdata() {
 					wl_progress.textContent = "  <runtime>"
 						.replace("<runtime>", seconds_to_stamp(datapack.runtime));
 
-					// TODO: Use tickbox to allow removing from list...
-
+					wl_el.appendChild(wl_el_tick);
 					wl_el.appendChild(wl_el_title);
 					wl_el.appendChild(wl_progress);
 					wl_container.appendChild(wl_el);
