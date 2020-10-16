@@ -2860,7 +2860,7 @@ function build_userdata() {
 							var url = 'https://sixteenmm.org/watchlater/remove/<username>/<token>/<uuid>/json'
 								.replace("<username>", username)
 								.replace('<token>', token)
-								.replace("<uuid>", datapack.uuid);
+								.replace("<uuid>", this.dataset.uuid);
 
 							fetch(url, {
 								method: 'GET',
@@ -2887,7 +2887,7 @@ function build_userdata() {
 							var url = 'https://sixteenmm.org/watchlater/add/<username>/<token>/<uuid>/json'
 								.replace("<username>", username)
 								.replace('<token>', token)
-								.replace("<uuid>", datapack.uuid);
+								.replace("<uuid>", this.dataset.uuid);
 
 							fetch(url, {
 								method: 'GET',
