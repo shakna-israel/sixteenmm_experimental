@@ -2845,6 +2845,7 @@ function build_userdata() {
 					wl_el_tick.type = 'checkbox';
 					wl_el_tick.dataset.uuid = datapack.uuid;
 					wl_el_tick.id = 'wl_el_tick_' + datapack.uuid;
+					wl_el_tick.checked = true;
 
 					wl_el_tick.addEventListener('click', function() {
 						event.preventDefault();
