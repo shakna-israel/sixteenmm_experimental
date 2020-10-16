@@ -66,20 +66,7 @@ function record_progress(username, token, uuid, timestamp) {
 	fetch(url, {
 		method: 'GET',
 		mode: 'cors'}
-	).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+	).then(response => response.json())
   	.then(function(data) {
   		if(data.status == 403) {
   			// Not authenticated
@@ -133,20 +120,7 @@ function check_user_expired(username, token) {
 		method: 'GET',
 		mode: 'cors',
 		cache: 'no-cache'}
-	).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+	).then(response => response.json())
   	.then(function(lockeddata) {
   		// 200 - Locked
   		if(lockeddata.status == 200) {
@@ -155,20 +129,7 @@ function check_user_expired(username, token) {
   				method: 'GET',
   				mode: 'cors',
   				cache: 'no-cache'}
-  			).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+  			).then(response => response.json())
   			.then(function(data) {
   				// Show subscription/payment signup form.
 
@@ -334,20 +295,7 @@ function check_user_expired(username, token) {
 						cache: 'no-cache',
 						mode: 'cors',
 						body: data
-					}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+					}).then(response => response.json())
 			  		.then(function(data) {
 			  			if(data.status == 200) {
 			  				// Success!
@@ -456,20 +404,7 @@ function build_categories() {
 
     fetch("https://sixteenmm.org/categories/json", {
     	mode: 'cors'
-    }).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+    }).then(response => response.json())
 	.then(function(data) {
 		if(data.status == 200) {
 			var cats = data.categories;
@@ -509,20 +444,7 @@ function build_categories() {
 				.replace("<token>", token), {
 					mode: 'cors',
 					cache: 'default'
-				}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+				}).then(response => response.json())
 				.then(function(data) {
 					if(data.status == 200) {
 						// Find our horul...
@@ -642,20 +564,7 @@ function build_search(term) {
 	.replace("<username>", username)
 	.replace("<token>", token), {
 		mode: 'cors'
-	}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+	}).then(response => response.json())
 	.then(function(data) {
 		if(data.status == 200) {
 			localStorage.setItem("searchdata", JSON.stringify(data.all));
@@ -940,20 +849,7 @@ function load_series(uuid) {
 		.replace("<uuid>", uuid), {
 			method: 'GET',
 			mode: 'cors'
-		}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+		}).then(response => response.json())
   		.then(function(data) {
   			if(data.status == 403) {
   				load_login('Not logged in.');
@@ -1074,20 +970,7 @@ function load_video(uuid) {
 			method: 'GET',
 			cache: "default",
 			mode: 'cors'
-		}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+		}).then(response => response.json())
   		.then(function(data) {
   			if(data.status == 403) {
   				load_login('Not logged in.');
@@ -1466,20 +1349,7 @@ function load_login(err) {
 			cache: 'no-cache',
 			mode: 'cors',
 			body: data
-		}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+		}).then(response => response.json())
   		.then(function(data) {
   			if(data.status != 200) {
   				// Failed login.
@@ -1542,20 +1412,7 @@ function load_login(err) {
 	fetch('https://sixteenmm.org/preview/json', {
 		cache: "default",
 		mode: 'cors'
-	}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+	}).then(response => response.json())
 	.then(function(data) {
 		if(data.status != 200) {
 			// Shouldn't reach here... But if it does...
@@ -1716,20 +1573,7 @@ function load_category(category) {
 	.replace("<username>", username)
 	.replace("<token>", token), {
 		mode: 'cors'
-	}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+	}).then(response => response.json())
 	.then(function(data) {
 
 		if(data.status != 200) {
@@ -1907,15 +1751,7 @@ function build_home() {
 		mode: 'cors'
 	}).then((response) => {
 
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
+		console.log(response.headers);
 
     	return response.json();
   	})
@@ -2435,20 +2271,7 @@ function build_userdata() {
 			method: 'GET',
 			cache: 'no-cache',
 			mode: 'cors',
-		}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+		}).then(response => response.json())
   		.then(function(data) {
   			console.log(data);
 
@@ -2601,20 +2424,7 @@ function build_userdata() {
 						method: 'GET',
 						cache: 'no-cache',
 						mode: 'cors',
-					}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+					}).then(response => response.json())
 			  		.then(function(apidatum) {
 			  			// Success!
 						if(apidatum.status == 200) {
@@ -2705,20 +2515,7 @@ function build_userdata() {
 								cache: 'no-cache',
 								mode: 'cors',
 								body: data
-							}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+							}).then(response => response.json())
 					  		.then(function(emaildatum) {
 					  			if(emaildatum.status == 500 || emaildatum.status == 400) {
 					  				// Rejected = 500
@@ -2863,20 +2660,7 @@ function build_userdata() {
 								method: 'GET',
 								cache: 'no-cache',
 								mode: 'cors',
-							}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+							}).then(response => response.json())
 					  		.then(function(favdatum) {
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
@@ -2902,20 +2686,7 @@ function build_userdata() {
 								method: 'GET',
 								cache: 'no-cache',
 								mode: 'cors',
-							}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+							}).then(response => response.json())
 					  		.then(function(favdatum) {
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
@@ -2985,20 +2756,7 @@ function build_userdata() {
 								method: 'GET',
 								cache: 'no-cache',
 								mode: 'cors',
-							}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+							}).then(response => response.json())
 					  		.then(function(whdatum) {
 					  			// On success, untick
 					  			if(whdatum.status == 200) {
@@ -3026,20 +2784,7 @@ function build_userdata() {
 								method: 'GET',
 								cache: 'no-cache',
 								mode: 'cors',
-							}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+							}).then(response => response.json())
 					  		.then(function(whdatum) {
 					  			// On success, tick
 					  			if(whdatum.status == 200) {
@@ -3117,20 +2862,7 @@ function build_userdata() {
 								method: 'GET',
 								cache: 'no-cache',
 								mode: 'cors',
-							}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+							}).then(response => response.json())
 					  		.then(function(wldatum) {
 					  			// On success, untick
 					  			if(wldatum.status == 200) {
@@ -3157,20 +2889,7 @@ function build_userdata() {
 								method: 'GET',
 								cache: 'no-cache',
 								mode: 'cors',
-							}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+							}).then(response => response.json())
 					  		.then(function(wldatum) {
 					  			// On success, tick
 					  			if(wldatum.status == 200) {
@@ -3245,20 +2964,7 @@ function build_userdata() {
 								method: 'GET',
 								cache: 'no-cache',
 								mode: 'cors',
-							}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+							}).then(response => response.json())
 					  		.then(function(bldatum) {
 					  			// On success, untick
 					  			if(bldatum.status == 200) {
@@ -3285,20 +2991,7 @@ function build_userdata() {
 								method: 'GET',
 								cache: 'no-cache',
 								mode: 'cors',
-							}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+							}).then(response => response.json())
 					  		.then(function(bldatum) {
 					  			// On success, tick
 					  			if(bldatum.status == 200) {
@@ -3403,20 +3096,7 @@ function build_userdata() {
 						method: 'GET',
 						cache: 'no-cache',
 						mode: 'cors',
-					}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+					}).then(response => response.json())
 			  		.then(function(data) {
 			  			if(data.status == 403) {
 			  				// Not logged in
@@ -3476,20 +3156,7 @@ function build_userdata() {
 						method: 'GET',
 						cache: 'no-cache',
 						mode: 'cors',
-					}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+					}).then(response => response.json())
 			  		.then(function(data) {
 			  			if(data.status == 200) {
 			  				// Account deleted
@@ -3812,20 +3479,7 @@ function build_signup(initusername, initpassword) {
 			cache: 'no-cache',
 			mode: 'cors',
 			body: data
-		}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+		}).then(response => response.json())
   		.then(function(data) {
 			if(data.status == 200) {
 				// 200 - Success! Trigger a login
@@ -3839,20 +3493,7 @@ function build_signup(initusername, initpassword) {
 					cache: 'no-cache',
 					mode: 'cors',
 					body: data
-				}).then((response) => {
-
-		for (var pair of response.headers.entries()) {
-			if(pair[0] === 'save-data') {
-				if(pair[1] == 'on') {
-					window.save_data_mode = true;
-				} else {
-					window.save_data_mode = false;
-				}
-			}
-		}
-
-    	return response.json();
-  	})
+				}).then(response => response.json())
 		  		.then(function(data) {
 		  			if(data.status != 200) {
 		  				// Failed login.
