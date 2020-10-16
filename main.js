@@ -2650,7 +2650,7 @@ function build_userdata() {
 					fav_tick.addEventListener('click', function(event) {
 						event.preventDefault();
 
-						console.log(this);
+						console.log(this.checked);
 
 						// BUG TODO: This seems to call add always...
 
@@ -2702,7 +2702,7 @@ function build_userdata() {
 					  		.then(function(favdatum) {
 
 					  			console.log(favdatum);
-					  			
+
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
 					  				document.getElementById('fav_tick_' + favdatum.data).checked = true;
