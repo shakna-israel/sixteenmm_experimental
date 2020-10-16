@@ -2650,11 +2650,8 @@ function build_userdata() {
 					fav_tick.addEventListener('click', function(event) {
 						event.preventDefault();
 
-						console.log(this.checked);
-
-						// BUG TODO: This seems to call add always...
-
-						if(this.checked == true) {
+						// This seems odd, but works...
+						if(this.checked != true) {
 							// Make sure removed from favourites
 
 							var username = localStorage.getItem('username');
@@ -2671,9 +2668,6 @@ function build_userdata() {
 								mode: 'cors',
 							}).then(response => response.json())
 					  		.then(function(favdatum) {
-
-					  			console.log(favdatum);
-
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
 					  				document.getElementById('fav_tick_' + favdatum.data).checked = false;
@@ -2700,9 +2694,6 @@ function build_userdata() {
 								mode: 'cors',
 							}).then(response => response.json())
 					  		.then(function(favdatum) {
-
-					  			console.log(favdatum);
-
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
 					  				document.getElementById('fav_tick_' + favdatum.data).checked = true;
