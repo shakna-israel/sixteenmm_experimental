@@ -2735,8 +2735,6 @@ function build_userdata() {
 
 					var wh_el = document.createElement('li');
 
-					console.log(datapack);
-
 					// Tickbox
 					var wh_tick = document.createElement('input');
 					wh_tick.type = 'checkbox';
