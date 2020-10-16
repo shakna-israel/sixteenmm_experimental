@@ -3000,9 +3000,10 @@ function build_userdata() {
 					bl_item_link.href = '?page=category&category=<ategory>'
 						.replace("<category>", data.data.blacklisted_category[ix]);
 					bl_item_link.textContent = data.data.blacklisted_category[ix];
+
+					bl_item.appendChild(bl_item_tick);
 					bl_item.appendChild(bl_item_link);
 
-					bl_container.appendChild(bl_item_tick);
 					bl_container.appendChild(bl_item);
 				}
 				el.appendChild(bl_container);
