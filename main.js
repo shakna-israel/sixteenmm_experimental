@@ -2394,7 +2394,7 @@ function build_userdata() {
 				el.appendChild(meta_title);
 
 				// API Token
-				// TODO: Click to refresh token...
+				// Click to refresh token...
 				var meta_apitoken = document.createElement('a');
 				meta_apitoken.textContent = "API Token: <token>"
 					.replace("<token>", data.data.metadata.apitoken);
@@ -2430,6 +2430,7 @@ function build_userdata() {
 						// Failure!
 						else {
 							// TODO: Error happened... Uh...
+							console.log(apidatum);
 						}
 			  		})
 			  		.catch(function(err) {
@@ -2927,14 +2928,81 @@ function build_userdata() {
 				for(var ix = 0; ix < data.data.blacklisted_category.length; ix++) {
 					var bl_item = document.createElement('li');
 
+					// Use tickbox to allow removing from blacklist...
+					var bl_item_tick = document.createElement('input');
+					bl_item_tick.type = "checkbox";
+					bl_item_tick.dataset.category = data.data.blacklisted_category[ix];
+					bl_item_tick.id = 'bl_item_tick_' + data.data.blacklisted_category[ix];
+					bl_item_tick.checked = true;
+
+					bl_item_tick.addEventListener('click', function(event) {
+						event.preventDefault();
+
+						// This seems odd, but works...
+						if(this.checked != true) {
+							// Remove from blacklist
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = 'https://sixteenmm.org/ignore/category/remove/<username>/<token>/<category>/json'
+								.replace("<username>", username)
+								.replace("<token>", token)
+								.replace("<category>", this.dataset.category);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(bldatum) {
+					  			// On success, untick
+					  			if(bldatum.status == 200) {
+					  				document.getElementById('bl_item_tick_' + bldatum.data).checked = false;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		});
+
+						} else {
+							// Add to blacklist
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = 'https://sixteenmm.org/ignore/category/add/<username>/<token>/<category>/json'
+								.replace("<username>", username)
+								.replace("<token>", token)
+								.replace("<category>", this.dataset.category);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(bldatum) {
+					  			// On success, tick
+					  			if(bldatum.status == 200) {
+					  				document.getElementById('bl_item_tick_' + bldatum.data).checked = true;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		});
+
+						}
+					});
+
 					var bl_item_link = document.createElement('a');
 					bl_item_link.href = '?page=category&category=<ategory>'
 						.replace("<category>", data.data.blacklisted_category[ix]);
 					bl_item_link.textContent = data.data.blacklisted_category[ix];
 					bl_item.appendChild(bl_item_link);
 
-					// TODO: Use tickbox to allow removing from blacklist...
-
+					bl_container.appendChild(bl_item_tick);
 					bl_container.appendChild(bl_item);
 				}
 				el.appendChild(bl_container);
