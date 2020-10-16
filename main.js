@@ -1161,21 +1161,6 @@ function load_video(uuid) {
 				    	var next_button = document.createElement('button');
 				    	next_button.textContent = '---';
 
-				    	// Check local history and add last watched here...
-				    	var history_list = localStorage.getItem('history');
-						if(!history_list) {
-							history_list = [];
-						} else {
-							history_list = JSON.parse(history_list);
-						}
-						if(!!history_list[history_list.length - 1] && history_list[history_list.length - 1] != uuid) {
-							next_button.dataset.uuid = history_list[history_list.length - 1];
-							next_button.addEventListener('click', function() {
-				    			load_video(this.dataset.uuid);
-				    		});
-				    		next_button.textContent = 'Next';
-						}
-
 				    	nav.appendChild(next_button);
 				    }
 
@@ -2832,6 +2817,8 @@ function build_userdata() {
 				wl_title.id = 'watchlater';
 				wl_title.classList.add('animate__animated', 'animate__flipInX');
 				el.appendChild(wl_title);
+
+				// TODO: Clear all watch later button
 
 				var wl_container = document.createElement('ul');
 
