@@ -2650,6 +2650,8 @@ function build_userdata() {
 					fav_tick.addEventListener('click', function(event) {
 						event.preventDefault();
 
+						console.log(this);
+
 						// BUG TODO: This seems to call add always...
 
 						if(this.checked == true) {
