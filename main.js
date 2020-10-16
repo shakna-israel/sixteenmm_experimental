@@ -2713,8 +2713,6 @@ function build_userdata() {
 						.replace("<category>", data.data.favourite_category[ix]);
 					fav_link.textContent = data.data.favourite_category[ix];
 					fav.appendChild(fav_link);
-
-					// TODO: Use tickbox to allow removing favourite category...
 					
 					fav_container.appendChild(fav);
 				}
@@ -2728,12 +2726,83 @@ function build_userdata() {
 				wh_title.classList.add('animate__animated', 'animate__flipInX');
 				el.appendChild(wh_title);
 
+				// TODO: Clear all history button...
+
 				var wh_container = document.createElement('ul');
 
 				for(var ix = 0; ix < data.data['watch history'].length; ix++) {
 					var datapack = data.data['watch history'][ix];
 
 					var wh_el = document.createElement('li');
+
+					// Tickbox
+					var wh_tick = document.createElement('input');
+					wh_tick.type = 'checkbox';
+					wh_tick.checked = true;
+					wh_tick.dataset.uuid = datapack.film.uuid;
+					wh_tick.dataset.progress = datapack.film.progress;
+					wh_tick.id = "wh_tick_" + datapack.film.uuid;
+
+					wh_tick.addEventListener('click', function(event) {
+						event.preventDefault();
+
+						// This seems odd, but works...
+						if(this.checked != true) {
+							// Remove from history
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = 'https://sixteenmm.org/forget/progress/<username>/<token>/<uuid>/json'
+								.replace("<username>", username)
+								.replace("<token>", token)
+								.replace("<uuid>", this.dataset.uuid);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(whdatum) {
+					  			// On success, untick
+					  			if(whdatum.status == 200) {
+					  				document.getElementById('wh_tick_' + whdatum.data).checked = false;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		})
+
+						} else {
+							// Restore to history
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = 'https://sixteenmm.org/progress/<username>/<token>/<uuid>/<timestamp>/json'
+								.replace("<username>", username)
+								.replace("<token>", token)
+								.replace("<uuid>", this.dataset.uuid)
+								.replace("<timestamp>", this.dataset.progress);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(whdatum) {
+					  			// On success, tick
+					  			if(whdatum.status == 200) {
+					  				document.getElementById('wh_tick_' + whdatum.data).checked = true;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		})
+						}
+					});
 
 					// Title and link
 					var wh_el_title = document.createElement('a');
@@ -2748,8 +2817,7 @@ function build_userdata() {
 						.replace("<progress>", seconds_to_stamp(datapack.progress))
 						.replace("<runtime>", seconds_to_stamp(datapack.film.runtime));
 
-					// TODO: Use tickbox to allow removing from history...
-
+					wh_el.appendChild(wh_tick);
 					wh_el.appendChild(wh_el_title);
 					wh_el.appendChild(wh_progress);
 					wh_container.appendChild(wh_el);
