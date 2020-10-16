@@ -2854,13 +2854,13 @@ function build_userdata() {
 						if(this.checked != true) {
 							// Remove from watch later
 
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
 							var url = 'https://sixteenmm.org/watchlater/remove/<username>/<token>/<uuid>/json'
 								.replace("<username>", username)
 								.replace('<token>', token)
 								.replace("<uuid>", datapack.uuid);
-
-							var username = localStorage.getItem('username');
-							var token = localStorage.getItem('token');
 
 							fetch(url, {
 								method: 'GET',
@@ -2881,13 +2881,13 @@ function build_userdata() {
 						} else {
 							// Add to watch later
 
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
 							var url = 'https://sixteenmm.org/watchlater/add/<username>/<token>/<uuid>/json'
 								.replace("<username>", username)
 								.replace('<token>', token)
 								.replace("<uuid>", datapack.uuid);
-
-							var username = localStorage.getItem('username');
-							var token = localStorage.getItem('token');
 
 							fetch(url, {
 								method: 'GET',
