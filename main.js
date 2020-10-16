@@ -2671,6 +2671,9 @@ function build_userdata() {
 								mode: 'cors',
 							}).then(response => response.json())
 					  		.then(function(favdatum) {
+
+					  			console.log(favdatum);
+
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
 					  				document.getElementById('fav_tick_' + favdatum.data).checked = false;
@@ -2697,6 +2700,9 @@ function build_userdata() {
 								mode: 'cors',
 							}).then(response => response.json())
 					  		.then(function(favdatum) {
+
+					  			console.log(favdatum);
+					  			
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
 					  				document.getElementById('fav_tick_' + favdatum.data).checked = true;
