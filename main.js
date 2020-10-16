@@ -543,12 +543,7 @@ function build_categories() {
 							})
 
 							var tmp_img = document.createElement('img');
-							if(window.save_data_mode) {
-								tmp_img.src = placeholder_image;
-							} else {
-								tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.data[ix].uuid);	
-							}
-							
+							tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.data[ix].uuid);
 							tmp_img.style.display = 'none';
 							tmp_img.addEventListener('load', function() {
 								this.parentElement.style.opacity = 1;
@@ -837,11 +832,7 @@ function build_search(term) {
 			})
 
 			var tmp_img = document.createElement('img');
-			if(window.save_data_mode) {
-				tmp_img.src = placeholder_image;
-			} else {
-				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', results[item_i].uuid);	
-			}
+			tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', results[item_i].uuid);
 			tmp_img.style.display = 'none';
 			tmp_img.addEventListener('load', function() {
 				this.parentElement.style.opacity = 1;
@@ -993,11 +984,7 @@ function load_series(uuid) {
 					})
 
 					var tmp_img = document.createElement('img');
-					if(window.save_data_mode) {
-						tmp_img.src = placeholder_image;
-					} else {
-						tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.children[i].uuid);
-					}
+					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.children[i].uuid);
 					tmp_img.style.display = 'none';
 					tmp_img.addEventListener('load', function() {
 						this.parentElement.style.opacity = 1;
@@ -1124,11 +1111,7 @@ function load_video(uuid) {
   				}
 
   				var preview_frame = document.createElement('img');
-  				if(window.save_data_mode) {
-  					preview_frame.src = placeholder_image;
-  				} else {
-  					preview_frame.src = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
-  				}
+  				preview_frame.src = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
   				preview_frame.id = 'preview_frame';
   				preview_frame.classList.add('animate__animated', 'video_preview');
 
@@ -1651,11 +1634,8 @@ function load_login(err) {
 				});
 
 				var pack_img = document.createElement('img');
-				if(window.save_data_mode) {
-					pack_img.src = placeholder_image;
-				} else {
-					pack_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.preview[i].uuid);	
-				}
+				pack_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.preview[i].uuid);
+
 				pack_link.appendChild(pack_img);
 
 				pack.appendChild(pack_title);
@@ -1776,11 +1756,7 @@ function load_category(category) {
 					})
 
 					var tmp_img = document.createElement('img');
-					if(window.save_data_mode) {
-						tmp_img.src = placeholder_image;
-					} else {
-						tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.data[i].uuid);	
-					}
+					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.data[i].uuid);
 					tmp_img.style.display = 'none';
 					tmp_img.addEventListener('load', function() {
 						this.parentElement.style.opacity = 1;
@@ -1975,11 +1951,7 @@ function build_home() {
 				})
 
 				var tmp_img = document.createElement('img');
-				if(window.save_data_mode) {
-					tmp_img.src = placeholder_image;
-				} else {
-					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.new[i].uuid);
-				}
+				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.new[i].uuid);
 				tmp_img.style.display = 'none';
 				tmp_img.addEventListener('load', function() {
 					this.parentElement.style.opacity = 1;
@@ -2065,11 +2037,7 @@ function build_home() {
 				})
 
 				var tmp_img = document.createElement('img');
-				if(window.save_data_mode) {
-					tmp_img.src = placeholder_image;
-				} else {
-					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.later[i].uuid);	
-				}
+				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.later[i].uuid);
 				tmp_img.style.display = 'none';
 				tmp_img.addEventListener('load', function() {
 					this.parentElement.style.opacity = 1;
@@ -2158,11 +2126,7 @@ function build_home() {
 				})
 
 				var tmp_img = document.createElement('img');
-				if(window.save_data_mode) {
-					tmp_img.src = placeholder_image;
-				} else {
-					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.history[i].uuid);
-				}
+				tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.history[i].uuid);
 				tmp_img.style.display = 'none';
 				tmp_img.addEventListener('load', function() {
 					this.parentElement.style.opacity = 1;
@@ -2246,11 +2210,7 @@ function build_home() {
 					})
 
 					var tmp_img = document.createElement('img');
-					if(window.save_data_mode) {
-						tmp_img.src = placeholder_image;
-					} else {
-						tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.favourites[key][i].uuid);
-					}
+					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.favourites[key][i].uuid);
 					tmp_img.style.display = 'none';
 					tmp_img.addEventListener('load', function() {
 						this.parentElement.style.opacity = 1;
@@ -2337,11 +2297,7 @@ function build_home() {
 					})
 
 					var tmp_img = document.createElement('img');
-					if(window.save_data_mode) {
-						tmp_img.src = placeholder_image;
-					} else {
-						tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.categories[key][i].uuid);
-					}
+					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.categories[key][i].uuid);
 					tmp_img.style.display = 'none';
 					tmp_img.addEventListener('load', function() {
 						this.parentElement.style.opacity = 1;
