@@ -2740,7 +2740,7 @@ function build_userdata() {
 					wh_tick.type = 'checkbox';
 					wh_tick.checked = true;
 					wh_tick.dataset.uuid = datapack.film.uuid;
-					wh_tick.dataset.progress = datapack.film.progress;
+					wh_tick.dataset.progress = datapack.progress;
 					wh_tick.id = "wh_tick_" + datapack.film.uuid;
 
 					wh_tick.addEventListener('click', function(event) {
