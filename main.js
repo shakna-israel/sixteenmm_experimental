@@ -1552,6 +1552,11 @@ function load_category(category) {
     home_button.textContent = 'Home';
     nav.appendChild(home_button);
 
+    var categories_button = document.createElement('button');
+    categories_button.addEventListener('click', build_categories);
+    categories_button.textContent = 'Categories';
+    nav.appendChild(categories_button);
+
     var title = document.createElement('h1');
     if(category == 'later') {
     	title.textContent = 'Watch Later';
