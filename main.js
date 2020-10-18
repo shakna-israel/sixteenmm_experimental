@@ -519,7 +519,7 @@ function build_categories() {
 				})
 				.catch(function(err) {
 					var net_error = document.createElement('p');
-					net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+					net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 					var net_error_internal = document.createElement('a');
 					net_error_internal.textContent = 'Click here to try again.'
@@ -538,7 +538,7 @@ function build_categories() {
 	})
 	.catch(function(err) {
 		var net_error = document.createElement('p');
-		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 		var net_error_internal = document.createElement('a');
 		net_error_internal.textContent = 'Click here to try again.'
@@ -571,7 +571,7 @@ function build_search(term) {
 	})
 	.catch(function(err) {
 		var net_error = document.createElement('p');
-		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 		var net_error_internal = document.createElement('a');
 		net_error_internal.textContent = 'Click here to try again.'
@@ -920,7 +920,7 @@ function load_series(uuid) {
   		})
   		.catch(function(err){
 			var net_error = document.createElement('p');
-			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 			var net_error_internal = document.createElement('a');
 			net_error_internal.textContent = 'Click here to try again.'
@@ -1247,7 +1247,7 @@ function load_video(uuid) {
   		})
   		.catch(function(err){
 			var net_error = document.createElement('p');
-			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 			var net_error_internal = document.createElement('a');
 			net_error_internal.textContent = 'Click here to try again.'
@@ -1377,7 +1377,7 @@ function load_login(err) {
   		})
   		.catch(function(err) {
 			var net_error = document.createElement('p');
-			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 			var net_error_internal = document.createElement('a');
 			net_error_internal.textContent = 'Click here to try again.'
@@ -1501,7 +1501,7 @@ function load_login(err) {
 	})
 	.catch(function(err) {
 		var net_error = document.createElement('p');
-		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 		var net_error_internal = document.createElement('a');
 		net_error_internal.textContent = 'Click here to try again.'
@@ -1585,9 +1585,7 @@ function load_category(category) {
 					data.data.reverse();
 				}
 
-				// TODO: If not meta category, add button for favourite...
-				// data.favcategory
-
+				// If not meta category, add button for favourite...
 				if(!data.metacategory) {
 					var favourite_tick_label = document.createElement('label');
 					favourite_tick_label.for = 'favourite_tick';
@@ -1664,6 +1662,7 @@ function load_category(category) {
 					el.appendChild(favourite_tick);
 				}
 
+				// Create cards
 				for(var i = 0; i < data.data.length; i++) {
 					var tmp = document.createElement('li');
 
@@ -1730,7 +1729,7 @@ function load_category(category) {
 	})
 	.catch(function(err) {
 		var net_error = document.createElement('p');
-		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 		var net_error_internal = document.createElement('a');
 		net_error_internal.textContent = 'Click here to try again.'
@@ -2266,7 +2265,7 @@ function build_home() {
 	})
 	.catch(function(err) {
 		var net_error = document.createElement('p');
-		net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+		net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 		var net_error_internal = document.createElement('a');
 		net_error_internal.textContent = 'Click here to try again.'
@@ -3314,7 +3313,7 @@ function build_userdata() {
 		})
 		.catch(function(err) {
 			var net_error = document.createElement('p');
-			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 			var net_error_internal = document.createElement('a');
 			net_error_internal.textContent = 'Click here to try again.'
@@ -3644,7 +3643,7 @@ function build_signup(initusername, initpassword) {
 		  		})
 		  		.catch(function(err) {
 					var net_error = document.createElement('p');
-					net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+					net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 					var net_error_internal = document.createElement('a');
 					net_error_internal.textContent = 'Click here to try again.'
@@ -3705,7 +3704,7 @@ function build_signup(initusername, initpassword) {
   		})
   		.catch(function(err) {
 			var net_error = document.createElement('p');
-			net_error.textContent = 'Error: An error occurred when trying to fetch a resource.'
+			net_error.textContent = 'Error: An error occurred when trying to fetch a resource. '
 
 			var net_error_internal = document.createElement('a');
 			net_error_internal.textContent = 'Click here to try again.'
