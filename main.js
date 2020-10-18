@@ -3023,6 +3023,73 @@ function build_userdata() {
 
 					var blf_el = document.createElement('li');
 
+					// Use tickbox to allow removing from blacklist...
+					var blf_el_tick = document.createElement('input');
+					blf_el_tick.type = 'checkbox';
+					blf_el_tick.dataset.uuid = datapack.uuid;
+					blf_el_tick.id = "blf_el_tick_" + datapack.uuid;
+					blf_el_tick.checked = true;
+
+					blf_el_tick.addEventListener('click', function(event) {
+						event.preventDefault();
+
+						// This seems odd, but works...
+						if(this.checked != true) {
+							// Remove from blacklist
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = 'https://sixteenmm.org/blacklist/remove/<username>/<token>/<uuid>/json'
+								.replace("<username>", username)
+								.replace("<token>", token)
+								.replace("<uuid>", this.dataset.uuid);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(blfdatum) {
+					  			// On success, untick
+					  			if(blfdatum.status == 200) {
+					  				document.getElementById('blf_el_tick_' + bldfatum.data).checked = false;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		});
+
+						} else {
+							// Add to blacklist
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = 'https://sixteenmm.org/blacklist/add/<username>/<token>/<uuid>/json'
+								.replace("<username>", username)
+								.replace("<token>", token)
+								.replace("<uuid>", this.dataset.uuid);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(blfdatum) {
+					  			// On success, untick
+					  			if(blfdatum.status == 200) {
+					  				document.getElementById('blf_el_tick_' + bldfatum.data).checked = true;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		});
+						}
+					});
+
 					// Title and link
 					var blf_el_title = document.createElement('a');
 					blf_el_title.textContent = "<title>, <year>"
@@ -3035,8 +3102,7 @@ function build_userdata() {
 					blf_progress.textContent = "  <runtime>"
 						.replace("<runtime>", seconds_to_stamp(datapack.runtime));
 
-					// TODO: Use tickbox to allow removing from blacklist...
-
+					blf_el.appendChild(blf_el_tick);
 					blf_el.appendChild(blf_el_title);
 					blf_el.appendChild(blf_progress);
 					blf_container.appendChild(blf_el);
