@@ -131,7 +131,7 @@ img {
     display: block;
   }
   
-  #nav button {
+  .nav button {
     display: block !important;
     margin: 0.5em auto !important;
   }
@@ -173,7 +173,7 @@ input {
   margin: 0.5em;
 }
 
-#nav button {
+.nav button {
   display: inline-block;
   color: black;
   background-color: white;
@@ -183,12 +183,12 @@ input {
   border-radius: 0.3em;
 }
 
-#nav button:hover {
+.nav button:hover {
   box-shadow: 0 0 8px gray;
   filter: invert(80%);
 }
 
-#nav button:active {
+.nav button:active {
   box-shadow: 0 0 8px gray;
   filter: invert(90%);
 }

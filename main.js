@@ -154,6 +154,9 @@ function check_user_expired(username, token) {
 			    home_button.textContent = 'Home';
 			    nav.appendChild(home_button);
 
+			    var nav_footer = document.getElementById('nav_footer');
+    			var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
+
 			    // Add some information as to why you're on this page.
 			    var info_pre = document.createElement('p');
 			    info_pre.textContent = lockeddata.reason;
@@ -394,6 +397,9 @@ function build_categories() {
     home_button.textContent = 'Home';
     nav.appendChild(home_button);
 
+    var nav_footer = document.getElementById('nav_footer');
+    var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
+
     document.title = "<title> | SIXTEENmm".replace("<title>", 'Categories');
     if(history.state.page != 'categories') {
     	history.pushState({page: "categories"}, 'Categories', "?page=categories");
@@ -608,6 +614,9 @@ function build_search(term) {
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
     nav.appendChild(home_button);
+
+    var nav_footer = document.getElementById('nav_footer');
+    var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
 
     var input_search = document.createElement('input');
     input_search.value = term;
@@ -841,6 +850,9 @@ function load_series(uuid) {
     home_button.textContent = 'Home';
     nav.appendChild(home_button);
 
+    var nav_footer = document.getElementById('nav_footer');
+    var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
+
     fetch('https://sixteenmm.org/getuuid/<username>/<token>/<uuid>/json'.replace("<username>", username)
 		.replace("<token>", token)
 		.replace("<uuid>", uuid), {
@@ -960,6 +972,9 @@ function load_video(uuid) {
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
     nav.appendChild(home_button);
+
+    var nav_footer = document.getElementById('nav_footer');
+    var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
 
 	fetch('https://sixteenmm.org/getuuid/<username>/<token>/<uuid>/json'.replace("<username>", username)
 		.replace("<token>", token)
@@ -1557,6 +1572,9 @@ function load_category(category) {
     categories_button.textContent = 'Categories';
     nav.appendChild(categories_button);
 
+    var nav_footer = document.getElementById('nav_footer');
+    var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
+
     var title = document.createElement('h1');
     if(category == 'later') {
     	title.textContent = 'Watch Later';
@@ -1569,6 +1587,9 @@ function load_category(category) {
     }
     title.classList.add('title');
     nav.appendChild(title);
+
+    var nav_footer = document.getElementById('nav_footer');
+    var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
     
     fetch("https://sixteenmm.org/category/<category>/<username>/<token>/json"
 	.replace("<category>", category)
@@ -1820,6 +1841,9 @@ function build_home() {
     });
     search_button.textContent = 'Search';
     nav.appendChild(search_button);
+
+    var nav_footer = document.getElementById('nav_footer');
+    var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
 
     var username = localStorage.getItem('username');
     var token = localStorage.getItem('token');
@@ -2327,6 +2351,9 @@ function build_userdata() {
 	inner_el.classList.add('invertab');
 	el.appendChild(inner_el);
 	el = inner_el;
+
+	var nav_footer = document.getElementById('nav_footer');
+    var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
 
 	var username = localStorage.getItem('username');
 	var token = localStorage.getItem('token');
@@ -3364,6 +3391,9 @@ function build_signup(initusername, initpassword) {
     home_button.addEventListener('click', build_home);
     home_button.textContent = 'Home';
     nav.appendChild(home_button);
+
+    var nav_footer = document.getElementById('nav_footer');
+    var nav_footer.parentElement.replaceChild(nav.cloneNode(true), nav_footer);
 
     var title = document.createElement('h1');
 	title.textContent = 'Sign Up';
