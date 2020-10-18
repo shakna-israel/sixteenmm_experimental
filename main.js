@@ -1623,7 +1623,7 @@ function load_category(category) {
 					  		.then(function(favdatum) {
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
-					  				document.getElementById('fav_tick_' + favdatum.data).checked = false;
+					  				document.getElementById('favourite_tick').checked = false;
 					  			}
 					  		})
 					  		.catch(function(err) {
@@ -1649,7 +1649,7 @@ function load_category(category) {
 					  		.then(function(favdatum) {
 					  			// On success, untick
 					  			if(favdatum.status == 200) {
-					  				document.getElementById('fav_tick_' + favdatum.data).checked = true;
+					  				document.getElementById('favourite_tick').checked = true;
 					  			}
 					  		})
 					  		.catch(function(err) {
