@@ -1585,6 +1585,85 @@ function load_category(category) {
 					data.data.reverse();
 				}
 
+				// TODO: If not meta category, add button for favourite...
+				// data.favcategory
+
+				if(!data.metacategory) {
+					var favourite_tick_label = document.createElement('label');
+					favourite_tick_label.for = 'favourite_tick';
+					favourite_tick_label.textContent = 'Favourite:';
+
+					var favourite_tick = document.createElement('input');
+					favourite_tick.type = 'checkbox';
+					favourite_tick.checked = data.favcategory;
+					favourite_tick.id = 'favourite_tick';
+					favourite_tick.name = 'favourite_tick';
+					favourite_tick.dataset.category = category;
+
+					favourite_tick.addEventListener('click', function(event) {
+						event.preventDefault();
+
+						// This seems odd, but works...
+						if(this.checked != true) {
+							// Make sure removed from favourites
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = "https://sixteenmm.org/favourite/remove/<category>/<username>/<token>/json"
+								.replace("<category>", this.dataset.category)
+								.replace("<username>", username)
+								.replace("<token>", token);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(favdatum) {
+					  			// On success, untick
+					  			if(favdatum.status == 200) {
+					  				document.getElementById('fav_tick_' + favdatum.data).checked = false;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		})
+						} else {
+							// Make sure added to favourites
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = "https://sixteenmm.org/favourite/add/<category>/<username>/<token>/json"
+								.replace("<category>", this.dataset.category)
+								.replace("<username>", username)
+								.replace("<token>", token);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(favdatum) {
+					  			// On success, untick
+					  			if(favdatum.status == 200) {
+					  				document.getElementById('fav_tick_' + favdatum.data).checked = true;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		})
+						}
+
+					});
+
+					el.appendChild(favourite_tick_label);
+					el.appendChild(favourite_tick);
+				}
+
 				for(var i = 0; i < data.data.length; i++) {
 					var tmp = document.createElement('li');
 
