@@ -1738,6 +1738,76 @@ function load_category(category) {
 						tmp.appendChild(tmp_time);
 					}
 
+					tmp.appendChild(document.createElement('br'));
+					
+					// TODO: Watchlater button
+					var wl_el_tick = document.createElement('input');
+					wl_el_tick.type = 'checkbox';
+					wl_el_tick.dataset.uuid = data.data[i].uuid;
+					wl_el_tick.id = 'wl_el_tick_' + data.data[i].uuid;
+					wl_el_tick.checked = (!!data.data[i].watchlater);
+
+					wl_el_tick.addEventListener('click', function() {
+						event.preventDefault();
+
+						// This seems odd, but works...
+						if(this.checked != true) {
+							// Remove from watch later
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = 'https://sixteenmm.org/watchlater/remove/<username>/<token>/<uuid>/json'
+								.replace("<username>", username)
+								.replace('<token>', token)
+								.replace("<uuid>", this.dataset.uuid);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(wldatum) {
+					  			// On success, untick
+					  			if(wldatum.status == 200) {
+					  				document.getElementById('wl_el_tick_' + wldatum.data).checked = false;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		});
+
+						} else {
+							// Add to watch later
+
+							var username = localStorage.getItem('username');
+							var token = localStorage.getItem('token');
+
+							var url = 'https://sixteenmm.org/watchlater/add/<username>/<token>/<uuid>/json'
+								.replace("<username>", username)
+								.replace('<token>', token)
+								.replace("<uuid>", this.dataset.uuid);
+
+							fetch(url, {
+								method: 'GET',
+								cache: 'no-cache',
+								mode: 'cors',
+							}).then(response => response.json())
+					  		.then(function(wldatum) {
+					  			// On success, tick
+					  			if(wldatum.status == 200) {
+					  				document.getElementById('wl_el_tick_' + wldatum.data).checked = true;
+					  			}
+					  		})
+					  		.catch(function(err) {
+					  			// TODO: Network error
+					  			console.log(err);
+					  		});
+						}
+					});
+					tmp.appendChild(wl_el_tick);
+
 					data_pack.appendChild(tmp);
 				}
 
