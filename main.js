@@ -1703,6 +1703,10 @@ function load_category(category) {
 					tmp_title.textContent = '<title> (<year>)'
 					.replace("<title>", data.data[i].title)
 					.replace("<year>", data.data[i].year);
+					tmp_title.addEventListener('click', function(event) {
+						event.preventDefault();
+						load_video(this.dataset.uuid);
+					});
 
 					var tmp_title_wrapper = document.createElement('p');
 					tmp_title_wrapper.appendChild(tmp_title);
@@ -1711,6 +1715,9 @@ function load_category(category) {
 
 					var tmp_desc = document.createElement('small')
 					tmp_desc.textContent = data.data[i].description;
+					tmp_desc.addEventListener('click', function() {
+						load_video(this.dataset.uuid);
+					});
 					tmp.appendChild(tmp_desc);
 
 					tmp.appendChild(document.createElement('br'));
