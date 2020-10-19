@@ -970,9 +970,6 @@ function load_video(uuid) {
     home_button.textContent = 'Home';
     nav.appendChild(home_button);
 
-    
-    
-
 	fetch('https://sixteenmm.org/getuuid/<username>/<token>/<uuid>/json'.replace("<username>", username)
 		.replace("<token>", token)
 		.replace("<uuid>", uuid), {
@@ -1569,9 +1566,6 @@ function load_category(category) {
     categories_button.textContent = 'Categories';
     nav.appendChild(categories_button);
 
-    
-    
-
     var title = document.createElement('h1');
     if(category == 'later') {
     	title.textContent = 'Watch Later';
@@ -1584,9 +1578,6 @@ function load_category(category) {
     }
     title.classList.add('title');
     nav.appendChild(title);
-
-    
-    
     
     fetch("https://sixteenmm.org/category/<category>/<username>/<token>/json"
 	.replace("<category>", category)
@@ -1692,11 +1683,6 @@ function load_category(category) {
 					tmp.style.opacity = 0;
 					tmp.dataset.uuid = data.data[i].uuid;
 
-					tmp.addEventListener('click', function() {
-						
-						load_video(this.dataset.uuid);
-					})
-
 					var tmp_img = document.createElement('img');
 					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.data[i].uuid);
 					tmp_img.style.display = 'none';
@@ -1707,7 +1693,10 @@ function load_category(category) {
 						this.style.display = 'block';
 						this.classList.add('animate__animated', 'animate__fadeIn');
 					});
-					tmp.appendChild(tmp_img);	
+					tmp_img.addEventListener('click', function() {
+						load_video(this.dataset.uuid);
+					});
+					tmp.appendChild(tmp_img);
 
 					var tmp_title = document.createElement('a');
 					tmp_title.href = "?page=video&uuid=<uuid>".replace("<uuid>", data.data[i].uuid);
