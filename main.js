@@ -1686,6 +1686,7 @@ function load_category(category) {
 					var tmp_img = document.createElement('img');
 					tmp_img.src = 'https://sixteenmm.org/cover/<uuid>'.replace('<uuid>', data.data[i].uuid);
 					tmp_img.style.display = 'none';
+					tmp_img.dataset.uuid = data.data[i].uuid;
 					tmp_img.addEventListener('load', function() {
 						this.parentElement.style.opacity = 1;
 						this.parentElement.classList.add('film', 'animate__animated', 'animate__fadeIn');
@@ -1703,6 +1704,7 @@ function load_category(category) {
 					tmp_title.textContent = '<title> (<year>)'
 					.replace("<title>", data.data[i].title)
 					.replace("<year>", data.data[i].year);
+					tmp_title.dataset.uuid = data.data[i].uuid;
 					tmp_title.addEventListener('click', function(event) {
 						event.preventDefault();
 						load_video(this.dataset.uuid);
@@ -1715,6 +1717,7 @@ function load_category(category) {
 
 					var tmp_desc = document.createElement('small')
 					tmp_desc.textContent = data.data[i].description;
+					tmp_desc.dataset.uuid = data.data[i].uuid;
 					tmp_desc.addEventListener('click', function() {
 						load_video(this.dataset.uuid);
 					});
