@@ -1741,6 +1741,10 @@ function load_category(category) {
 					tmp.appendChild(document.createElement('br'));
 					
 					// TODO: Watchlater button
+					var wl_el_label = document.createElement('label');
+					wl_el_label.for = 'wl_el_tick_' + data.data[i].uuid;
+					wl_el_label.textContent = 'Watch Later:';
+
 					var wl_el_tick = document.createElement('input');
 					wl_el_tick.type = 'checkbox';
 					wl_el_tick.dataset.uuid = data.data[i].uuid;
@@ -1806,6 +1810,7 @@ function load_category(category) {
 					  		});
 						}
 					});
+					tmp.appendChild(wl_el_label);
 					tmp.appendChild(wl_el_tick);
 
 					data_pack.appendChild(tmp);
