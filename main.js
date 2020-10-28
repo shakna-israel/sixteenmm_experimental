@@ -408,7 +408,6 @@ function build_categories() {
 	.then(function(data) {
 		if(data.status == 200) {
 			var cats = data.categories;
-			cats.sort();
 
 			for(var cat_i = 0; cat_i < cats.length; cat_i++) {
 				var category = cats[cat_i];
