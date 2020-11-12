@@ -1739,7 +1739,7 @@ function load_category(category) {
 
 					tmp.appendChild(document.createElement('br'));
 					
-					// TODO: Watchlater button
+					// Watchlater button
 					var wl_el_label = document.createElement('label');
 					wl_el_label.for = 'wl_el_tick_' + data.data[i].uuid;
 					wl_el_label.textContent = 'Watch Later:';
@@ -2448,8 +2448,6 @@ function build_userdata() {
   			console.log(data);
 
 			if(data.status == 200) {
-				// TODO: Make fields editable...
-
 				// TOC
 				var toc_title = document.createElement('h2');
 				toc_title.textContent = 'Table of Contents';
