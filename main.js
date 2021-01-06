@@ -1103,9 +1103,9 @@ function load_video(uuid) {
 					for(ix = 0; ix < subtitles.length; ix++) {
 						var subtitle_track = document.createElement("track");
 						subtitle_track.src = 'https://sixteenmm.org/subtitles/<uuid>/<lang>'
-						subtitle_track.crossorigin = 'use-credentials';
 						.replace("<uuid>", uuid)
 						.replace("<lang>", subtitles[ix]);
+						subtitle_track.crossorigin = 'use-credentials';
 						video.appendChild(subtitle_track);
 					}
 				}
