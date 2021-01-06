@@ -1007,7 +1007,7 @@ function load_video(uuid) {
   				video.classList.add('animate__animated', 'animate__fadeInUp', 'video_watch');
 				video.controls = true;
 				video.autoplay = true;
-				video.crossorigin = 'anonymous';
+				video.setAttribute('crossorigin', 'use-credentials');
 				video.cover = 'https://sixteenmm.org/gcover/<uuid>'.replace("<uuid>", uuid);
 				video.id = 'playingfilm';
 				video.dataset.uuid = uuid;
@@ -1105,7 +1105,7 @@ function load_video(uuid) {
 						subtitle_track.src = 'https://sixteenmm.org/subtitles/<uuid>/<lang>'
 						.replace("<uuid>", uuid)
 						.replace("<lang>", subtitles[ix]);
-						subtitle_track.crossorigin = 'anonymous';
+						subtitle_track.setAttribute('crossorigin', 'use-credentials');
 						subtitle_track.srclang = subtitles[ix];
 						video.appendChild(subtitle_track);
 					}
